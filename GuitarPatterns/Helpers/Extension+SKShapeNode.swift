@@ -34,7 +34,7 @@ extension SKShapeNode {
      - Parameter radius: radio del círculo
      
      */
-    func drawCircleAt(_ center: CGPoint, withRadius radius: CGFloat) -> SKShapeNode {
+    class func drawCircleAt(_ center: CGPoint, withRadius radius: CGFloat) -> SKShapeNode {
         let circle = SKShapeNode()
         let path = CGMutablePath()
         path.addArc(center: center, radius: radius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)

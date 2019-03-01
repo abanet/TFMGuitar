@@ -10,11 +10,13 @@
 
 import SpriteKit
 
-
 /// Constantes de los colores de la aplicación
 struct Colores {
     static let background   = SKColor.lightGray
     static let strings      = SKColor.black
+    static let noteStroke   = SKColor.black
+    static let noteFill     = SKColor.lightGray
+    static let noteFillResaltada = SKColor.orange
 }
 
 /// Contiene las medidas generales de la aplicación
@@ -42,6 +44,9 @@ struct Medidas {
     static let numTrastes = 7
     /// ratio entre espacio entre cuerdas y el tamaño de la nota
     static let ratioCuerdasNota: CGFloat = 2.4
-    
-  
+
+}
+
+struct Notas {
+    static let font = "AvenirNext-Regular"
 }

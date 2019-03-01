@@ -84,6 +84,9 @@ class GuitarraView: SKNode {
         return posiciones
     }()
     
+    /// Posiciones en las que se puede situar una nota
+    var matrizPosicion: [[CGPoint]] = [[CGPoint]]()
+    
     // MARK: Métodos SKNode
     init(size: CGSize, tipo: TipoGuitarra = TipoGuitarra.guitarra) {
         self.size = size
@@ -91,6 +94,7 @@ class GuitarraView: SKNode {
         super.init()
         dibujarCuerdas()
         dibujarTrastes()
+        calcularMatrizPosicion()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -99,6 +103,9 @@ class GuitarraView: SKNode {
     
     // MARK: Métodos dibujo de mástil
     
+    /**
+     Dibuja e identifica las cuerdas del mástil
+    */
     func dibujarCuerdas() {
         var posicionCuerda = Medidas.bottomSpace
         for n in (1...tipo.numeroCuerdas()).reversed() {
@@ -111,6 +118,10 @@ class GuitarraView: SKNode {
         }
     }
     
+    /**
+     Dibuja los trastes del mástil.
+     Los trastes no intervienen más que a nivel visual.
+     */
     func dibujarTrastes() {
         let origenY = arrayPosicionCuerdas[0]
         let finalY  = arrayPosicionCuerdas[tipo.numeroCuerdas() - 1]
@@ -121,6 +132,21 @@ class GuitarraView: SKNode {
             traste.strokeColor   = Colores.strings
             traste.lineWidth     = Medidas.widthString
             addChild(traste)
+        }
+    }
+    
+    /**
+     Teniendo en cuenta las dimensiones del mástil se calculan las posiciones en las que vamos a poder situar una nota.
+    */
+    func calcularMatrizPosicion() {
+        for posicionCuerda in arrayPosicionCuerdas {
+            var posicionUnaCuerda = [CGPoint]()
+            for posicionTraste in arrayPosicionTrastes {
+                let posX = posicionTraste + anchoTraste / 2
+                let posY = posicionCuerda
+                posicionUnaCuerda.append(CGPoint(x: posX, y: posY))
+            }
+            matrizPosicion.append(posicionUnaCuerda)
         }
     }
 }
