@@ -12,9 +12,11 @@ import SpriteKit
 
 class StringGuitar: SKNode {
     var shape: SKShapeNode
+    var numCuerda: Int
     
    
-    init(from: CGPoint, to: CGPoint) {
+    init(from: CGPoint, to: CGPoint, numCuerda: Int) {
+        self.numCuerda = numCuerda
         shape = SKShapeNode.drawLine(from: from, to: to)
         shape.strokeColor   = Colores.strings
         shape.lineWidth     = Medidas.widthString
