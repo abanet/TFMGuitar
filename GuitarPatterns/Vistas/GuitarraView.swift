@@ -135,6 +135,13 @@ class GuitarraView: SKNode {
         }
     }
     
+    func dibujarNotaGuitarra(x: Int, y: Int, tipo: TipoTraste) {
+        let shape = ShapeNota(radio: radio)
+        shape.position.x = matrizPosicion[x][y].x
+        shape.position.y = matrizPosicion[x][y].y
+        addChild(shape)
+    }
+    
     /**
      Teniendo en cuenta las dimensiones del mástil se calculan las posiciones en las que vamos a poder situar una nota.
     */

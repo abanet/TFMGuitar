@@ -17,6 +17,11 @@
 		C07C636B22294B5E00B36913 /* Extension+SKShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636A22294B5E00B36913 /* Extension+SKShapeNode.swift */; };
 		C07C636E222952AD00B36913 /* StringGuitar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636D222952AD00B36913 /* StringGuitar.swift */; };
 		C07C6370222957F300B36913 /* GuitarraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636F222957F300B36913 /* GuitarraView.swift */; };
+		C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */; };
+		C0D0A15E222D271400666D6A /* Traste.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15D222D271400666D6A /* Traste.swift */; };
+		C0D0A162222D299A00666D6A /* Nota.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A161222D299A00666D6A /* Nota.swift */; };
+		C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A163222D29B700666D6A /* Intervalo.swift */; };
+		C0D0A166222D43BE00666D6A /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A165222D43BE00666D6A /* Mastil.swift */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +39,11 @@
 		C07C636A22294B5E00B36913 /* Extension+SKShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SKShapeNode.swift"; sourceTree = "<group>"; };
 		C07C636D222952AD00B36913 /* StringGuitar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringGuitar.swift; sourceTree = "<group>"; };
 		C07C636F222957F300B36913 /* GuitarraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraView.swift; sourceTree = "<group>"; };
+		C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraViewController.swift; sourceTree = "<group>"; };
+		C0D0A15D222D271400666D6A /* Traste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traste.swift; sourceTree = "<group>"; };
+		C0D0A161222D299A00666D6A /* Nota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nota.swift; sourceTree = "<group>"; };
+		C0D0A163222D29B700666D6A /* Intervalo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intervalo.swift; sourceTree = "<group>"; };
+		C0D0A165222D43BE00666D6A /* Mastil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mastil.swift; sourceTree = "<group>"; };
 		D34F00732229A9D200165192 /* SceneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditor.swift; sourceTree = "<group>"; };
 		D34F00752229BDC200165192 /* ShapeNota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNota.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +78,8 @@
 		C07C634E22292B0100B36913 /* GuitarPatterns */ = {
 			isa = PBXGroup;
 			children = (
+				C0D0A15C222D24B400666D6A /* Modelo */,
+				C0D0A159222D21C100666D6A /* Controladores */,
 				D34F00722229A9AE00165192 /* Scenes */,
 				C07C636C2229528500B36913 /* Vistas */,
 				C07C636722292DCA00B36913 /* Helpers */,
@@ -98,6 +110,25 @@
 				D34F00752229BDC200165192 /* ShapeNota.swift */,
 			);
 			path = Vistas;
+			sourceTree = "<group>";
+		};
+		C0D0A159222D21C100666D6A /* Controladores */ = {
+			isa = PBXGroup;
+			children = (
+				C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */,
+			);
+			path = Controladores;
+			sourceTree = "<group>";
+		};
+		C0D0A15C222D24B400666D6A /* Modelo */ = {
+			isa = PBXGroup;
+			children = (
+				C0D0A15D222D271400666D6A /* Traste.swift */,
+				C0D0A161222D299A00666D6A /* Nota.swift */,
+				C0D0A163222D29B700666D6A /* Intervalo.swift */,
+				C0D0A165222D43BE00666D6A /* Mastil.swift */,
+			);
+			path = Modelo;
 			sourceTree = "<group>";
 		};
 		D34F00722229A9AE00165192 /* Scenes */ = {
@@ -182,7 +213,12 @@
 			files = (
 				C07C635622292B0100B36913 /* GameScene.swift in Sources */,
 				D34F00742229A9D200165192 /* SceneEditor.swift in Sources */,
+				C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */,
+				C0D0A162222D299A00666D6A /* Nota.swift in Sources */,
+				C0D0A15E222D271400666D6A /* Traste.swift in Sources */,
+				C0D0A166222D43BE00666D6A /* Mastil.swift in Sources */,
 				D34F00762229BDC200165192 /* ShapeNota.swift in Sources */,
+				C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */,
 				C07C636922292DEB00B36913 /* GuitarPatterns.swift in Sources */,
 				C07C635822292B0100B36913 /* GameViewController.swift in Sources */,
 				C07C636E222952AD00B36913 /* StringGuitar.swift in Sources */,

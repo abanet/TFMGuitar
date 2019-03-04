@@ -33,8 +33,8 @@ class ShapeNota: SKNode {
         literal = SKLabelNode(fontNamed: Notas.font)
         self.radio = radio
         super.init()
-        decorarNota()
-        shape.addChild(literal)
+        configurarNota()
+        //shape.addChild(literal)
         addChild(shape)
         
     }
@@ -62,7 +62,7 @@ class ShapeNota: SKNode {
     /**
      Configura el aspecto inicial de la nota
     */
-    func decorarNota() {
+    func configurarNota() {
         shape.fillColor     = Colores.noteFill
         shape.strokeColor   = Colores.noteStroke
         shape.lineWidth     = 1.0 // siempre

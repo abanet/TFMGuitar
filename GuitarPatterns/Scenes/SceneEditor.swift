@@ -13,7 +13,7 @@ import SpriteKit
  */
 
 class SceneEditor: SKScene {
-    var guitarra: GuitarraView!
+    var guitarra: GuitarraViewController!
     
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
@@ -22,7 +22,7 @@ class SceneEditor: SKScene {
     
     
     func iniciarGuitarra() {
-        guitarra = GuitarraView(size: size, tipo: .guitarra)
+        guitarra = GuitarraViewController(size: size, tipo: .guitarra)
         addChild(guitarra)
     }
 }
