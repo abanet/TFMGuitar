@@ -21,7 +21,7 @@ class GuitarraViewController: SKNode {
         super.init()
         addChild(viewGuitarra)
         
-        let traste = Traste(cuerda: 6, traste: 1, estado: .vacio)
+        let traste = Traste(cuerda: 3, traste: 4, estado: .vacio)
         marcarTraste(traste)
         
     }

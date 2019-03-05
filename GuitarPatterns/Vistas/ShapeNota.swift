@@ -67,6 +67,7 @@ class ShapeNota: SKNode {
         shape.strokeColor   = Colores.noteStroke
         shape.lineWidth     = 1.0 // siempre
         shape.glowWidth     = 0.5 // always
+        shape.alpha         = 1.0
         literal.fontSize = radio * 1.2
         literal.verticalAlignmentMode = .center
         literal.horizontalAlignmentMode = .center

@@ -95,6 +95,7 @@ class GuitarraView: SKNode {
         dibujarCuerdas()
         dibujarTrastes()
         calcularMatrizPosicion()
+        dibujarNotaGuitarra(x: 3, y: 3, tipo: .vacio)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -137,9 +138,10 @@ class GuitarraView: SKNode {
     
     func dibujarNotaGuitarra(x: Int, y: Int, tipo: TipoTraste) {
         let shape = ShapeNota(radio: radio)
-        shape.position.x = matrizPosicion[x][y].x
-        shape.position.y = matrizPosicion[x][y].y
-        addChild(shape)
+        shape.shape.position.x = matrizPosicion[x][y].x
+        shape.shape.position.y = matrizPosicion[x][y].y
+        shape.zPosition  = 1.0
+        self.addChild(shape)
     }
     
     /**

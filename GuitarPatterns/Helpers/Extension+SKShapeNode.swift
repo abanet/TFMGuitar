@@ -38,6 +38,7 @@ extension SKShapeNode {
         let circle = SKShapeNode()
         let path = CGMutablePath()
         path.addArc(center: center, radius: radius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: true)
+        circle.path = path
         return circle
     }
 }
