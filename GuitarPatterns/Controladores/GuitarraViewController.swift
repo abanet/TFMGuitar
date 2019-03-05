@@ -11,19 +11,17 @@ import SpriteKit
 class GuitarraViewController: SKNode {
     var viewGuitarra: GuitarraView!
     var mastil: Mastil!
+    var tipo: TipoGuitarra
     
     
     
     init(size: CGSize, tipo: TipoGuitarra) {
         viewGuitarra = GuitarraView(size: size, tipo: tipo)
         mastil       = Mastil(tipo: tipo)
-        
+        self.tipo    = tipo
         super.init()
         addChild(viewGuitarra)
-        
-        let traste = Traste(cuerda: 3, traste: 4, estado: .vacio)
-        marcarTraste(traste)
-        
+    
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,12 +30,19 @@ class GuitarraViewController: SKNode {
     
     
     func marcarTraste(_ traste: Traste) {
-        let (x,y) = convertirMastilToView(traste: traste)
-        viewGuitarra.dibujarNotaGuitarra(x: x, y: y, tipo: traste.estado)
+        viewGuitarra.addNotaGuitarra(traste: traste)
+        mastil.setTraste(datosTraste: traste)
     }
     
-    func convertirMastilToView(traste: Traste) -> (x: Int, y: Int) {
-        // TODO: estamos en pruebas. Ahora mismo no hay conversión
-        return (traste.cuerda - 1, traste.traste - 1)
+    func poblarMastil() {
+        for cuerda in 1..<tipo.numeroCuerdas() + 1 {
+            for traste in 1..<Medidas.numTrastes + 1 {
+                let traste = Traste(cuerda: cuerda, traste: traste, estado: .blanco)
+                viewGuitarra.addNotaGuitarra(traste: traste)
+            }
+        }
+        mastil.crearMastilVacio()
     }
+    
+    
 }

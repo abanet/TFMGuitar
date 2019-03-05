@@ -21,12 +21,29 @@ enum TipoShapeNota {
  Representación gráfica de una nota en el mástil
  */
 class ShapeNota: SKNode {
-    var radio: CGFloat
-    var shape: SKShapeNode
-    var literal: SKLabelNode
-    var text: String?
+    var radio: CGFloat      // radio de la nota
+    var shape: SKShapeNode  // forma de la nota
+    var literal: SKLabelNode    // nodo para el contenido textual descriptivo de la nota/intervalo
+    var text: String?       // contenido textual descriptivo
     var tag: String?
-    
+    var posicion: PosicionTraste?
+   
+    private(set) var tipoShapeNota: TipoShapeNota = .unselected {
+        didSet {
+            switch tipoShapeNota {
+            case .unselected:
+                shape.fillColor = Colores.noteFill
+                setTextNota("")
+            case .selected:
+                shape.fillColor = Colores.noteFillResaltada
+                setTextNota("")
+            case .tonica:
+                shape.fillColor = Colores.tonica
+                setTextNota("T")
+            
+            }
+        }
+    }
     
     init(radio: CGFloat){
         shape   = SKShapeNode.drawCircleAt(.zero, withRadius: radio)
@@ -34,13 +51,24 @@ class ShapeNota: SKNode {
         self.radio = radio
         super.init()
         configurarNota()
-        //shape.addChild(literal)
+        shape.addChild(literal)
         addChild(shape)
+        self.name = "nota"
+    }
+    
+    
+    convenience init(posicion: PosicionTraste, radio: CGFloat) {
+        self.init(radio: radio)
+        self.posicion = posicion
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setTipoShapeNote(_ valor: TipoShapeNota) {
+        tipoShapeNota = valor
     }
     
     func setTextNota(_ text: String) {

@@ -17,6 +17,7 @@ struct Colores {
     static let noteStroke   = SKColor.black
     static let noteFill     = SKColor.lightGray
     static let noteFillResaltada = SKColor.orange
+    static let tonica = SKColor.red
 }
 
 /// Contiene las medidas generales de la aplicación

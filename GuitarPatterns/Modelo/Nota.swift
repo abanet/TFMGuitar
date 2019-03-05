@@ -24,5 +24,5 @@ enum NombreNota: String {
 
 struct Nota {
     var nombre: NombreNota
-    
+    var intervalo: TipoIntervaloMusical? // intervalo que juega esa nota
 }

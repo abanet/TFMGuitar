@@ -95,7 +95,6 @@ class GuitarraView: SKNode {
         dibujarCuerdas()
         dibujarTrastes()
         calcularMatrizPosicion()
-        dibujarNotaGuitarra(x: 3, y: 3, tipo: .vacio)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -136,11 +135,12 @@ class GuitarraView: SKNode {
         }
     }
     
-    func dibujarNotaGuitarra(x: Int, y: Int, tipo: TipoTraste) {
-        let shape = ShapeNota(radio: radio)
+    
+    func addNotaGuitarra(traste: Traste) {
+        let (x,y) = convertirMastilToView(traste: traste)
+        let shape = ShapeNota(posicion: traste.getPosicion(), radio: radio)
         shape.shape.position.x = matrizPosicion[x][y].x
         shape.shape.position.y = matrizPosicion[x][y].y
-        shape.zPosition  = 1.0
         self.addChild(shape)
     }
     
@@ -157,5 +157,13 @@ class GuitarraView: SKNode {
             }
             matrizPosicion.append(posicionUnaCuerda)
         }
+    }
+    
+    /**
+     Convierte unas coordenadas lógicas de la guitarra en las coordenadas físicas de su representación gráfica.
+    */
+    func convertirMastilToView(traste: Traste) -> (x: Int, y: Int) {
+        // TODO: estamos en pruebas. Ahora mismo no hay conversión
+        return (tipo.numeroCuerdas() - traste.getCuerda(), traste.getTraste() - 1)
     }
 }

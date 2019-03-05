@@ -41,10 +41,10 @@ class Mastil {
     /**
     Establece el valor de un traste
     */
-    func setTraste(numCuerda: TipoPosicionCuerda, numTraste: TipoPosicionTraste, tipo: TipoTraste) {
-        let cuerda = numCuerda - 1 // Array de cuerdas empieza en 0
-        let traste = numTraste - 1 // Array de trastes empieza en 0
-        trastes[cuerda][traste] = Traste(cuerda: cuerda, traste: traste, estado: tipo)
+    func setTraste(datosTraste: Traste) {
+        let cuerda = datosTraste.getCuerda() - 1 // Array de cuerdas empieza en 0
+        let traste = datosTraste.getTraste() - 1 // Array de trastes empieza en 0
+        trastes[cuerda][traste].setEstado(tipo: datosTraste.getEstado())
     }
     
     /**

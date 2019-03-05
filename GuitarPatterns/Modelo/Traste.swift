@@ -17,10 +17,11 @@ typealias TipoPosicionTraste = Int
 
 
 /**
- Un incremento define un salto de un traste a otro.
- Un incremento supone una subida o bajada de cuerta y/o una subida o bajada de traste.
+ Un salto define un movimiento en el mástil.
+ El movimiento puede ser horizontal, vertical o una suma de los dos.
+ Un salto implica una subida o bajada de cuerta y/o una subida o bajada de traste.
  */
-struct Incremento {
+struct Salto {
     let cuerda: Int
     let traste: Int
 }
@@ -42,14 +43,12 @@ enum TipoTraste {
  Incluye funciones matemáticas para el cálculo de trastes a partir de la suma de intervalos así como la inversión de intervalos.
  */
 struct Traste {
-    var cuerda: TipoPosicionCuerda
-    var traste: TipoPosicionTraste
-    var estado: TipoTraste
+    private var posicion: PosicionTraste
+    private var tipo: TipoTraste
     
     init(cuerda: TipoPosicionCuerda, traste: TipoPosicionTraste, estado: TipoTraste = .vacio) {
-        self.cuerda = cuerda
-        self.traste = traste
-        self.estado = estado
+        self.posicion = PosicionTraste(cuerda: cuerda, traste: traste)
+        self.tipo = estado
     }
     
     // Cualquier traste de una cuerda dada
@@ -62,19 +61,41 @@ struct Traste {
         self.init(cuerda: 0, traste: traste, estado: estado)
     }
     
+    // Devuelve la cuerda en la que se posiciona el traste
+    func getCuerda() -> TipoPosicionCuerda {
+        return posicion.cuerda
+    }
     
+    // Devuelve la altura del traste
+    func getTraste() -> TipoPosicionTraste {
+        return posicion.traste
+    }
+    
+    // Devuelve la posición del traste
+    func getPosicion() -> PosicionTraste {
+        return posicion
+    }
+    
+    // Devuelve el estado del traste
+    func getEstado() -> TipoTraste {
+        return tipo
+    }
+    
+    // Establece el estado del traste
+    mutating func setEstado(tipo: TipoTraste) {
+        self.tipo = tipo
+    }
     
     /**
      Devuelve la posición de traste resultado de sumar un incremento al traste actual.
      
      - Parameter inc: incremento en cuerda y traste a realizar
      */
-    func mover(_ inc: Incremento) -> Traste {
-        return(Traste(cuerda: cuerda + inc.cuerda, traste: traste + inc.traste))
+    func mover(_ inc: Salto) -> Traste {
+        return(Traste(cuerda: self.getCuerda() + inc.cuerda, traste: self.getTraste() + inc.traste))
     }
     
     /**
-     
      Devuelve los semitonos desde el traste actual hasta la posición indicada.
      
      - Parameter posicion: traste final
@@ -83,32 +104,32 @@ struct Traste {
      Se utiliza la afinación universal basada en una bajada por cuartas (o subida por quintas)
      Tener en cuenta la excepción que existe de un semitono entre segunda y tercera cuerda.
      */
-    func semitonosHasta(posicion: Traste) -> Int? {
-        guard self.cuerda != 0 && self.traste != 0 else {
+    func semitonosHasta(nuevoTraste: Traste) -> Int? {
+        guard self.getCuerda() != 0 && self.getTraste() != 0 else {
             return nil
         }
         
         // Cálculo de semitonos por cuerda
-        let cuerdasInvolucradas = abs(self.cuerda - posicion.cuerda)
+        let cuerdasInvolucradas = abs(self.getCuerda() - nuevoTraste.getCuerda())
         var semitonos = 0
-        if self.cuerda >= posicion.cuerda {
+        if self.getCuerda() >= nuevoTraste.getCuerda() {
             semitonos = cuerdasInvolucradas * TipoIntervaloMusical.cuartajusta.distancia() // afinación universal: bajada por cuartas
         } else {
             semitonos = cuerdasInvolucradas * TipoIntervaloMusical.quintajusta.distancia() // subida por quintas
         }
-        if self.cuerda <= posicion.cuerda {
-            if (self.cuerda...posicion.cuerda).contains(2) {
+        if self.getCuerda() <= nuevoTraste.getCuerda() {
+            if (self.getCuerda()...nuevoTraste.getCuerda()).contains(2) {
                 semitonos -= 1              // Corrección por 2 cuerda
             }
         } else {
-            if (posicion.cuerda...self.cuerda).contains(2) {
+            if (nuevoTraste.getCuerda()...self.getCuerda()).contains(2) {
                 semitonos -= 1              // Corrección por 2 cuerda
             }
             
         }
         
         // Cálculo de semitonos por traste
-        semitonos += posicion.traste - self.traste
+        semitonos += nuevoTraste.getTraste() - self.getTraste()
         let octavaJusta = TipoIntervaloMusical.octavajusta
         if semitonos < 0 { // este caso se da cuando la nota está en la misma cuerda antes que la tónica. Subimos una octava
             semitonos = octavaJusta.distancia() + semitonos
@@ -120,6 +141,38 @@ struct Traste {
         }
         
         return semitonos
+    }
+}
+
+/**
+ Almacena una posición de traste en formato cuerda, traste.
+ Incluye funciones matemáticas para el cálculo de trastes a partir de la suma de intervalos
+ */
+struct PosicionTraste: Equatable {
+    var cuerda: TipoPosicionCuerda
+    var traste: TipoPosicionTraste
+    
+    init(cuerda: TipoPosicionCuerda) {
+        self.cuerda = cuerda
+        self.traste = 0
+    }
+    
+    init(traste: TipoPosicionCuerda) {
+        self.traste = traste
+        self.cuerda = 0
+    }
+    
+    init(cuerda: TipoPosicionCuerda, traste: TipoPosicionTraste) {
+        self.cuerda = cuerda
+        self.traste = traste
+    }
+    
+    
+    
+    // MARK: Equatable Protocol
+    static func == (lhs: PosicionTraste, rhs: PosicionTraste) -> Bool {
+        return lhs.cuerda == rhs.cuerda &&
+            lhs.traste == rhs.traste
     }
 }
 
