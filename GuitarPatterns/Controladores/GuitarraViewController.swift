@@ -30,7 +30,7 @@ class GuitarraViewController: SKNode {
     
     
     func marcarTraste(_ traste: Traste) {
-        viewGuitarra.addNotaGuitarra(traste: traste)
+        viewGuitarra.marcarNotaGuitarra(traste: traste)
         mastil.setTraste(datosTraste: traste)
     }
     
@@ -44,5 +44,8 @@ class GuitarraViewController: SKNode {
         mastil.crearMastilVacio()
     }
     
+    func marcarNotaTocada(_ touches: Set<UITouch>, conNota nota: Nota?) {
+        viewGuitarra.marcarNotaTocada(touches, conNota: nota)
+    }
     
 }

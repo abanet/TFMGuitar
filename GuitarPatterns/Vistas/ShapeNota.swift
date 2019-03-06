@@ -21,14 +21,14 @@ enum TipoShapeNota {
  Representación gráfica de una nota en el mástil
  */
 class ShapeNota: SKNode {
-    var radio: CGFloat      // radio de la nota
-    var shape: SKShapeNode  // forma de la nota
-    var literal: SKLabelNode    // nodo para el contenido textual descriptivo de la nota/intervalo
-    var text: String?       // contenido textual descriptivo
-    var tag: String?
-    var posicion: PosicionTraste?
+   private var radio: CGFloat      // radio de la nota
+   private var shape: SKShapeNode  // forma de la nota
+   private var literal: SKLabelNode    // nodo para el contenido textual descriptivo de la nota/intervalo
+   private var text: String?       // contenido textual descriptivo
+   private var tag: String?
+    private var traste: Traste? // traste asociado a la nota dibujada
    
-    private(set) var tipoShapeNota: TipoShapeNota = .unselected {
+    private var tipoShapeNota: TipoShapeNota = .unselected {
         didSet {
             switch tipoShapeNota {
             case .unselected:
@@ -59,7 +59,7 @@ class ShapeNota: SKNode {
     
     convenience init(posicion: PosicionTraste, radio: CGFloat) {
         self.init(radio: radio)
-        self.posicion = posicion
+        //self.posicion = posicion
         
     }
     
@@ -67,8 +67,13 @@ class ShapeNota: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: getters y setters
     func setTipoShapeNote(_ valor: TipoShapeNota) {
         tipoShapeNota = valor
+    }
+    
+    func getTipo() -> TipoShapeNota {
+        return tipoShapeNota
     }
     
     func setTextNota(_ text: String) {
@@ -85,6 +90,22 @@ class ShapeNota: SKNode {
     
     func getTagNota()  -> String? {
         return tag
+    }
+    
+    func getShape() -> SKShapeNode {
+        return self.shape
+    }
+    
+    func setTraste(_ traste: Traste) {
+        self.traste = traste
+    }
+    
+    func getTraste() -> Traste? {
+        return self.traste
+    }
+    
+    func isInPosition(posX: CGFloat, posY: CGFloat) -> Bool {
+        return shape.position.x == posX && shape.position.y == posY
     }
     
     /**

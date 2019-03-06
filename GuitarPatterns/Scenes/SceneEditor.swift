@@ -28,25 +28,8 @@ class SceneEditor: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
-        let touchPosition = touch.location(in: self)
-        let touchedNodes  = nodes(at:touchPosition)
-        for node in touchedNodes {
-            if let miNodo = node as? ShapeNota, node.name == "nota" {
-                // Se ha tocado un traste con una nota
-                switch miNodo.tipoShapeNota {
-                case .unselected:
-                    miNodo.setTipoShapeNote(.selected)
-                case .selected:
-                    miNodo.setTipoShapeNote(.tonica)
-                case .tonica:
-                    miNodo.setTipoShapeNote(.unselected)
-                    
-                }
-                
-            }
-        }
+        let nota = Nota(nombre: NombreNota(rawValue: "G")!)
+       // let traste = Traste(cuerda: 3, traste: 3, estado: .nota(nota))
+        guitarra.marcarNotaTocada(touches, conNota: nota)
     }
 }

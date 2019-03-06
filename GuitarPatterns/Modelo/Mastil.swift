@@ -55,7 +55,6 @@ class Mastil {
         
         if cuerda >= 0 && cuerda < trastes.count {
             let traste = numTraste - 1 // Array de trastes empieza en 0
-            let cuerdaEntera = trastes[cuerda]
             if traste >= 0 && traste < trastes[cuerda].count {
                 return trastes[cuerda][traste]
             }

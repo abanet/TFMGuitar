@@ -24,5 +24,8 @@ enum NombreNota: String {
 
 struct Nota {
     var nombre: NombreNota
-    var intervalo: TipoIntervaloMusical? // intervalo que juega esa nota
+    
+    func getNombreAsText() -> String {
+        return self.nombre.rawValue
+    }
 }

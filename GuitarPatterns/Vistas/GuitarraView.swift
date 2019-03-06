@@ -48,6 +48,7 @@ class GuitarraView: SKNode {
     var size: CGSize
     var tipo: TipoGuitarra
     
+    
     /// Ancho del traste según el ancho de la pantalla
     var anchoTraste: CGFloat {
         get {
@@ -135,13 +136,37 @@ class GuitarraView: SKNode {
         }
     }
     
-    
+    /**
+    Añade una nota al mástil de la guitarra en el traste indicado
+    */
     func addNotaGuitarra(traste: Traste) {
         let (x,y) = convertirMastilToView(traste: traste)
-        let shape = ShapeNota(posicion: traste.getPosicion(), radio: radio)
-        shape.shape.position.x = matrizPosicion[x][y].x
-        shape.shape.position.y = matrizPosicion[x][y].y
-        self.addChild(shape)
+        let nota = ShapeNota(posicion: traste.getPosicion(), radio: radio)
+        nota.getShape().position.x = matrizPosicion[x][y].x
+        nota.getShape().position.y = matrizPosicion[x][y].y
+        nota.setTraste(traste)
+        self.addChild(nota)
+    }
+    
+    /**
+     Localiza la vista asociada al traste y si existe nota la actualiza.
+     La nota no se crea, simplemente se cambian los valores asociados
+    */
+    func marcarNotaGuitarra(traste: Traste) {
+        let (x,y) = convertirMastilToView(traste: traste)
+        for child in self.children {
+            if let shapeNota = child as? ShapeNota {
+                if shapeNota.isInPosition(posX: matrizPosicion[x][y].x, posY: matrizPosicion[x][y].y) {
+                    shapeNota.setTraste(traste)
+                    switch traste.getEstado() {
+                    case let .nota(nota):
+                        shapeNota.setTextNota(nota.getNombreAsText())
+                    default:
+                        break
+                    }
+                }
+            }
+        }
     }
     
     /**
@@ -159,6 +184,7 @@ class GuitarraView: SKNode {
         }
     }
     
+    
     /**
      Convierte unas coordenadas lógicas de la guitarra en las coordenadas físicas de su representación gráfica.
     */
@@ -166,4 +192,53 @@ class GuitarraView: SKNode {
         // TODO: estamos en pruebas. Ahora mismo no hay conversión
         return (tipo.numeroCuerdas() - traste.getCuerda(), traste.getTraste() - 1)
     }
+    
+    
+    /**
+     Responde al toque del usuario.
+     Permite la selección de notas
+    */
+    func marcarNotaTocada(_ touches: Set<UITouch>, conNota nota: Nota?) {
+        if let shapeNota = getNotaTocada(touches) {
+            // Se ha tocado un traste con una nota
+            switch shapeNota.getTipo() {
+            case .unselected:
+                shapeNota.setTipoShapeNote(.selected)
+            case .selected:
+                shapeNota.setTipoShapeNote(.tonica)
+            case .tonica:
+                shapeNota.setTipoShapeNote(.unselected)
+            }
+            if let nota = nota {
+                    shapeNota.setTextNota(nota.getNombreAsText())
+            }
+        }
+        
+    }
+    
+    
+    func marcarNotaTocada(_ touches: Set<UITouch>) {
+        marcarNotaTocada(touches, conNota: nil)
+    }
+    
+    
+    /**
+     Obtiene el elemento gráfico de la nota que se ha tocado en pantalla
+    */
+    func getNotaTocada(_ touches: Set<UITouch>) -> ShapeNota? {
+        guard let touch = touches.first else {
+            return nil
+        }
+        let touchPosition = touch.location(in: self)
+        let touchedNodes  = nodes(at:touchPosition)
+        for node in touchedNodes {
+            if let miNodo = node as? ShapeNota, node.name == "nota" {
+                return miNodo
+            }
+        }
+        return nil
+    }
+    
+    
+    
 }
