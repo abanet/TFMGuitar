@@ -32,8 +32,6 @@ enum TipoGuitarra {
             return 5
         case .ukelele:
             return 4
-        default:
-            return 6
         }
     }
 }
@@ -161,6 +159,8 @@ class GuitarraView: SKNode {
                     switch traste.getEstado() {
                     case let .nota(nota):
                         shapeNota.setTextNota(nota.getNombreAsText())
+                    case let .intervalo(intervalo):
+                        shapeNota.setTextNota(intervalo.rawValue)
                     default:
                         break
                     }
@@ -198,7 +198,8 @@ class GuitarraView: SKNode {
      Responde al toque del usuario.
      Permite la selección de notas
     */
-    func marcarNotaTocada(_ touches: Set<UITouch>, conNota nota: Nota?) {
+    
+    func marcarNotaTocada(_ touches: Set<UITouch>, conTipoTraste tipo: TipoTraste, completion: @escaping (Traste) -> ()) {
         if let shapeNota = getNotaTocada(touches) {
             // Se ha tocado un traste con una nota
             switch shapeNota.getTipo() {
@@ -209,17 +210,20 @@ class GuitarraView: SKNode {
             case .tonica:
                 shapeNota.setTipoShapeNote(.unselected)
             }
-            if let nota = nota {
-                    shapeNota.setTextNota(nota.getNombreAsText())
+            if var traste = shapeNota.getTraste() {
+                traste.setEstado(tipo: tipo)
+                shapeNota.setTraste(traste)
+                completion(traste)
             }
         }
         
     }
     
     
-    func marcarNotaTocada(_ touches: Set<UITouch>) {
-        marcarNotaTocada(touches, conNota: nil)
-    }
+    
+//    func marcarNotaTocada(_ touches: Set<UITouch>) {
+//        marcarNotaTocada(touches, conTipoTraste: TipoTraste.vacio)
+//    }
     
     
     /**
@@ -239,6 +243,15 @@ class GuitarraView: SKNode {
         return nil
     }
     
-    
+    /**
+    Obtiene el traste en el que se ha pulsado
+    */
+    func posicionPulsada(_ touches: Set<UITouch>) -> PosicionTraste? {
+        if let shapeNota = getNotaTocada(touches) {
+            return shapeNota.getTraste()?.getPosicion()
+        } else {
+            return nil
+        }
+    }
     
 }

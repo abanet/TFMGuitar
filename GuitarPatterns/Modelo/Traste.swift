@@ -34,8 +34,10 @@ enum TipoTraste {
     case vacio
     /// El traste no tiene contenido pero se mostrará igualmente
     case blanco
-    /// El traste tiene
+    /// El traste contiene una nota
     case nota(Nota)
+    /// El traste contiene un intervalo
+    case intervalo(TipoIntervaloMusical)
 }
 
 /**
@@ -96,52 +98,16 @@ struct Traste {
     }
     
     /**
-     Devuelve los semitonos desde el traste actual hasta la posición indicada.
-     
-     - Parameter posicion: traste final
-     
-     ### ATENCIÓN ###
-     Se utiliza la afinación universal basada en una bajada por cuartas (o subida por quintas)
-     Tener en cuenta la excepción que existe de un semitono entre segunda y tercera cuerda.
-     */
-    func semitonosHasta(nuevoTraste: Traste) -> Int? {
-        guard self.getCuerda() != 0 && self.getTraste() != 0 else {
-            return nil
-        }
-        
-        // Cálculo de semitonos por cuerda
-        let cuerdasInvolucradas = abs(self.getCuerda() - nuevoTraste.getCuerda())
-        var semitonos = 0
-        if self.getCuerda() >= nuevoTraste.getCuerda() {
-            semitonos = cuerdasInvolucradas * TipoIntervaloMusical.cuartajusta.distancia() // afinación universal: bajada por cuartas
+     Indica si el traste tiene una nota que cumple una función interválica determinada
+    */
+    func tieneFuncionIntervalica(_ funcion: TipoIntervaloMusical) -> Bool {
+        if case let .intervalo(intervalo) = tipo, intervalo == funcion { // traste con nota
+            return true
         } else {
-            semitonos = cuerdasInvolucradas * TipoIntervaloMusical.quintajusta.distancia() // subida por quintas
+            return false
         }
-        if self.getCuerda() <= nuevoTraste.getCuerda() {
-            if (self.getCuerda()...nuevoTraste.getCuerda()).contains(2) {
-                semitonos -= 1              // Corrección por 2 cuerda
-            }
-        } else {
-            if (nuevoTraste.getCuerda()...self.getCuerda()).contains(2) {
-                semitonos -= 1              // Corrección por 2 cuerda
-            }
-            
-        }
-        
-        // Cálculo de semitonos por traste
-        semitonos += nuevoTraste.getTraste() - self.getTraste()
-        let octavaJusta = TipoIntervaloMusical.octavajusta
-        if semitonos < 0 { // este caso se da cuando la nota está en la misma cuerda antes que la tónica. Subimos una octava
-            semitonos = octavaJusta.distancia() + semitonos
-        }
-        
-        semitonos = semitonos % octavaJusta.distancia()
-        if semitonos == 0 {
-            semitonos = octavaJusta.distancia()
-        }
-        
-        return semitonos
     }
+   
 }
 
 /**
@@ -152,21 +118,23 @@ struct PosicionTraste: Equatable {
     var cuerda: TipoPosicionCuerda
     var traste: TipoPosicionTraste
     
+    /// Cualquier traste de una cuerda
     init(cuerda: TipoPosicionCuerda) {
         self.cuerda = cuerda
         self.traste = 0
     }
     
+    /// Un traste determinado en cualquier cuerda
     init(traste: TipoPosicionCuerda) {
         self.traste = traste
         self.cuerda = 0
     }
     
+    /// Posición determinada y única de cuerda y traste
     init(cuerda: TipoPosicionCuerda, traste: TipoPosicionTraste) {
         self.cuerda = cuerda
         self.traste = traste
     }
-    
     
     
     // MARK: Equatable Protocol

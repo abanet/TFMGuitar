@@ -11,8 +11,8 @@ import Foundation
 /**
  Intervalos musicales representados con dos caracteres
  */
-enum TipoIntervaloMusical: String {
-    case unisono            = ""
+enum TipoIntervaloMusical: String, CaseIterable {
+    case unisono            = "T"
     case segundamenor       = "2b"
     case segundamayor       = "2"
     case terceramenor       = "3b"
@@ -25,7 +25,12 @@ enum TipoIntervaloMusical: String {
     case sextamayor         = "6"
     case septimamenor       = "7b"
     case septimamayor       = "7"
-    case octavajusta        = "T"
+    case octavajusta        = "8"
+    
+    
+    static func tonica() -> TipoIntervaloMusical {
+        return TipoIntervaloMusical.unisono
+    }
     
     /**
      Devuelve la inversión de un intervalo musical
@@ -98,6 +103,20 @@ enum TipoIntervaloMusical: String {
             return 12
         }
     }
+    
+    /**
+     Intervalos con una distancia de semitonos dada
+    */
+    func intervalosConDistancia(semitonos: Int) -> [TipoIntervaloMusical] {
+        var array = [TipoIntervaloMusical]()
+        TipoIntervaloMusical.allCases.forEach {
+            if $0.distancia() == semitonos {
+                array.append($0)
+            }
+        }
+        return array
+    }
+    
 }
 
 

@@ -26,8 +26,23 @@ class ShapeNota: SKNode {
    private var literal: SKLabelNode    // nodo para el contenido textual descriptivo de la nota/intervalo
    private var text: String?       // contenido textual descriptivo
    private var tag: String?
-    private var traste: Traste? // traste asociado a la nota dibujada
-   
+   private var traste: Traste? {// traste asociado a la nota dibujada
+        didSet {
+            if let traste = traste {
+                switch traste.getEstado() {
+                case let .nota(nota):
+                    self.setTextNota(nota.getNombreAsText())
+                case let .intervalo(intervalo):
+                    self.setTextNota(intervalo.rawValue)
+                    if intervalo == .unisono || intervalo == .octavajusta {
+                        tipoShapeNota = .tonica
+                    }
+                default:
+                    break
+                }
+            }
+        }}
+    
     private var tipoShapeNota: TipoShapeNota = .unselected {
         didSet {
             switch tipoShapeNota {

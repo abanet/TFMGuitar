@@ -28,8 +28,18 @@ class SceneEditor: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let nota = Nota(nombre: NombreNota(rawValue: "G")!)
-       // let traste = Traste(cuerda: 3, traste: 3, estado: .nota(nota))
-        guitarra.marcarNotaTocada(touches, conNota: nota)
+        
+        
+        if guitarra.mastil.existeTonica() {
+            // averiguar traste pulsado
+            if let posicionPulsada = guitarra.posicionPulsada(touches) {
+                print("posición pulsada: \(posicionPulsada)")
+            }
+        } else { // escribir tónica
+            let tonica = TipoIntervaloMusical.tonica()
+            let tipoTraste = TipoTraste.intervalo(tonica)
+            guitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste)
+        }
+        
     }
 }

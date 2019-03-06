@@ -23,9 +23,19 @@ enum NombreNota: String {
 
 
 struct Nota {
-    var nombre: NombreNota
+   private var nombre: NombreNota
+   
+    init(nombre: NombreNota) {
+        self.nombre = nombre
+    }
     
     func getNombreAsText() -> String {
         return self.nombre.rawValue
     }
+    
+    mutating func setNombre(_ nombre: NombreNota) {
+        self.nombre = nombre
+    }
+    
+    
 }
