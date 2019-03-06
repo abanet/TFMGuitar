@@ -107,7 +107,7 @@ enum TipoIntervaloMusical: String, CaseIterable {
     /**
      Intervalos con una distancia de semitonos dada
     */
-    func intervalosConDistancia(semitonos: Int) -> [TipoIntervaloMusical] {
+    static func intervalosConDistancia(semitonos: Int) -> [TipoIntervaloMusical] {
         var array = [TipoIntervaloMusical]()
         TipoIntervaloMusical.allCases.forEach {
             if $0.distancia() == semitonos {

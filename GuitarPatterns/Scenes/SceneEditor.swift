@@ -29,14 +29,20 @@ class SceneEditor: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        
+        let tonica = TipoIntervaloMusical.tonica()
         if guitarra.mastil.existeTonica() {
             // averiguar traste pulsado
-            if let posicionPulsada = guitarra.posicionPulsada(touches) {
-                print("posición pulsada: \(posicionPulsada)")
+            if let trastePulsado = guitarra.trastePulsado(touches) {
+                // calcular distancia entre tónica y nota pulsada
+                if let trasteTonica = guitarra.mastil.encuentraIntervalos(delTipo: tonica).first {
+                    if let distancia = guitarra.mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trastePulsado) {
+                        let intervalos = TipoIntervaloMusical.intervalosConDistancia(semitonos: distancia)
+                        print("Intervalos: \(intervalos)")
+                    }
+                    
+                }
             }
         } else { // escribir tónica
-            let tonica = TipoIntervaloMusical.tonica()
             let tipoTraste = TipoTraste.intervalo(tonica)
             guitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste)
         }

@@ -51,8 +51,8 @@ class GuitarraViewController: SKNode {
         }
     }
     
-    func posicionPulsada(_ touches: Set<UITouch>) -> PosicionTraste? {
-        return viewGuitarra.posicionPulsada(touches)
+    func trastePulsado(_ touches: Set<UITouch>) -> Traste? {
+        return viewGuitarra.trastePulsado(touches)
     }
     
 }

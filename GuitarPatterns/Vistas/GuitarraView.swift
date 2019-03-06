@@ -246,9 +246,10 @@ class GuitarraView: SKNode {
     /**
     Obtiene el traste en el que se ha pulsado
     */
-    func posicionPulsada(_ touches: Set<UITouch>) -> PosicionTraste? {
+    func trastePulsado(_ touches: Set<UITouch>) -> Traste? {
         if let shapeNota = getNotaTocada(touches) {
-            return shapeNota.getTraste()?.getPosicion()
+            print("Traste pulsado: \(shapeNota.getTraste())")
+            return shapeNota.getTraste()
         } else {
             return nil
         }
