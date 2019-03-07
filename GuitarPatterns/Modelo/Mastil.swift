@@ -10,9 +10,9 @@ import SpriteKit
 
 
 class Mastil {
-    var numCuerdas: Int
-    var numTrastes: Int
-    var trastes: [[Traste]] = [[Traste]]()
+   private var numCuerdas: Int
+   private var numTrastes: Int
+   private var trastes: [[Traste]] = [[Traste]]()
     
     init(numCuerdas: Int, numTrastes: Int) {
         self.numCuerdas = numCuerdas
@@ -36,15 +36,18 @@ class Mastil {
             }
             trastes.append(unaCuerda)
         }
+        
     }
     
     /**
     Establece el valor de un traste
     */
     func setTraste(datosTraste: Traste) {
-        let cuerda = datosTraste.getCuerda() - 1 // Array de cuerdas empieza en 0
-        let traste = datosTraste.getTraste() - 1 // Array de trastes empieza en 0
-        trastes[cuerda][traste].setEstado(tipo: datosTraste.getEstado())
+        let posCuerda = datosTraste.getCuerda() - 1 // Array de cuerdas empieza en 0
+        let posTraste = datosTraste.getTraste() - 1 // Array de trastes empieza en 0
+        var nuevoTraste = datosTraste
+        nuevoTraste.setEstado(tipo: datosTraste.getEstado())
+        trastes[posCuerda][posTraste] = nuevoTraste
     }
     
     /**
@@ -74,6 +77,13 @@ class Mastil {
         guard traste1.getCuerda() != 0 && traste2.getCuerda() != 0 && traste1.getTraste() != 0 && traste2.getTraste() != 0 else {
             return nil
         }
+        
+        // Si los dos trastes son iguales la distancia es de cero (unísono)
+        if traste1.getPosicion() == traste2.getPosicion() {
+            return 0
+        }
+        
+        // Contamos semitonos debidos al cambio de cuerda
         let cuerdasInvolucradas = abs(traste1.getCuerda() - traste2.getCuerda())
         var semitonos = 0
         if traste1.getCuerda() >= traste2.getCuerda() {
@@ -92,6 +102,7 @@ class Mastil {
             
         }
         
+        // Ajustamos semitonos que ocurren por desplazamiento en el mástil
         semitonos += traste2.getTraste() - traste1.getTraste()
         let octavaJusta = TipoIntervaloMusical.octavajusta
         if semitonos < 0 { // este caso se da cuando la nota está en la misma cuerda antes que la tónica
@@ -114,15 +125,17 @@ class Mastil {
      Función que busca trastes que contienen notas que cumplen una función interválica concreta
     */
     func encuentraIntervalos(delTipo intervalo: TipoIntervaloMusical) -> [Traste] {
+        print(self.description)
         var resultado = [Traste]()
-        for arrayTrastes in trastes {
-            for traste in arrayTrastes {
+        for (indexCuerda, arrayTrastes) in trastes.enumerated() {
+            for (indexTraste, traste) in arrayTrastes.enumerated() {
                 if traste.tieneFuncionIntervalica(intervalo) {
-                    resultado.append(traste)
+                        resultado.append(traste)
                 }
             }
         }
         return resultado
+        
     }
     
     
@@ -136,5 +149,19 @@ class Mastil {
         } else {
             return false
         }
+    }
+}
+
+extension Mastil: CustomStringConvertible {
+    var description: String {
+        var string = ""
+        for (indexCuerda, arrayTrastes) in trastes.enumerated() {
+            for (indexTraste, traste) in arrayTrastes.enumerated() {
+                let estadoTraste = traste.getEstado()
+                string += "[\(indexCuerda), \(indexTraste)]: \(estadoTraste)"
+            }
+            string += "\n"
+        }
+        return string
     }
 }

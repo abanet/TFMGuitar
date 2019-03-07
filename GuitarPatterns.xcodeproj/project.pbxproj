@@ -22,9 +22,21 @@
 		C0D0A162222D299A00666D6A /* Nota.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A161222D299A00666D6A /* Nota.swift */; };
 		C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A163222D29B700666D6A /* Intervalo.swift */; };
 		C0D0A166222D43BE00666D6A /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A165222D43BE00666D6A /* Mastil.swift */; };
+		C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */; };
+		C0DCE176223120C7002BF466 /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE175223120C7002BF466 /* Mastil.swift */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0DCE17022311D93002BF466 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C07C634422292B0100B36913 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C07C634B22292B0100B36913;
+			remoteInfo = GuitarPatterns;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C07C634C22292B0100B36913 /* GuitarPatterns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuitarPatterns.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,12 +56,23 @@
 		C0D0A161222D299A00666D6A /* Nota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nota.swift; sourceTree = "<group>"; };
 		C0D0A163222D29B700666D6A /* Intervalo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intervalo.swift; sourceTree = "<group>"; };
 		C0D0A165222D43BE00666D6A /* Mastil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mastil.swift; sourceTree = "<group>"; };
+		C0DCE16B22311D93002BF466 /* GuitarPatternsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuitarPatternsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarPatternsTests.swift; sourceTree = "<group>"; };
+		C0DCE16F22311D93002BF466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0DCE175223120C7002BF466 /* Mastil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mastil.swift; sourceTree = "<group>"; };
 		D34F00732229A9D200165192 /* SceneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditor.swift; sourceTree = "<group>"; };
 		D34F00752229BDC200165192 /* ShapeNota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNota.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		C07C634922292B0100B36913 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0DCE16822311D93002BF466 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				C07C634E22292B0100B36913 /* GuitarPatterns */,
+				C0DCE16C22311D93002BF466 /* GuitarPatternsTests */,
 				C07C634D22292B0100B36913 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				C07C634C22292B0100B36913 /* GuitarPatterns.app */,
+				C0DCE16B22311D93002BF466 /* GuitarPatternsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,6 +156,16 @@
 			path = Modelo;
 			sourceTree = "<group>";
 		};
+		C0DCE16C22311D93002BF466 /* GuitarPatternsTests */ = {
+			isa = PBXGroup;
+			children = (
+				C0DCE175223120C7002BF466 /* Mastil.swift */,
+				C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */,
+				C0DCE16F22311D93002BF466 /* Info.plist */,
+			);
+			path = GuitarPatternsTests;
+			sourceTree = "<group>";
+		};
 		D34F00722229A9AE00165192 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +195,24 @@
 			productReference = C07C634C22292B0100B36913 /* GuitarPatterns.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C0DCE16A22311D93002BF466 /* GuitarPatternsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0DCE17422311D93002BF466 /* Build configuration list for PBXNativeTarget "GuitarPatternsTests" */;
+			buildPhases = (
+				C0DCE16722311D93002BF466 /* Sources */,
+				C0DCE16822311D93002BF466 /* Frameworks */,
+				C0DCE16922311D93002BF466 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0DCE17122311D93002BF466 /* PBXTargetDependency */,
+			);
+			name = GuitarPatternsTests;
+			productName = GuitarPatternsTests;
+			productReference = C0DCE16B22311D93002BF466 /* GuitarPatternsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -172,6 +225,10 @@
 				TargetAttributes = {
 					C07C634B22292B0100B36913 = {
 						CreatedOnToolsVersion = 10.1;
+					};
+					C0DCE16A22311D93002BF466 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = C07C634B22292B0100B36913;
 					};
 				};
 			};
@@ -189,6 +246,7 @@
 			projectRoot = "";
 			targets = (
 				C07C634B22292B0100B36913 /* GuitarPatterns */,
+				C0DCE16A22311D93002BF466 /* GuitarPatternsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -201,6 +259,13 @@
 				C07C635B22292B0100B36913 /* Main.storyboard in Resources */,
 				C07C635D22292B0300B36913 /* Assets.xcassets in Resources */,
 				C07C636022292B0300B36913 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0DCE16922311D93002BF466 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +293,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0DCE16722311D93002BF466 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */,
+				C0DCE176223120C7002BF466 /* Mastil.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0DCE17122311D93002BF466 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C07C634B22292B0100B36913 /* GuitarPatterns */;
+			targetProxy = C0DCE17022311D93002BF466 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C07C635922292B0100B36913 /* Main.storyboard */ = {
@@ -402,6 +484,46 @@
 			};
 			name = Release;
 		};
+		C0DCE17222311D93002BF466 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FLU98JG66T;
+				INFOPLIST_FILE = GuitarPatternsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = es.codigoswift.GuitarPatternsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GuitarPatterns.app/GuitarPatterns";
+			};
+			name = Debug;
+		};
+		C0DCE17322311D93002BF466 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FLU98JG66T;
+				INFOPLIST_FILE = GuitarPatternsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = es.codigoswift.GuitarPatternsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GuitarPatterns.app/GuitarPatterns";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -419,6 +541,15 @@
 			buildConfigurations = (
 				C07C636522292B0300B36913 /* Debug */,
 				C07C636622292B0300B36913 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0DCE17422311D93002BF466 /* Build configuration list for PBXNativeTarget "GuitarPatternsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0DCE17222311D93002BF466 /* Debug */,
+				C0DCE17322311D93002BF466 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

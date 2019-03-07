@@ -198,17 +198,20 @@ class GuitarraView: SKNode {
      Responde al toque del usuario.
      Permite la selección de notas
     */
-    
     func marcarNotaTocada(_ touches: Set<UITouch>, conTipoTraste tipo: TipoTraste, completion: @escaping (Traste) -> ()) {
         if let shapeNota = getNotaTocada(touches) {
-            // Se ha tocado un traste con una nota
-            switch shapeNota.getTipo() {
-            case .unselected:
-                shapeNota.setTipoShapeNote(.selected)
-            case .selected:
-                shapeNota.setTipoShapeNote(.tonica)
-            case .tonica:
+            if case TipoTraste.blanco = tipo {
                 shapeNota.setTipoShapeNote(.unselected)
+            } else {
+                // Se ha tocado un traste con una nota
+                switch shapeNota.getTipo() {
+                case .unselected:
+                    shapeNota.setTipoShapeNote(.selected)
+                case .selected:
+                    shapeNota.setTipoShapeNote(.unselected)
+                case .tonica:
+                    shapeNota.setTipoShapeNote(.unselected)
+                }
             }
             if var traste = shapeNota.getTraste() {
                 traste.setEstado(tipo: tipo)
@@ -216,8 +219,8 @@ class GuitarraView: SKNode {
                 completion(traste)
             }
         }
-        
     }
+    
     
     
     

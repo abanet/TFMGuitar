@@ -27,9 +27,10 @@ struct Salto {
 }
 
 /**
- El traste es un contenedor que puede albergar o no una nota
+ Tipo traste define si el traste está en blanco, si tiene una nota(Nota) o si tiene un intervalo(TipoIntervaloMusical)
  */
 enum TipoTraste {
+
     /// El traste no tiene contenido
     case vacio
     /// El traste no tiene contenido pero se mostrará igualmente
@@ -38,6 +39,7 @@ enum TipoTraste {
     case nota(Nota)
     /// El traste contiene un intervalo
     case intervalo(TipoIntervaloMusical)
+ 
 }
 
 /**
@@ -109,6 +111,8 @@ struct Traste {
     }
    
 }
+
+
 
 /**
  Almacena una posición de traste en formato cuerda, traste.

@@ -34,14 +34,13 @@ class GuitarraViewController: SKNode {
         mastil.setTraste(datosTraste: traste)
     }
     
-    func poblarMastil() {
+    func resetMastil() {
         for cuerda in 1..<tipo.numeroCuerdas() + 1 {
             for traste in 1..<Medidas.numTrastes + 1 {
                 let traste = Traste(cuerda: cuerda, traste: traste, estado: .blanco)
                 viewGuitarra.addNotaGuitarra(traste: traste)
             }
         }
-        mastil.crearMastilVacio()
     }
     
     func marcarNotaTocada(_ touches: Set<UITouch>, conTipoTraste tipoTraste: TipoTraste) {
