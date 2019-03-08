@@ -24,7 +24,7 @@ class SceneEditor: SKScene {
     func iniciarGuitarra() {
         guitarra = GuitarraViewController(size: size, tipo: .guitarra)
         addChild(guitarra)
-        guitarra.resetMastil()
+        guitarra.crearMastilVacio()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -44,11 +44,12 @@ class SceneEditor: SKScene {
                 }
                 } else { // existe una nota, hay que eliminarla
                     guitarra.marcarNotaTocada(touches, conTipoTraste: .blanco)
-                }
+                  }
             }
         } else { // No existe tónica. Escribir tónica
                 let tipoTraste = TipoTraste.intervalo(tonica)
                 guitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste)
+                guitarra.recalcularMastil()
         }
         
     }

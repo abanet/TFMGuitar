@@ -16,6 +16,8 @@ class TestMastil: XCTestCase {
     let traste2 = Traste(cuerda: 6, traste: 1)
     let traste3 = Traste(cuerda: 3, traste: 6)
     let traste4 = Traste(cuerda: 1, traste: 4)
+    let traste5 = Traste(cuerda: 1, traste: 2)
+    let traste6 = Traste(cuerda: 2, traste: 2)
     
     
     override func setUp() {
@@ -31,13 +33,19 @@ class TestMastil: XCTestCase {
         let resultado2 = mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste3)
         let resultado3 = mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste4)
         let resultado4 = mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste1)
-        XCTAssert(resultado1 == TipoIntervaloMusical.quintadisminuida.distancia(), "Error, en lugar de una quinta disminuida devuelve \(TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado1!).first)")
+        let resultado5 = mastil.distanciaEnSemitonos(traste1: traste5, traste2: traste6)
+      
+      XCTAssert(resultado1 == TipoIntervaloMusical.quintadisminuida.distancia(), "Error, en lugar de una quinta disminuida devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado1!).first))")
         
-        XCTAssert(resultado2 == TipoIntervaloMusical.segundamayor.distancia(), "Error, en lugar de una quinta disminuida devuelve \(TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado2!).first)")
+      XCTAssert(resultado2 == TipoIntervaloMusical.segundamayor.distancia(), "Error, en lugar de una quinta disminuida devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado2!).first))")
         
-        XCTAssert(resultado3 == TipoIntervaloMusical.sextamayor.distancia(), "Error, en lugar de una quinta disminuida devuelve \(TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado3!).first)")
+      XCTAssert(resultado3 == TipoIntervaloMusical.sextamayor.distancia(), "Error, en lugar de una quinta disminuida devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado3!).first))")
         
-        XCTAssert(resultado4 == 0, "Error, en lugar de cero devuelve \(TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado4!).first)")
+      XCTAssert(resultado4 == 0, "Error, en lugar de cero devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado4!).first))")
+      
+      XCTAssert(resultado5 == TipoIntervaloMusical.quintajusta.distancia(), "Error, en lugar de quinta justa devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado5!).first))")
+      
+      
         
     }
 

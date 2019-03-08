@@ -31,6 +31,10 @@ enum TipoIntervaloMusical: String, CaseIterable {
     static func tonica() -> TipoIntervaloMusical {
         return TipoIntervaloMusical.unisono
     }
+  
+  func esTonica() -> Bool {
+    return self == .unisono || self == .octavajusta ? true : false
+  }
     
     /**
      Devuelve la inversión de un intervalo musical

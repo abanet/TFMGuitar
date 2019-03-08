@@ -30,16 +30,12 @@ struct Salto {
  Tipo traste define si el traste está en blanco, si tiene una nota(Nota) o si tiene un intervalo(TipoIntervaloMusical)
  */
 enum TipoTraste {
-
-    /// El traste no tiene contenido
-    case vacio
     /// El traste no tiene contenido pero se mostrará igualmente
     case blanco
     /// El traste contiene una nota
     case nota(Nota)
     /// El traste contiene un intervalo
     case intervalo(TipoIntervaloMusical)
- 
 }
 
 /**
@@ -50,7 +46,7 @@ struct Traste {
     private var posicion: PosicionTraste
     private var tipo: TipoTraste
     
-    init(cuerda: TipoPosicionCuerda, traste: TipoPosicionTraste, estado: TipoTraste = .vacio) {
+    init(cuerda: TipoPosicionCuerda, traste: TipoPosicionTraste, estado: TipoTraste = .blanco) {
         self.posicion = PosicionTraste(cuerda: cuerda, traste: traste)
         self.tipo = estado
     }
@@ -89,7 +85,17 @@ struct Traste {
     mutating func setEstado(tipo: TipoTraste) {
         self.tipo = tipo
     }
-    
+  
+    // Indica si el traste está en blanco o no
+    func estaBlanco() -> Bool {
+      if case TipoTraste.blanco = tipo {
+        return true
+      } else {
+        return false
+      }
+    }
+  
+  
     /**
      Devuelve la posición de traste resultado de sumar un incremento al traste actual.
      

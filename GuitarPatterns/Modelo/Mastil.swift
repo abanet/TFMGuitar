@@ -31,7 +31,7 @@ class Mastil {
         for x in 0..<numCuerdas {
             var unaCuerda = [Traste]()
             for y in 0..<numTrastes {
-                let traste = Traste(cuerda: x, traste: y, estado: .vacio)
+                let traste = Traste(cuerda: x, traste: y, estado: .blanco)
                 unaCuerda.append(traste)
             }
             trastes.append(unaCuerda)
@@ -77,7 +77,6 @@ class Mastil {
         guard traste1.getCuerda() != 0 && traste2.getCuerda() != 0 && traste1.getTraste() != 0 && traste2.getTraste() != 0 else {
             return nil
         }
-        
         // Si los dos trastes son iguales la distancia es de cero (unísono)
         if traste1.getPosicion() == traste2.getPosicion() {
             return 0
@@ -92,8 +91,8 @@ class Mastil {
             semitonos = cuerdasInvolucradas * 7 // subida por quintas
         }
         if traste1.getCuerda() <= traste2.getCuerda() {
-            if (traste1.getCuerda()...traste2.getCuerda()).contains(2) {
-                semitonos -= 1              // Corrección para 2 cuerda
+            if (traste1.getCuerda()...traste2.getCuerda()).contains(3) {
+                semitonos += 1              // Corrección para 2 cuerda
             }
         } else {
             if (traste2.getCuerda()...traste1.getCuerda()).contains(2) {
@@ -150,6 +149,15 @@ class Mastil {
             return false
         }
     }
+  
+    /**
+     Busca la primera aparición de la tónica en el mástil
+    */
+    func trasteTonica() -> Traste? {
+      let trastesTonica = encuentraIntervalos(delTipo: .unisono)
+      return trastesTonica.count > 0 ? trastesTonica.first : nil
+    }
+  
 }
 
 extension Mastil: CustomStringConvertible {

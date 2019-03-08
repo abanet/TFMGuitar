@@ -33,8 +33,13 @@ class GuitarraViewController: SKNode {
         viewGuitarra.marcarNotaGuitarra(traste: traste)
         mastil.setTraste(datosTraste: traste)
     }
-    
-    func resetMastil() {
+  
+  /**
+    Limpia el mástil creando uno con todos los trastes en blanco.
+   ###Atencion###
+   Los trastes se crean en este momento.
+  */
+    func crearMastilVacio() {
         for cuerda in 1..<tipo.numeroCuerdas() + 1 {
             for traste in 1..<Medidas.numTrastes + 1 {
                 let traste = Traste(cuerda: cuerda, traste: traste, estado: .blanco)
@@ -42,7 +47,42 @@ class GuitarraViewController: SKNode {
             }
         }
     }
-    
+  
+  /**
+   Busca la tónica en el mástil y recalcula los intervalos existentes.
+  */
+  func recalcularMastil() {
+    // Si no existe tónica no se pueden calcular los intervalos
+    guard let trasteTonica = mastil.trasteTonica() else {
+      return
+    }
+    for cuerda in 1..<tipo.numeroCuerdas() + 1 {
+      for traste in 1..<Medidas.numTrastes + 1 {
+        var trasteActual = mastil.getTraste(numCuerda: cuerda, numTraste: traste)!
+        if !trasteActual.estaBlanco() {
+          if let distanciaATonica = mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trasteActual) {
+            if let nuevoIntervalo = TipoIntervaloMusical.intervalosConDistancia(semitonos: distanciaATonica).first {
+              trasteActual.setEstado(tipo: TipoTraste.intervalo(nuevoIntervalo))
+              marcarTraste(trasteActual)
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  /**
+   Elimina todas las tónicas de la guitarra.
+  */
+  func eliminarTonicas() {
+    let trastesConTonicas = mastil.encuentraIntervalos(delTipo: .unisono) + mastil.encuentraIntervalos(delTipo: .octavajusta)
+    for traste in trastesConTonicas {
+      var trasteModificado = traste
+      trasteModificado.setEstado(tipo: .blanco)
+      marcarTraste(trasteModificado)
+    }
+  }
+  
     func marcarNotaTocada(_ touches: Set<UITouch>, conTipoTraste tipoTraste: TipoTraste) {
         viewGuitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste) {
             [unowned self] traste in
