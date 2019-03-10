@@ -154,19 +154,8 @@ class GuitarraView: SKNode {
         let (x,y) = convertirMastilToView(traste: traste)
         for child in self.children {
             if let shapeNota = child as? ShapeNota {
-               // if shapeNota.isInPosition(posX: matrizPosicion[x][y].x, posY: matrizPosicion[x][y].y) {
-              // TODO: si funciona esto no hay que tener en cuenta la matriz de posiciones
               if let trasteShape = shapeNota.getTraste(), trasteShape.getPosicion() == traste.getPosicion() {
-                
                     shapeNota.setTraste(traste)
-                    switch traste.getEstado() {
-                    case let .nota(nota):
-                        shapeNota.setTextNota(nota.getNombreAsText())
-                    case let .intervalo(intervalo):
-                        shapeNota.setTextNota(intervalo.rawValue)
-                    default:
-                        break
-                    }
                 }
             }
         }

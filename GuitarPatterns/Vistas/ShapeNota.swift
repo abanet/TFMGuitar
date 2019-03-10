@@ -33,10 +33,12 @@ class ShapeNota: SKNode {
                 case let .nota(nota):
                     self.setTextNota(nota.getNombreAsText())
                 case let .intervalo(intervalo):
+                  if intervalo.esTonica() { // Las octavas se muestran siempre como tónicas.
+                    self.setTextNota(TipoIntervaloMusical.unisono.rawValue)
+                    tipoShapeNota = .tonica
+                  } else {
                     self.setTextNota(intervalo.rawValue)
-                    if intervalo == .unisono || intervalo == .octavajusta {
-                        tipoShapeNota = .tonica
-                    }
+                  }
                 default:
                     break
                 }
