@@ -86,6 +86,24 @@ struct Traste {
         self.tipo = tipo
     }
   
+    // Devuelve la nota del traste, nil en caso contrario
+    func getNota() -> Nota? {
+      if case let TipoTraste.nota(nota) = tipo {
+        return nota
+      } else {
+        return nil
+      }
+    }
+  
+    // Devuelve el intervalo del traste, nil en caso contrario
+    func getIntervalo() -> TipoIntervaloMusical? {
+      if case let TipoTraste.intervalo(intervalo) = tipo {
+        return intervalo
+      } else {
+        return nil
+      }
+    }
+  
     // Indica si el traste está en blanco o no
     func estaBlanco() -> Bool {
       if case TipoTraste.blanco = tipo {

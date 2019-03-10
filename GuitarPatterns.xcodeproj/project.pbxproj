@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C011999A2235711B00C3C643 /* Patron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01199992235711B00C3C643 /* Patron.swift */; };
 		C07C635022292B0100B36913 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C634F22292B0100B36913 /* AppDelegate.swift */; };
 		C07C635622292B0100B36913 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C635522292B0100B36913 /* GameScene.swift */; };
 		C07C635822292B0100B36913 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C635722292B0100B36913 /* GameViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C01199992235711B00C3C643 /* Patron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patron.swift; sourceTree = "<group>"; };
 		C07C634C22292B0100B36913 /* GuitarPatterns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuitarPatterns.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C07C634F22292B0100B36913 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C07C635522292B0100B36913 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				C0D0A161222D299A00666D6A /* Nota.swift */,
 				C0D0A163222D29B700666D6A /* Intervalo.swift */,
 				C0D0A165222D43BE00666D6A /* Mastil.swift */,
+				C01199992235711B00C3C643 /* Patron.swift */,
 			);
 			path = Modelo;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */,
 				C0D0A162222D299A00666D6A /* Nota.swift in Sources */,
 				C0D0A15E222D271400666D6A /* Traste.swift in Sources */,
+				C011999A2235711B00C3C643 /* Patron.swift in Sources */,
 				C0D0A166222D43BE00666D6A /* Mastil.swift in Sources */,
 				D34F00762229BDC200165192 /* ShapeNota.swift in Sources */,
 				C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */,

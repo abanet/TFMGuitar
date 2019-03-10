@@ -107,7 +107,18 @@ enum TipoIntervaloMusical: String, CaseIterable {
             return 12
         }
     }
+  
+  /**
+   Devuelve el intervalo enarmónico si existe, nil en caso contrario.
+  */
+  func enarmonico() -> TipoIntervaloMusical? {
+    if self.rawValue == "4+" {
+      return .quintadisminuida
+    } else {
+      return nil
+    }
     
+  }
     /**
      Intervalos con una distancia de semitonos dada
     */

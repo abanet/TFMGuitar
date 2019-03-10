@@ -13,8 +13,6 @@ class GuitarraViewController: SKNode {
     var mastil: Mastil!
     var tipo: TipoGuitarra
     
-    
-    
     init(size: CGSize, tipo: TipoGuitarra) {
         viewGuitarra = GuitarraView(size: size, tipo: tipo)
         mastil       = Mastil(tipo: tipo)
