@@ -93,6 +93,7 @@ class GuitarraView: SKNode {
         super.init()
         dibujarCuerdas()
         dibujarTrastes()
+        dibujarBackground()
         calcularMatrizPosicion()
     }
     
@@ -134,6 +135,15 @@ class GuitarraView: SKNode {
         }
     }
     
+    func dibujarBackground() {
+        let textura = SKTexture(imageNamed: "mastil2")
+        let backSprite = SKSpriteNode(texture: textura)
+        backSprite.zPosition = -1
+        backSprite.anchorPoint = .zero
+        backSprite.position = CGPoint(x: 0, y: Medidas.bottomSpace)
+        backSprite.size = CGSize(width: size.width, height: CGFloat(tipo.numeroCuerdas() - 1) * espacioEntreCuerdas)
+        addChild(backSprite)
+    }
     /**
     Añade una nota al mástil de la guitarra en el traste indicado
     */
