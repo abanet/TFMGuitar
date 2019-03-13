@@ -15,12 +15,20 @@ import SpriteKit
 class SceneEditor: SKScene {
     var guitarra: GuitarraViewController!
     
+    var btnReset: UIButton = {
+        let b = UIButton(type: UIButton.ButtonType.custom)
+        b.backgroundColor = UIColor.orange
+        b.setTitle("Reset", for: UIControl.State.normal)
+        return b
+    }()
+    
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
         iniciarGuitarra()
+        addBtnReset()
     }
     
-  
+    
     /**
      Establece una guitarra gráfica con su mástil asociado.
      El mástil se inicializa con notas en blanco.
@@ -66,4 +74,20 @@ class SceneEditor: SKScene {
     }
   }
   
+    func addBtnReset(){
+        self.view?.addSubview(btnReset)
+        btnReset.layer.cornerRadius = 20
+        btnReset.translatesAutoresizingMaskIntoConstraints = false
+        btnReset.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: 30).isActive = true
+        btnReset.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: -30).isActive = true
+        btnReset.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        btnReset.addTarget(self, action: #selector(btnResetPulsado), for: .touchDown)
+    }
+    
+    @objc func btnResetPulsado() {
+        print("Limpiando mástil")
+        guitarra.limpiarMastil()
+    }
+
+    
 }

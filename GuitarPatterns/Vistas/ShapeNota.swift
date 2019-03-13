@@ -30,6 +30,9 @@ class ShapeNota: SKNode {
         didSet {
             if let traste = traste {
                 switch traste.getEstado() {
+                case .blanco:
+                    self.setTextNota("")
+                    tipoShapeNota = .unselected
                 case let .nota(nota):
                     self.setTextNota(nota.getNombreAsText())
                 case let .intervalo(intervalo):
@@ -39,8 +42,6 @@ class ShapeNota: SKNode {
                   } else {
                     self.setTextNota(intervalo.rawValue)
                   }
-                default:
-                    break
                 }
             }
         }}

@@ -15,7 +15,7 @@ struct Colores {
     static let background   = SKColor.lightGray
     static let strings      = SKColor.black
     static let noteStroke   = SKColor.black
-    static let noteFill     = SKColor.lightGray
+    static let noteFill     = SKColor.clear//SKColor.lightGray
     static let noteFillResaltada = SKColor.orange
     static let tonica = SKColor.red
 }
@@ -40,7 +40,7 @@ struct Medidas {
     
     // Strings
     /// ancho de la cuerda
-    static let widthString: CGFloat = 3.0
+    static let widthString: CGFloat = 5.0
     /// número de trastes a mostrar en el mástil
     static let numTrastes = 7
     /// ratio entre espacio entre cuerdas y el tamaño de la nota
@@ -50,4 +50,10 @@ struct Medidas {
 
 struct Notas {
     static let font = "AvenirNext-Regular"
+}
+
+struct zPositionNodes {
+    static let background: CGFloat = -3.0
+    static let trastes: CGFloat    = -2.0
+    static let cuerdas: CGFloat    = -1.0
 }

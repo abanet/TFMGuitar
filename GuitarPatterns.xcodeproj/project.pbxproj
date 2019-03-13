@@ -18,6 +18,7 @@
 		C07C636B22294B5E00B36913 /* Extension+SKShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636A22294B5E00B36913 /* Extension+SKShapeNode.swift */; };
 		C07C636E222952AD00B36913 /* StringGuitar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636D222952AD00B36913 /* StringGuitar.swift */; };
 		C07C6370222957F300B36913 /* GuitarraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636F222957F300B36913 /* GuitarraView.swift */; };
+		C0C5E78922397C3500A39031 /* testTraste.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5E78822397C3500A39031 /* testTraste.swift */; };
 		C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */; };
 		C0D0A15E222D271400666D6A /* Traste.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15D222D271400666D6A /* Traste.swift */; };
 		C0D0A162222D299A00666D6A /* Nota.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A161222D299A00666D6A /* Nota.swift */; };
@@ -53,6 +54,7 @@
 		C07C636A22294B5E00B36913 /* Extension+SKShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SKShapeNode.swift"; sourceTree = "<group>"; };
 		C07C636D222952AD00B36913 /* StringGuitar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringGuitar.swift; sourceTree = "<group>"; };
 		C07C636F222957F300B36913 /* GuitarraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraView.swift; sourceTree = "<group>"; };
+		C0C5E78822397C3500A39031 /* testTraste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTraste.swift; sourceTree = "<group>"; };
 		C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraViewController.swift; sourceTree = "<group>"; };
 		C0D0A15D222D271400666D6A /* Traste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traste.swift; sourceTree = "<group>"; };
 		C0D0A161222D299A00666D6A /* Nota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nota.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		C0DCE16C22311D93002BF466 /* GuitarPatternsTests */ = {
 			isa = PBXGroup;
 			children = (
+				C0C5E78822397C3500A39031 /* testTraste.swift */,
 				C0DCE175223120C7002BF466 /* Mastil.swift */,
 				C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */,
 				C0DCE16F22311D93002BF466 /* Info.plist */,
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */,
+				C0C5E78922397C3500A39031 /* testTraste.swift in Sources */,
 				C0DCE176223120C7002BF466 /* Mastil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

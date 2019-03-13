@@ -45,6 +45,9 @@ class GuitarraView: SKNode {
     // MARK: propiedades
     var size: CGSize
     var tipo: TipoGuitarra
+    var nodeCuerdas: SKShapeNode = SKShapeNode()
+    var nodeTrastes: SKShapeNode = SKShapeNode()
+    
     
     
     /// Ancho del traste según el ancho de la pantalla
@@ -113,9 +116,11 @@ class GuitarraView: SKNode {
             let puntoOrigen  = CGPoint(x: 0, y: posicionCuerda)
             let puntoDestino = CGPoint(x: size.width, y: posicionCuerda)
             let cuerda = StringGuitar(from: puntoOrigen, to: puntoDestino, numCuerda: n)
-            addChild(cuerda)
+            nodeCuerdas.addChild(cuerda)
             posicionCuerda += espacioEntreCuerdas
         }
+        nodeCuerdas.zPosition = zPositionNodes.cuerdas
+        addChild(nodeCuerdas)
     }
     
     /**
@@ -129,16 +134,19 @@ class GuitarraView: SKNode {
             let origen = CGPoint(x: n, y: origenY)
             let final  = CGPoint(x: n, y: finalY)
             let traste = SKShapeNode.drawLine(from: origen, to: final)
-            traste.strokeColor   = Colores.strings
+            traste.strokeTexture = SKTexture(imageNamed: "plata")
+            //traste.strokeColor   = Colores.strings
             traste.lineWidth     = Medidas.widthString
-            addChild(traste)
+            nodeTrastes.addChild(traste)
         }
+        nodeTrastes.zPosition = zPositionNodes.trastes
+        addChild(nodeTrastes)
     }
     
     func dibujarBackground() {
-        let textura = SKTexture(imageNamed: "mastil2")
+        let textura = SKTexture(imageNamed: "mastil")
         let backSprite = SKSpriteNode(texture: textura)
-        backSprite.zPosition = -1
+        backSprite.zPosition = zPositionNodes.background
         backSprite.anchorPoint = .zero
         backSprite.position = CGPoint(x: 0, y: Medidas.bottomSpace)
         backSprite.size = CGSize(width: size.width, height: CGFloat(tipo.numeroCuerdas() - 1) * espacioEntreCuerdas)
@@ -161,7 +169,7 @@ class GuitarraView: SKNode {
      La nota no se crea, simplemente se cambian los valores asociados
     */
     func marcarNotaGuitarra(traste: Traste) {
-        let (x,y) = convertirMastilToView(traste: traste)
+        //let (x,y) = convertirMastilToView(traste: traste)
         for child in self.children {
             if let shapeNota = child as? ShapeNota {
               if let trasteShape = shapeNota.getTraste(), trasteShape.getPosicion() == traste.getPosicion() {
@@ -248,7 +256,7 @@ class GuitarraView: SKNode {
     */
     func trastePulsado(_ touches: Set<UITouch>) -> Traste? {
         if let shapeNota = getNotaTocada(touches) {
-            print("Traste pulsado: \(shapeNota.getTraste())")
+            //print("Traste pulsado: \(shapeNota.getTraste())")
             return shapeNota.getTraste()
         } else {
             return nil

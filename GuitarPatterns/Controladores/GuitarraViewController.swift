@@ -68,7 +68,24 @@ class GuitarraViewController: SKNode {
       }
     }
   }
-  
+    
+  /**
+   Limpia el mástil poniendo a todas las notas en blanco
+   Elimina tanto tónicas como intervalos.
+  */
+  func limpiarMastil() {
+    for cuerda in 1..<tipo.numeroCuerdas() + 1 {
+        for traste in 1..<Medidas.numTrastes + 1 {
+            var trasteActual = mastil.getTraste(numCuerda: cuerda, numTraste: traste)!
+            if !trasteActual.estaBlanco() {
+                        trasteActual.setEstado(tipo: TipoTraste.blanco)
+                        marcarTraste(trasteActual)
+            }
+        }
+    }
+  }
+    
+    
   /**
    Elimina todas las tónicas de la guitarra.
   */
