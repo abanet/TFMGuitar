@@ -60,7 +60,8 @@ class GuitarraView: SKNode {
     /// Espacio entre cuerdas
     var espacioEntreCuerdas: CGFloat {
         get {
-            return (size.height - Medidas.porcentajeTopSpace * size.height - Medidas.bottomSpace) / CGFloat(tipo.numeroCuerdas())
+            //return (size.height - Medidas.porcentajeTopSpace * size.height - Medidas.bottomSpace) /
+            return size.height / CGFloat(tipo.numeroCuerdas())
         }
     }
     

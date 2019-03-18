@@ -37,6 +37,16 @@ struct Medidas {
             return 0.25
         }
     }()
+    static let porcentajeAltoMastil: CGFloat = {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            return 0.65
+        case .pad:
+            return 0.30
+        default:
+            return 0.25
+        }
+    }()
     
     // Strings
     /// ancho de la cuerda

@@ -7,6 +7,8 @@
 //
 
 import SpriteKit
+import CoreGraphics
+
 
 /**
  Scene que permite creación / edición de un patrón
@@ -34,7 +36,8 @@ class SceneEditor: SKScene {
      El mástil se inicializa con notas en blanco.
     */
     func iniciarGuitarra() {
-        guitarra = GuitarraViewController(size: size, tipo: .guitarra)
+        let sizeGuitar = CGSize(width: size.width, height: size.height * Medidas.porcentajeAltoMastil)
+        guitarra = GuitarraViewController(size: sizeGuitar, tipo: .guitarra)
         addChild(guitarra)
         guitarra.crearMastilVacio()
     }
