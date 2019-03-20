@@ -90,6 +90,13 @@ class SceneEditor: SKScene {
     @objc func btnResetPulsado() {
         print("Limpiando mástil")
         guitarra.limpiarMastil()
+        
+        // prueba: editar datos.
+        let vc = EditDataVC()
+        vc.view.frame = (self.view?.frame)!
+        vc.view.layoutIfNeeded()
+        vc.modalTransitionStyle = .flipHorizontal
+        self.view?.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
 
     
