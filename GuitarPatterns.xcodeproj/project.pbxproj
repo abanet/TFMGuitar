@@ -27,6 +27,7 @@
 		C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A163222D29B700666D6A /* Intervalo.swift */; };
 		C0D0A166222D43BE00666D6A /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A165222D43BE00666D6A /* Mastil.swift */; };
 		C0D4CEE1224242FD00B0B835 /* EditDataVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D4CEE0224242FD00B0B835 /* EditDataVC.swift */; };
+		C0D4CEE3224263F700B0B835 /* SceneMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D4CEE2224263F700B0B835 /* SceneMenu.swift */; };
 		C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */; };
 		C0DCE176223120C7002BF466 /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE175223120C7002BF466 /* Mastil.swift */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
@@ -77,6 +78,7 @@
 		C0D0A163222D29B700666D6A /* Intervalo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intervalo.swift; sourceTree = "<group>"; };
 		C0D0A165222D43BE00666D6A /* Mastil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mastil.swift; sourceTree = "<group>"; };
 		C0D4CEE0224242FD00B0B835 /* EditDataVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDataVC.swift; sourceTree = "<group>"; };
+		C0D4CEE2224263F700B0B835 /* SceneMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneMenu.swift; sourceTree = "<group>"; };
 		C0DCE16B22311D93002BF466 /* GuitarPatternsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuitarPatternsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarPatternsTests.swift; sourceTree = "<group>"; };
 		C0DCE16F22311D93002BF466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				C07C635522292B0100B36913 /* GameScene.swift */,
 				D34F00732229A9D200165192 /* SceneEditor.swift */,
+				C0D4CEE2224263F700B0B835 /* SceneMenu.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				D34F00742229A9D200165192 /* SceneEditor.swift in Sources */,
 				C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */,
 				C0D0A162222D299A00666D6A /* Nota.swift in Sources */,
+				C0D4CEE3224263F700B0B835 /* SceneMenu.swift in Sources */,
 				C0D0A15E222D271400666D6A /* Traste.swift in Sources */,
 				C011999A2235711B00C3C643 /* Patron.swift in Sources */,
 				C0D0A166222D43BE00666D6A /* Mastil.swift in Sources */,
