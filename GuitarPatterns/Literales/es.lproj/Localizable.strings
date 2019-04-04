@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  GuitarPatterns
+
+  Created by Alberto Banet Masa on 04/04/2019.
+  Copyright © 2019 Alberto Banet Masa. All rights reserved.
+*/
+
+/* Textos en grabación de datos de patrón */
+"Introduzca los datos del patrón" = "Introduzca los datos del patrón";
+"Acordes" = "Acordes";
+"Arpegios" = "Arpegios";
+"Escalas" = "Escalas";
+"Nombre del patrón" = "Nombre del patrón";
+"Introduce el nombre del patrón" = "Introduce el nombre del patrón";
+"Descripción del patrón" = "Descripción del patrón";
+"Introduce la descripción del patrón" = "Introduce la descripción del patrón";
+"Grabar" = "Grabar";
+"¡Datos incompletos!" = "¡Datos incompletos!";
+"El patrón tiene que tener un nombre." = "El patrón tiene que tener un nombre.";
+"Salir" = "Salir";

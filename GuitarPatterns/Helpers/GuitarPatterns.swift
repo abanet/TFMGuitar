@@ -24,6 +24,7 @@ struct Colores {
 struct Medidas {
     
     // Márgenes de la app teniendo en cuenta el tipo de dispositivo
+    static let minimumMargin: CGFloat = 8.0
     static let topSpace: CGFloat = 50.0 // espacio reservado para la comunicación
     static let bottomSpace: CGFloat = 50.0 // aire en la parte inferior
     static let marginSpace: CGFloat = 50.0 // aire a los lados

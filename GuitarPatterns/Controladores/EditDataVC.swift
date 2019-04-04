@@ -27,35 +27,56 @@ class EditDataVC: FormViewController {
      */
     func populateForm() {
         form
-            +++ Section("Introduzca los datos del patrón")
+            +++ Section("Introduzca los datos del patrón".localizada())
             <<< SegmentedRow<String>() {
                 //$0.title = "Selecciona un tipo de patrón"
-                $0.options = ["Acordes", "Arpegios", "Escalas"]
+                $0.options = ["Acordes".localizada(),
+                              "Arpegios".localizada(),
+                              "Escalas".localizada()]
                 $0.tag = "tipo_patron"
                 $0.value = $0.options!.last
+                }.cellSetup() { cell, row in
+                    cell.backgroundColor = Colores.background
+                    cell.tintColor = .white
             }
             <<< TextRow(){ row in
-                row.title = "Nombre del patrón"
-                row.placeholder = "Introduce el nombre del patrón"
+                row.title = "Nombre del patrón".localizada()
+                row.placeholder = "Introduce el nombre del patrón".localizada()
                 row.tag = "nombre_patron"
-                
-            }
+                }.cellSetup() { cell, row in
+                    cell.backgroundColor = Colores.background
+                    cell.tintColor = .white
+                }
             <<< TextRow(){ row in
-                row.title = "Descripción del patrón"
-                row.placeholder = "Introduce la descripción del patrón"
+                row.title = "Descripción del patrón".localizada()
+                row.placeholder = "Introduce la descripción del patrón".localizada()
                 row.tag = "descripcion_patron"
-            }
+                }.cellSetup() { cell, row in
+                    cell.backgroundColor = Colores.background
+                    cell.tintColor = .white
+                }
             
             +++ Section("")
             <<< ButtonRow(){
-                $0.title = "Grabar"
-                $0.onCellSelection(buttonTapped)
+                $0.title = "Grabar".localizada()
+                $0.onCellSelection(btnGrabarPulsado)
+                }.cellSetup() { cell, row in
+                    cell.backgroundColor = Colores.noteFillResaltada
+                    cell.tintColor = .white
             }
-        self.tableView?.backgroundColor = .purple
+            
+            <<< ButtonRow(){
+                $0.title = "Salir".localizada()
+                $0.onCellSelection(btnSalirPulsado)
+                }.cellSetup() { cell, row in
+                    cell.backgroundColor = Colores.tonica
+                    cell.tintColor = .white
+        }
+        self.tableView?.backgroundColor = Colores.background
     }
     
     
-    func buttonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+    func btnGrabarPulsado(cell: ButtonCellOf<String>, row: ButtonRow) {
         // Coger los datos del formulario
         let formValores = self.form.values()
         if let nombre = formValores["nombre_patron"]! as? String {
@@ -65,9 +86,12 @@ class EditDataVC: FormViewController {
             delegate?.onFormularioRelleno(nombre: nombre, descripcion: descripcion, tipo: categoria)
             self.dismiss(animated: true, completion: nil)
         } else {
-            Alertas.mostrar(titulo: "¡Datos incompletos!", mensaje: "El patrón tiene que tener un nombre.", enViewController: self)
+            Alertas.mostrar(titulo: "¡Datos incompletos!".localizada(), mensaje: "El patrón tiene que tener un nombre.".localizada(), enViewController: self)
         }
     }
     
+    func btnSalirPulsado(cell: ButtonCellOf<String>, row: ButtonRow) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }

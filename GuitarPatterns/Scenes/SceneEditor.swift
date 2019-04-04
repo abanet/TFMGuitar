@@ -78,17 +78,17 @@ class SceneEditor: SKScene {
     private func addBotones(){
         self.view?.addSubview(btnReset)
         self.view?.addSubview(btnSave)
-        btnReset.layer.cornerRadius = 20
-        btnSave.layer.cornerRadius  = 20
+        btnReset.layer.cornerRadius = 5
+        btnSave.layer.cornerRadius  = 5
         
         btnReset.translatesAutoresizingMaskIntoConstraints = false
         btnSave.translatesAutoresizingMaskIntoConstraints  = false
         
-        btnReset.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: 30).isActive = true
-        btnSave.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: 30).isActive = true
+        btnReset.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
+        btnSave.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
         
-        btnReset.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: -30).isActive = true
-        btnSave.trailingAnchor.constraint(equalTo: btnReset.trailingAnchor, constant: -30).isActive = true
+        btnReset.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: -Medidas.minimumMargin).isActive = true
+        btnSave.trailingAnchor.constraint(equalTo: btnReset.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
         
         btnReset.widthAnchor.constraint(equalToConstant: 150).isActive = true
         btnSave.widthAnchor.constraint(equalToConstant: 150).isActive  = true
@@ -105,6 +105,7 @@ class SceneEditor: SKScene {
 
     @objc func btnSavePulsado() {
         let vc = EditDataVC()
+        vc.delegate = self 
         vc.view.frame = (self.view?.frame)!
         vc.view.layoutIfNeeded()
         vc.modalTransitionStyle = .flipHorizontal
@@ -121,7 +122,6 @@ class SceneEditor: SKScene {
 }
 
 extension SceneEditor: FormularioDelegate {
-    
     
     func onFormularioRelleno(nombre: String, descripcion: String, tipo: String) {
         // tenemos el patrón en el mastil y los datos del patrón. Grabamos los datos a la base de datos.

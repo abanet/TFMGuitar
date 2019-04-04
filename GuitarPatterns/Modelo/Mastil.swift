@@ -118,8 +118,7 @@ class Mastil {
   
   
   // MARK: Funciones de búsqueda en el mástil
-  
-  
+
   /**
    Función que busca trastes que contienen notas que cumplen una función interválica concreta
    */
