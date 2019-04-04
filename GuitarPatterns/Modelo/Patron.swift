@@ -8,12 +8,24 @@
 
 import SpriteKit
 
+enum TipoPatron: String {
+    case Escala
+    case Arpegio
+    case Acorde
+}
+
+
 class Patron {
+    
+  var nombre: String? // nombre del patrón
+  var descripcion: String? // descripción del patrón
+  var tipo: TipoPatron?
   
   var trastes: [Traste] = [Traste]()
   
   init(trastes: [Traste]) {
     self.trastes  = trastes
+    
   }
   
   func addTraste(_ traste: Traste) {

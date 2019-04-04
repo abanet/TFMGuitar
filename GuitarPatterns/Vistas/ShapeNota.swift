@@ -140,6 +140,7 @@ class ShapeNota: SKNode {
         literal.horizontalAlignmentMode = .center
         literal.alpha = 1.0
         
+        
     }
 }
 

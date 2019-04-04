@@ -15,7 +15,7 @@ struct Colores {
     static let background   = SKColor.lightGray
     static let strings      = SKColor.black
     static let noteStroke   = SKColor.black
-    static let noteFill     = SKColor.clear//SKColor.lightGray
+    static let noteFill     = SKColor.lightGray //SKColor.clear
     static let noteFillResaltada = SKColor.orange
     static let tonica = SKColor.red
 }

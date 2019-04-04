@@ -15,19 +15,17 @@ import CoreGraphics
  */
 
 class SceneEditor: SKScene {
+    
     var guitarra: GuitarraViewController!
     
-    var btnReset: UIButton = {
-        let b = UIButton(type: UIButton.ButtonType.custom)
-        b.backgroundColor = UIColor.orange
-        b.setTitle("Reset", for: UIControl.State.normal)
-        return b
-    }()
+    lazy var btnReset: UIButton = crearBoton(nombre: "Reset")
+    lazy var btnSave: UIButton = crearBoton(nombre: "Save")
+    
     
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
         iniciarGuitarra()
-        addBtnReset()
+        addBotones()
     }
     
     
@@ -77,27 +75,58 @@ class SceneEditor: SKScene {
     }
   }
   
-    func addBtnReset(){
+    private func addBotones(){
         self.view?.addSubview(btnReset)
+        self.view?.addSubview(btnSave)
         btnReset.layer.cornerRadius = 20
+        btnSave.layer.cornerRadius  = 20
+        
         btnReset.translatesAutoresizingMaskIntoConstraints = false
+        btnSave.translatesAutoresizingMaskIntoConstraints  = false
+        
         btnReset.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: 30).isActive = true
+        btnSave.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: 30).isActive = true
+        
         btnReset.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: -30).isActive = true
+        btnSave.trailingAnchor.constraint(equalTo: btnReset.trailingAnchor, constant: -30).isActive = true
+        
         btnReset.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        btnSave.widthAnchor.constraint(equalToConstant: 150).isActive  = true
+        
         btnReset.addTarget(self, action: #selector(btnResetPulsado), for: .touchDown)
+        btnSave.addTarget(self, action: #selector(btnSavePulsado), for: .touchDown)
     }
+    
     
     @objc func btnResetPulsado() {
         print("Limpiando mástil")
         guitarra.limpiarMastil()
-        
-        // prueba: editar datos.
+    }
+
+    @objc func btnSavePulsado() {
         let vc = EditDataVC()
         vc.view.frame = (self.view?.frame)!
         vc.view.layoutIfNeeded()
         vc.modalTransitionStyle = .flipHorizontal
         self.view?.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
+    
+    private func crearBoton(nombre: String) -> UIButton {
+        let b = UIButton(type: UIButton.ButtonType.custom)
+        b.backgroundColor = UIColor.orange
+        b.setTitle(nombre, for: UIControl.State.normal)
+        return b
+    }
+    
+}
 
+extension SceneEditor: FormularioDelegate {
+    
+    
+    func onFormularioRelleno(nombre: String, descripcion: String, tipo: String) {
+        // tenemos el patrón en el mastil y los datos del patrón. Grabamos los datos a la base de datos.
+       print("Se va a grabar: \(tipo), \(nombre), \(descripcion)")
+    }
+    
     
 }

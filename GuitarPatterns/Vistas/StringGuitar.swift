@@ -18,7 +18,8 @@ class StringGuitar: SKNode {
     init(from: CGPoint, to: CGPoint, numCuerda: Int) {
         self.numCuerda = numCuerda
         shape = SKShapeNode.drawLine(from: from, to: to)
-        shape.strokeTexture = SKTexture(imageNamed: "cuerda")
+       // shape.strokeTexture = SKTexture(imageNamed: "cuerda")
+        shape.strokeColor = Colores.strings
         shape.lineWidth     = Medidas.widthString
         super.init()
         addChild(shape)

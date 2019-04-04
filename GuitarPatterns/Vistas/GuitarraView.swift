@@ -97,7 +97,7 @@ class GuitarraView: SKNode {
         super.init()
         dibujarCuerdas()
         dibujarTrastes()
-        dibujarBackground()
+       // dibujarBackground()
         calcularMatrizPosicion()
     }
     
@@ -135,8 +135,8 @@ class GuitarraView: SKNode {
             let origen = CGPoint(x: n, y: origenY)
             let final  = CGPoint(x: n, y: finalY)
             let traste = SKShapeNode.drawLine(from: origen, to: final)
-            traste.strokeTexture = SKTexture(imageNamed: "plata")
-            //traste.strokeColor   = Colores.strings
+            //traste.strokeTexture = SKTexture(imageNamed: "plata")
+            traste.strokeColor   = Colores.strings
             traste.lineWidth     = Medidas.widthString
             nodeTrastes.addChild(traste)
         }

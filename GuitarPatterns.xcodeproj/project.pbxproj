@@ -30,6 +30,7 @@
 		C0D4CEE3224263F700B0B835 /* SceneMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D4CEE2224263F700B0B835 /* SceneMenu.swift */; };
 		C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */; };
 		C0DCE176223120C7002BF466 /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE175223120C7002BF466 /* Mastil.swift */; };
+		C0DE7F3D2256141500A5BD9C /* Alertas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE7F3C2256141500A5BD9C /* Alertas.swift */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
 /* End PBXBuildFile section */
@@ -83,6 +84,7 @@
 		C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarPatternsTests.swift; sourceTree = "<group>"; };
 		C0DCE16F22311D93002BF466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0DCE175223120C7002BF466 /* Mastil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mastil.swift; sourceTree = "<group>"; };
+		C0DE7F3C2256141500A5BD9C /* Alertas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertas.swift; sourceTree = "<group>"; };
 		D34F00732229A9D200165192 /* SceneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditor.swift; sourceTree = "<group>"; };
 		D34F00752229BDC200165192 /* ShapeNota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNota.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -184,6 +186,7 @@
 			children = (
 				C07C636822292DEB00B36913 /* GuitarPatterns.swift */,
 				C07C636A22294B5E00B36913 /* Extension+SKShapeNode.swift */,
+				C0DE7F3C2256141500A5BD9C /* Alertas.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				D34F00742229A9D200165192 /* SceneEditor.swift in Sources */,
 				C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */,
 				C0D0A162222D299A00666D6A /* Nota.swift in Sources */,
+				C0DE7F3D2256141500A5BD9C /* Alertas.swift in Sources */,
 				C0D4CEE3224263F700B0B835 /* SceneMenu.swift in Sources */,
 				C0D0A15E222D271400666D6A /* Traste.swift in Sources */,
 				C011999A2235711B00C3C643 /* Patron.swift in Sources */,

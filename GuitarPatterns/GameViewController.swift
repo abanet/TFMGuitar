@@ -15,7 +15,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = SceneMenu(size:CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))//SceneEditor(size:CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        let scene = //SceneMenu(size:CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+            SceneEditor(size:CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         let skView = self.view as! SKView
         skView.ignoresSiblingOrder = true
         scene.scaleMode = .aspectFill
