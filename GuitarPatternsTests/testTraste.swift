@@ -27,6 +27,14 @@ class testTraste: XCTestCase {
          XCTAssertFalse(trasteIntervalo.estaBlanco())
     }
 
+    func testCodificarTraste() {
+        XCTAssertTrue(trasteBlanco.codificar() == 61)
+        XCTAssertTrue(trasteIntervalo.codificar() == 52)
+    }
 
+    func testDecodificarTraste() {
+        let nuevoTraste = Traste.decodificar(61)
+        XCTAssertTrue(nuevoTraste.getPosicion() == trasteBlanco.getPosicion())
+    }
 
 }

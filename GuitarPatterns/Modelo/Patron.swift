@@ -17,12 +17,12 @@ enum TipoPatron: String {
 
 class Patron {
     
-    var nombre: String? // nombre del patrón
-    var descripcion: String? // descripción del patrón
-    var tipo: TipoPatron?
+    private var nombre: String? // nombre del patrón
+    private var descripcion: String? // descripción del patrón
+    private var tipo: TipoPatron?
     
-    var trastes: [Traste] = [Traste]()
-    var tonica: Traste?
+    private var trastes: [Traste] = [Traste]()
+    private var tonica: Traste?
     
     init(trastes: [Traste]) {
         self.trastes  = trastes
@@ -32,6 +32,50 @@ class Patron {
     func addTraste(_ traste: Traste) {
         trastes.append(traste)
     }
+    
+    func getNombre() -> String? {
+        return nombre
+    }
+    
+    func setNombre(_ nombre: String) {
+        self.nombre = nombre
+    }
+    
+    func getDescripcion() -> String? {
+        return descripcion
+    }
+    
+    func setDescripcion(_ nombre: String) {
+        self.descripcion = nombre
+    }
+    
+    func getTipo() -> TipoPatron? {
+        return tipo
+    }
+    
+    func setTipo(_ tipo: TipoPatron) {
+        self.tipo = tipo
+    }
+    
+    func getTonica() -> Traste? {
+        return tonica
+    }
+    
+    func setTonica(_ tonica: Traste) {
+        self.tonica = tonica
+    }
+    
+    /**
+     Indica si un patrón está completo o no.
+     Un patrón está completo si tiene al menos dos trastes, una tónica, y el tipo y nombre definidos.
+    */
+    func estaCompleto() -> Bool {
+        guard (nombre != nil), (descripcion != nil), (tonica != nil), (tipo != nil) else {
+            return false
+        }
+        return trastes.count > 1
+    }
+    
     
     /**
      Codifica la sucesión de trastes en un formato de arrays de enteros.
@@ -85,7 +129,7 @@ class Patron {
      *Cuidado* Modifica la tónica del patrón
     */
     func decodificaTonica(_ trasteCodificado: Int) {
-        self.tonica = decodificarTraste(trasteCodificado)
+        self.tonica = Traste.decodificar(trasteCodificado)
     }
     
 }

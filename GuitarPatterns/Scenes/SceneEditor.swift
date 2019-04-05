@@ -104,12 +104,17 @@ class SceneEditor: SKScene {
     }
 
     @objc func btnSavePulsado() {
-        let vc = EditDataVC()
-        vc.delegate = self 
-        vc.view.frame = (self.view?.frame)!
-        vc.view.layoutIfNeeded()
-        vc.modalTransitionStyle = .flipHorizontal
-        self.view?.window?.rootViewController?.present(vc, animated: true, completion: nil)
+        if let tonica = guitarra.mastil.trasteTonica() {
+            let vc = EditDataVC()
+            vc.delegate = self
+            vc.view.frame = (self.view?.frame)!
+            vc.view.layoutIfNeeded()
+            vc.modalTransitionStyle = .flipHorizontal
+            self.view?.window?.rootViewController?.present(vc, animated: true, completion: nil)
+        } else {
+            // No hay tónica, no hay patrón
+            Alertas.mostrar(titulo: "¡Tónica obligatoria!".localizada(), mensaje: "Un patrón tiene que tener una tónica de referencia.".localizada(), enViewController: (view!.window!.rootViewController!))
+        }
     }
     
     private func crearBoton(nombre: String) -> UIButton {
@@ -132,6 +137,18 @@ extension SceneEditor: FormularioDelegate {
     */
     func onFormularioRelleno(nombre: String, descripcion: String, tipo: String) {
         // tenemos el patrón en el mastil y los datos del patrón. Grabamos los datos a la base de datos.
+        if let tonica = guitarra.mastil.trasteTonica() {
+            let patron = guitarra.mastil.getPatron()
+            patron.setNombre(nombre)
+            patron.setDescripcion(descripcion)
+            patron.setTipo(TipoPatron(rawValue: tipo) ?? TipoPatron.Escala)
+            patron.setTonica(tonica)
+            PatronesDB.share.grabarPatronEnPublica(patron) { ok in
+                if ok {
+                    print("Registro grabado")
+                }
+            }
+        }
        print("Se va a grabar: \(tipo), \(nombre), \(descripcion)")
     }
     

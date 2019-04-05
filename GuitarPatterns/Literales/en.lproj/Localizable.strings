@@ -6,6 +6,11 @@
   Copyright © 2019 Alberto Banet Masa. All rights reserved.
 */
 
+/* Textos en SceneEditor */
+"¡Tónica obligatoria!" = "Tonic mandatory!";
+"Un patrón tiene que tener una tónica de referencia." = "A patron must have a tonic.";
+
+
 /* Textos en grabación de datos de patrón */
 "Introduzca los datos del patrón" = "Patron data";
 "Acordes" = "Chords";
