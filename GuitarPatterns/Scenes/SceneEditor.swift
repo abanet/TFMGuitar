@@ -121,8 +121,15 @@ class SceneEditor: SKScene {
     
 }
 
+/**
+ Implementación del protocolo FormularioDelegate
+ */
 extension SceneEditor: FormularioDelegate {
     
+    /**
+     Se ha completado el formulario con los datos del patrón.
+     Grabamos los datos del patrón en la base de datos
+    */
     func onFormularioRelleno(nombre: String, descripcion: String, tipo: String) {
         // tenemos el patrón en el mastil y los datos del patrón. Grabamos los datos a la base de datos.
        print("Se va a grabar: \(tipo), \(nombre), \(descripcion)")

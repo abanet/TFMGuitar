@@ -133,6 +133,22 @@ struct Traste {
             return false
         }
     }
+    
+    /**
+     Codifica un traste
+     */
+    func codificar() -> Int {
+        let posicionTraste = self.getPosicion()
+        let codificacion = posicionTraste.cuerda * 10 + posicionTraste.traste
+        return codificacion
+    }
+    
+    /**
+     Decodifica un Int a su equivalente traste
+     */
+    static func decodificar(_ trasteCodificado: Int) -> Traste {
+        return Traste(cuerda: Int(trasteCodificado/10) , traste: trasteCodificado % 10, estado: .blanco)
+    }
    
 }
 
