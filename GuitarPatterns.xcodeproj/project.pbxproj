@@ -33,6 +33,8 @@
 		C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */; };
 		C0DCE176223120C7002BF466 /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE175223120C7002BF466 /* Mastil.swift */; };
 		C0DE7F3D2256141500A5BD9C /* Alertas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE7F3C2256141500A5BD9C /* Alertas.swift */; };
+		D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */; };
+		D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC6225A16BB00C93C66 /* NexaBook.otf */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
 		D3613B6222566DE000F15420 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3613B6122566DE000F15420 /* Extension+String.swift */; };
@@ -92,6 +94,8 @@
 		C0DCE16F22311D93002BF466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0DCE175223120C7002BF466 /* Mastil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mastil.swift; sourceTree = "<group>"; };
 		C0DE7F3C2256141500A5BD9C /* Alertas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertas.swift; sourceTree = "<group>"; };
+		D3223FC6225A16BB00C93C66 /* NexaBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBook.otf; sourceTree = "<group>"; };
+		D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nexa-Bold.otf"; sourceTree = "<group>"; };
 		D34F00732229A9D200165192 /* SceneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditor.swift; sourceTree = "<group>"; };
 		D34F00752229BDC200165192 /* ShapeNota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNota.swift; sourceTree = "<group>"; };
 		D3613B6122566DE000F15420 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 		C07C634322292B0100B36913 = {
 			isa = PBXGroup;
 			children = (
+				D3223FBF225A169700C93C66 /* fonts */,
 				C07C634E22292B0100B36913 /* GuitarPatterns */,
 				C0DCE16C22311D93002BF466 /* GuitarPatternsTests */,
 				C045E5DC223BECE500ACF510 /* GuitarPatternsUITests */,
@@ -247,6 +252,15 @@
 				C0DCE16F22311D93002BF466 /* Info.plist */,
 			);
 			path = GuitarPatternsTests;
+			sourceTree = "<group>";
+		};
+		D3223FBF225A169700C93C66 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */,
+				D3223FC6225A16BB00C93C66 /* NexaBook.otf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		D34F00722229A9AE00165192 /* Scenes */ = {
@@ -391,7 +405,9 @@
 			files = (
 				C07C635B22292B0100B36913 /* Main.storyboard in Resources */,
 				D3613B6522566F7D00F15420 /* Localizable.strings in Resources */,
+				D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */,
 				C07C635D22292B0300B36913 /* Assets.xcassets in Resources */,
+				D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */,
 				C07C636022292B0300B36913 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

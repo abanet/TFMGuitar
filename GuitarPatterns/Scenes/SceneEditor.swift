@@ -17,15 +17,33 @@ import CoreGraphics
 class SceneEditor: SKScene {
     
     var guitarra: GuitarraViewController!
-    
-    lazy var btnReset: UIButton = crearBoton(nombre: "Reset")
-    lazy var btnSave: UIButton = crearBoton(nombre: "Save")
-    
+
+    lazy var btnReset: UIButton = crearBoton(nombre: "Reset".localizada())
+    lazy var btnEditarNombre: UIButton = crearBoton(nombre: "Editar Nombre".localizada())
+    var nombrePatron: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Nexa-Bold", size: 18.0)
+        label.sizeToFit()
+        return label
+    }()
+    var categoriaPatron: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Nexa-Bold", size: 18.0)
+        label.sizeToFit()
+        return label
+    }()
+    var descripcionPatron: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "NexaBook", size: 16.0)
+        label.sizeToFit()
+        return label
+    }()
+        
     
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
         iniciarGuitarra()
-        addBotones()
+        addUserInterfaz()
     }
     
     
@@ -75,26 +93,40 @@ class SceneEditor: SKScene {
     }
   }
   
-    private func addBotones(){
+    private func addUserInterfaz(){
         self.view?.addSubview(btnReset)
-        self.view?.addSubview(btnSave)
+        self.view?.addSubview(btnEditarNombre)
+        self.view?.addSubview(nombrePatron)
+        self.view?.addSubview(descripcionPatron)
+        self.view?.addSubview(categoriaPatron)
+        
         btnReset.layer.cornerRadius = 5
-        btnSave.layer.cornerRadius  = 5
+        btnEditarNombre.layer.cornerRadius  = 5
         
         btnReset.translatesAutoresizingMaskIntoConstraints = false
-        btnSave.translatesAutoresizingMaskIntoConstraints  = false
+        btnEditarNombre.translatesAutoresizingMaskIntoConstraints  = false
+        nombrePatron.translatesAutoresizingMaskIntoConstraints = false
+        descripcionPatron.translatesAutoresizingMaskIntoConstraints = false
+        categoriaPatron.translatesAutoresizingMaskIntoConstraints = false
         
         btnReset.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
-        btnSave.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
+        btnEditarNombre.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
+        categoriaPatron.bottomAnchor.constraint(equalTo: btnReset.bottomAnchor).isActive = true
+        nombrePatron.bottomAnchor.constraint(equalTo: btnReset.bottomAnchor).isActive = true
+        descripcionPatron.topAnchor.constraint(equalTo: nombrePatron.bottomAnchor, constant: Medidas.minimumMargin).isActive = true
+        //nombrePatron.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
         
-        btnReset.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: -Medidas.minimumMargin).isActive = true
-        btnSave.trailingAnchor.constraint(equalTo: btnReset.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
+        btnReset.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: -Medidas.minimumMargin * 2).isActive = true
+        btnEditarNombre.trailingAnchor.constraint(equalTo: btnReset.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
+        categoriaPatron.leadingAnchor.constraint(equalTo: self.view!.leadingAnchor, constant: Medidas.minimumMargin * 2).isActive = true
+        nombrePatron.leadingAnchor.constraint(equalTo: categoriaPatron.trailingAnchor, constant: Medidas.minimumMargin * 2).isActive = true
+        descripcionPatron.leadingAnchor.constraint(equalTo: categoriaPatron.leadingAnchor).isActive = true
         
         btnReset.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        btnSave.widthAnchor.constraint(equalToConstant: 150).isActive  = true
+        btnEditarNombre.widthAnchor.constraint(equalToConstant: 150).isActive  = true
         
         btnReset.addTarget(self, action: #selector(btnResetPulsado), for: .touchDown)
-        btnSave.addTarget(self, action: #selector(btnSavePulsado), for: .touchDown)
+        btnEditarNombre.addTarget(self, action: #selector(btnEditarNombrePulsado), for: .touchDown)
     }
     
     
@@ -103,9 +135,12 @@ class SceneEditor: SKScene {
         guitarra.limpiarMastil()
     }
 
-    @objc func btnSavePulsado() {
+    @objc func btnEditarNombrePulsado() {
         if let tonica = guitarra.mastil.trasteTonica() {
             let vc = EditDataVC()
+            vc.nombrePatron = nombrePatron.text
+            vc.descripcionPatron = descripcionPatron.text
+            
             vc.delegate = self
             vc.view.frame = (self.view?.frame)!
             vc.view.layoutIfNeeded()
@@ -117,12 +152,32 @@ class SceneEditor: SKScene {
         }
     }
     
+    @objc func btnSavePatronPulsado() {
+        if let tonica = guitarra.mastil.trasteTonica() {
+            let patron = guitarra.mastil.getPatron()
+            patron.setNombre(nombre)
+            patron.setDescripcion(descripcion)
+            patron.setTipo(TipoPatron(rawValue: tipo) ?? TipoPatron.Escala)
+            patron.setTonica(tonica)
+            nombrePatron.text = nombre
+            descripcionPatron.text = descripcion
+            categoriaPatron.text = tipo + ":"
+            //            PatronesDB.share.grabarPatronEnPublica(patron) { ok in
+            //                if ok {
+            //                    print("Registro grabado")
+            //                }
+            //            }
+        }
+    }
+    
     private func crearBoton(nombre: String) -> UIButton {
         let b = UIButton(type: UIButton.ButtonType.custom)
         b.backgroundColor = UIColor.orange
         b.setTitle(nombre, for: UIControl.State.normal)
         return b
     }
+    
+    
     
 }
 
@@ -143,13 +198,15 @@ extension SceneEditor: FormularioDelegate {
             patron.setDescripcion(descripcion)
             patron.setTipo(TipoPatron(rawValue: tipo) ?? TipoPatron.Escala)
             patron.setTonica(tonica)
-            PatronesDB.share.grabarPatronEnPublica(patron) { ok in
-                if ok {
-                    print("Registro grabado")
-                }
-            }
+            nombrePatron.text = nombre
+            descripcionPatron.text = descripcion
+            categoriaPatron.text = tipo + ":"
+//            PatronesDB.share.grabarPatronEnPublica(patron) { ok in
+//                if ok {
+//                    print("Registro grabado")
+//                }
+//            }
         }
-       print("Se va a grabar: \(tipo), \(nombre), \(descripcion)")
     }
     
     

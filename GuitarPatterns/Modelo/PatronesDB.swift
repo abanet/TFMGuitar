@@ -33,6 +33,7 @@ class PatronesDB {
     var publicDB : CKDatabase!
     var privateDB: CKDatabase!
     var sharedDB : CKDatabase!
+    var registroActual: CKRecord?
     
     private init() {
         container = CKContainer.default()
@@ -40,7 +41,14 @@ class PatronesDB {
         privateDB = container.privateCloudDatabase
         sharedDB  = container.sharedCloudDatabase
     }
-    
+ 
+    /**
+     Crea un registro nuevo
+     */
+    func crearNuevoRegistro()-> CKRecord {
+        let registro = CKRecord(recordType: iCloudRegistros.patron)
+        return registro
+    }
     
     /**
      Graba un patrón en la base de datos pública
@@ -50,13 +58,20 @@ class PatronesDB {
     }
     
     /**
-     Graba un patrón en la base de datos indicada.
+     Crea y graba un patrón en la base de datos indicada.
      El patrón tiene que contener datos válidos
     */
     func grabarPatron(_ patron: Patron, enBbdd bbdd: CKDatabase, completion: @escaping (Bool) ->()) {
         // creamos registro con los datos del patrón
-        //TODO: estamos creando un registro nuevo cada vez que grabamos!!!
-        let registro = CKRecord(recordType: iCloudRegistros.patron)
+        if registroActual == nil { // creamos un registro nuevo
+            registroActual = crearNuevoRegistro()
+        }
+        
+        // a estas alturas tiene que haber un registro para modificar seguro pero por si acaso...
+        guard let registro = registroActual else {
+            return
+        }
+        
         registro[iCloudPatron.nombre] = patron.getNombre()! as NSString
         registro[iCloudPatron.descripcion] = patron.getDescripcion()! as NSString
         registro[iCloudPatron.tipo] = patron.getTipo()!.rawValue as NSString
@@ -65,12 +80,13 @@ class PatronesDB {
         registro[iCloudPatron.visible] = 1
         
         // grabar registro en base de datos
-        bbdd.save(registro) { record, error in
+        bbdd.save(registro) { [unowned self] record, error in
             if error != nil {
                 print(error!.localizedDescription)
                 completion(false)
             } else {
                 completion(true)
+                self.registroActual = record
             }
         }
     }

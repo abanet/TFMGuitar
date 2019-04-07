@@ -16,11 +16,15 @@
 "Acordes" = "Acordes";
 "Arpegios" = "Arpegios";
 "Escalas" = "Escalas";
+"Acorde" = "Acorde";
+"Arpegio" = "Arpegio";
+"Escala" = "Escala";
 "Nombre del patrón" = "Nombre del patrón";
 "Introduce el nombre del patrón" = "Introduce el nombre del patrón";
 "Descripción del patrón" = "Descripción del patrón";
 "Introduce la descripción del patrón" = "Introduce la descripción del patrón";
 "Grabar" = "Grabar";
+"Editar Nombre" = "Editar Nombre";
 "¡Datos incompletos!" = "¡Datos incompletos!";
 "El patrón tiene que tener un nombre." = "El patrón tiene que tener un nombre.";
 "Salir" = "Salir";
