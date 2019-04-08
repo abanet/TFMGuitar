@@ -81,7 +81,7 @@ class EditDataVC: FormViewController {
             
             +++ Section("")
             <<< ButtonRow(){
-                $0.title = "Save".localizada()
+                $0.title = "Grabar".localizada()
                 $0.onCellSelection(btnGrabarPulsado)
                 }.cellSetup() { cell, row in
                     cell.backgroundColor = Colores.noteFillResaltada

@@ -6,10 +6,20 @@
   Copyright © 2019 Alberto Banet Masa. All rights reserved.
 */
 
+/* Generales */
+"Ok" = "Ok";
+"Cancelar" = "Cancel";
+"Sí" = "Yes";
+
+
+
 /* Textos en SceneEditor */
 "¡Tónica obligatoria!" = "Tonic mandatory!";
 "Un patrón tiene que tener una tónica de referencia." = "A patron must have a tonic.";
-
+"¡Faltan datos!" = "Missing some data!";
+"Vaya a editar nombre para asignar el nombre y el tipo del patrón." = "Press Edit Name button to assign a name and the patron's kind.";
+"¡Defina un patrón!" = "There is not patron!";
+"Un patrón tiene que tener al menos 3 notas asignadas." = "We need at least 3 notes in order to save a patron.";
 
 /* Textos en grabación de datos de patrón */
 "Introduzca los datos del patrón" = "Patron data";
@@ -24,7 +34,9 @@
 "Descripción del patrón" = "Patron description";
 "Introduce la descripción del patrón" = "Enter the patron description";
 "Grabar" = "Save";
+"Reset" = "Limpiar";
 "Editar Nombre" = "Edit Name";
+"Nuevo" = "New";
 "¡Datos incompletos!" = "¡incomplete data!";
 "El patrón tiene que tener un nombre." = "Patron must have a name";
 "Salir" = "Exit";

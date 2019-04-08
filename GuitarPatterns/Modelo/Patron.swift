@@ -24,9 +24,14 @@ class Patron {
     private var trastes: [Traste] = [Traste]()
     private var tonica: Traste?
     
+    
+    init(nombre: String, tipo: String) {
+        self.nombre = nombre
+        self.tipo = TipoPatron(rawValue: tipo)
+    }
+    
     init(trastes: [Traste]) {
         self.trastes  = trastes
-        
     }
     
     func addTraste(_ traste: Traste) {
@@ -65,6 +70,13 @@ class Patron {
         self.tonica = tonica
     }
     
+    func getTrastes() -> [Traste] {
+        return trastes
+    }
+    
+    func setTrastes(_ trastes: [Traste]) {
+        self.trastes = trastes
+    }
     /**
      Indica si un patrón está completo o no.
      Un patrón está completo si tiene al menos dos trastes, una tónica, y el tipo y nombre definidos.

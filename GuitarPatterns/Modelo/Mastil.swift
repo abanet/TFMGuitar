@@ -158,19 +158,30 @@ class Mastil {
   }
   
   /**
-   Obtiene el patrón que está representado en el mástil
+   Crea un nuevo patrón que contiene únicamente los trastes representados en el mástil.
    */
-  func getPatron() -> Patron {
-    var trastesPatron = [Traste]()
-    for (_, arrayTrastes) in trastes.enumerated() {
-      for (_, traste) in arrayTrastes.enumerated() {
-        if !traste.estaBlanco() {
-          trastesPatron.append(traste)
-        }
-      }
+    func getPatron() -> Patron {
+        return Patron(trastes: getTrastes())
     }
-    return Patron(trastes: trastesPatron)
-  }
+    
+    func getTrastes() -> [Traste] {
+        var trastesPatron = [Traste]()
+        for (_, arrayTrastes) in trastes.enumerated() {
+            for (_, traste) in arrayTrastes.enumerated() {
+                if !traste.estaBlanco() {
+                    trastesPatron.append(traste)
+                }
+            }
+        }
+        return trastesPatron
+    }
+    
+    /**
+     Devuelve el número de notas presentes en el mástil
+    */
+    func lenght() -> Int {
+        return getTrastes().count
+    }
   
 }
 

@@ -45,11 +45,17 @@ class PatronesDB {
     /**
      Crea un registro nuevo
      */
-    func crearNuevoRegistro()-> CKRecord {
-        let registro = CKRecord(recordType: iCloudRegistros.patron)
-        return registro
+    func crearNuevoRegistro() {
+        registroActual = CKRecord(recordType: iCloudRegistros.patron)
     }
     
+    /**
+     Cierra el registro sobre el que se está trabajando en la base de datos
+    */
+    func cerrarRegistro() {
+        registroActual = nil
+    }
+
     /**
      Graba un patrón en la base de datos pública
     */
@@ -64,7 +70,7 @@ class PatronesDB {
     func grabarPatron(_ patron: Patron, enBbdd bbdd: CKDatabase, completion: @escaping (Bool) ->()) {
         // creamos registro con los datos del patrón
         if registroActual == nil { // creamos un registro nuevo
-            registroActual = crearNuevoRegistro()
+            crearNuevoRegistro()
         }
         
         // a estas alturas tiene que haber un registro para modificar seguro pero por si acaso...
