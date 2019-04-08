@@ -162,7 +162,7 @@
 		C07C634322292B0100B36913 = {
 			isa = PBXGroup;
 			children = (
-				C0B41228225B733700BF5C4E /* launchScreen.png */,
+				C0B4122A225B7EF500BF5C4E /* imagenes */,
 				D3223FBF225A169700C93C66 /* fonts */,
 				C07C634E22292B0100B36913 /* GuitarPatterns */,
 				C0DCE16C22311D93002BF466 /* GuitarPatternsTests */,
@@ -222,6 +222,14 @@
 				D34F00752229BDC200165192 /* ShapeNota.swift */,
 			);
 			path = Vistas;
+			sourceTree = "<group>";
+		};
+		C0B4122A225B7EF500BF5C4E /* imagenes */ = {
+			isa = PBXGroup;
+			children = (
+				C0B41228225B733700BF5C4E /* launchScreen.png */,
+			);
+			path = imagenes;
 			sourceTree = "<group>";
 		};
 		C0D0A159222D21C100666D6A /* Controladores */ = {

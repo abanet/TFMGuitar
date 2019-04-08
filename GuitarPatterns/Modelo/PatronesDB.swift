@@ -56,6 +56,7 @@ class PatronesDB {
         registroActual = nil
     }
 
+    // MARK: Funciones de grabación en la base de datos
     /**
      Graba un patrón en la base de datos pública
     */
@@ -94,6 +95,27 @@ class PatronesDB {
                 completion(true)
                 self.registroActual = record
             }
+        }
+    }
+    
+    // MARK: Funciones de recuperación de registros en la base de datos
+    func getPatrones(bbdd: CKDatabase, completion: @escaping ([Patron]) ->()) {
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: iCloudRegistros.patron, predicate: predicate)
+        bbdd.perform(query, inZoneWith: nil) { registros, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                guard let registros = registros else { return }
+                var patrones = [Patron]()
+                for registro in registros {
+                    if let patron = Patron(iCloudRegistro: registro) {
+                        patrones.append(patron)
+                    }
+                }
+                completion(patrones)
+            }
+            
         }
     }
 }

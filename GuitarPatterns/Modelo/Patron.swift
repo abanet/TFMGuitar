@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CloudKit
 
 enum TipoPatron: String {
     case Escala
@@ -32,6 +33,21 @@ class Patron {
     
     init(trastes: [Traste]) {
         self.trastes  = trastes
+    }
+    
+    // Inicialización de un patrón a partir de un registro en la nube
+    init?(iCloudRegistro: CKRecord) {
+        // Los campos obligatorios tienen que existir sí o sí
+        guard let nombreRegistro = iCloudRegistro[iCloudPatron.nombre] as? String,
+              let tipoRegistro   = iCloudRegistro[iCloudPatron.tipo] as? String,
+              let trastesRegistro = iCloudRegistro[iCloudPatron.trastes] as? [Int],
+              let tonicaRegistro  = iCloudRegistro[iCloudPatron.tonica] as? Int
+            else { return nil }
+        self.nombre = nombreRegistro
+        self.tipo   = TipoPatron(rawValue: tipoRegistro)
+        self.decodificaTonica(tonicaRegistro)
+        self.decodificarTrastes(trastesCodificados: trastesRegistro)
+        self.descripcion = iCloudRegistro[iCloudPatron.descripcion] as? String
     }
     
     func addTraste(_ traste: Traste) {
