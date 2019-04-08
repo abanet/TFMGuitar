@@ -22,6 +22,7 @@
 		C07C636B22294B5E00B36913 /* Extension+SKShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636A22294B5E00B36913 /* Extension+SKShapeNode.swift */; };
 		C07C636E222952AD00B36913 /* StringGuitar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636D222952AD00B36913 /* StringGuitar.swift */; };
 		C07C6370222957F300B36913 /* GuitarraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636F222957F300B36913 /* GuitarraView.swift */; };
+		C0B41229225B733800BF5C4E /* launchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B41228225B733700BF5C4E /* launchScreen.png */; };
 		C0C5E78922397C3500A39031 /* testTraste.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5E78822397C3500A39031 /* testTraste.swift */; };
 		C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */; };
 		C0D0A15E222D271400666D6A /* Traste.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15D222D271400666D6A /* Traste.swift */; };
@@ -81,6 +82,7 @@
 		C07C636A22294B5E00B36913 /* Extension+SKShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SKShapeNode.swift"; sourceTree = "<group>"; };
 		C07C636D222952AD00B36913 /* StringGuitar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringGuitar.swift; sourceTree = "<group>"; };
 		C07C636F222957F300B36913 /* GuitarraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraView.swift; sourceTree = "<group>"; };
+		C0B41228225B733700BF5C4E /* launchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchScreen.png; sourceTree = "<group>"; };
 		C0C5E78822397C3500A39031 /* testTraste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTraste.swift; sourceTree = "<group>"; };
 		C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraViewController.swift; sourceTree = "<group>"; };
 		C0D0A15D222D271400666D6A /* Traste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traste.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 		C07C634322292B0100B36913 = {
 			isa = PBXGroup;
 			children = (
+				C0B41228225B733700BF5C4E /* launchScreen.png */,
 				D3223FBF225A169700C93C66 /* fonts */,
 				C07C634E22292B0100B36913 /* GuitarPatterns */,
 				C0DCE16C22311D93002BF466 /* GuitarPatternsTests */,
@@ -406,6 +409,7 @@
 				C07C635B22292B0100B36913 /* Main.storyboard in Resources */,
 				D3613B6522566F7D00F15420 /* Localizable.strings in Resources */,
 				D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */,
+				C0B41229225B733800BF5C4E /* launchScreen.png in Resources */,
 				C07C635D22292B0300B36913 /* Assets.xcassets in Resources */,
 				D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */,
 				C07C636022292B0300B36913 /* LaunchScreen.storyboard in Resources */,
