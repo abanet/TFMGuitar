@@ -21,7 +21,10 @@ class SceneMenu: SKScene {
         var x: CGFloat = 0.0
         
         for n in 1...5 {
-            let nuevoMastil = GuitarraView(size: CGSize(width: 250, height: 150))
+            let nuevoMastil = MenuPatron(size: CGSize(width: 250, height: 150))
+            nuevoMastil.name = "Mastil\(n)"
+            nuevoMastil.isUserInteractionEnabled = false
+            print("creado \(nuevoMastil.name)")
             nuevoMastil.position = CGPoint(x: x, y: 50)
             x += 300
             menu.addChild(nuevoMastil)
@@ -35,13 +38,17 @@ class SceneMenu: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
+            let locationMenu = touch.location(in: menu)
             if menu.contains(location) {
                 moviendo = true
                 startLocationX = menu.position.x - location.x
+                if let nodoTocado = menu.nodes(at:locationMenu).first as? MenuPatron {
+                print("Hemos tocado: \(nodoTocado.name) en \(location)")
+                }
             }
-            
         }
     }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first, moviendo {
           let location = touch.location(in: self)
