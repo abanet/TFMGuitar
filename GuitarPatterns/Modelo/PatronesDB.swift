@@ -99,6 +99,11 @@ class PatronesDB {
     }
     
     // MARK: Funciones de recuperación de registros en la base de datos
+    func getPatronesPublica(completion: @escaping ([Patron]) ->()) {
+       getPatrones(bbdd: publicDB, completion: completion)
+    }
+    
+    
     func getPatrones(bbdd: CKDatabase, completion: @escaping ([Patron]) ->()) {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: iCloudRegistros.patron, predicate: predicate)

@@ -153,6 +153,7 @@ class GuitarraView: SKNode {
         backSprite.size = CGSize(width: size.width, height: CGFloat(tipo.numeroCuerdas() - 1) * espacioEntreCuerdas)
         addChild(backSprite)
     }
+    
     /**
     Añade una nota al mástil de la guitarra en el traste indicado
     */
@@ -177,6 +178,14 @@ class GuitarraView: SKNode {
                     shapeNota.setTraste(traste)
                 }
             }
+        }
+    }
+    
+    
+    func dibujarPatron(_ patron: Patron) {
+        for traste in patron.getTrastes() {
+            addNotaGuitarra(traste: traste)
+            marcarNotaGuitarra(traste: traste)
         }
     }
     

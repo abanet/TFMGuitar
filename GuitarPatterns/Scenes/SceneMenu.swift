@@ -9,29 +9,27 @@
 import SpriteKit
 
 class SceneMenu: SKScene {
+    var patrones: [Patron] = [Patron]() // patrones por los que vamos a navegar
     
     let menu = SKNode()
     var startLocationX: CGFloat = 0.0
     var moviendo: Bool = false
     
-    let viewGuitarra = GuitarraView(size: CGSize(width: 250, height: 150))
     
     override func didMove(to view: SKView) {
-        backgroundColor = .brown
-        var x: CGFloat = 0.0
-        
-        for n in 1...5 {
-            let nuevoMastil = MenuPatron(size: CGSize(width: 250, height: 150))
-            nuevoMastil.name = "Mastil\(n)"
-            nuevoMastil.isUserInteractionEnabled = false
-            print("creado \(nuevoMastil.name)")
-            nuevoMastil.position = CGPoint(x: x, y: 50)
-            x += 300
-            menu.addChild(nuevoMastil)
-            
+        PatronesDB.share.getPatronesPublica { [unowned self] patrones in
+             var x: CGFloat = 0.0
+            for n in 1...patrones.count {
+                let nuevoPatron = MenuPatron(size: CGSize(width: 250, height: 150))
+                nuevoPatron.dibujarPatron(patrones[n-1])
+                nuevoPatron.isUserInteractionEnabled = false
+                nuevoPatron.position = CGPoint(x: x, y: 50)
+                x += 300
+                self.menu.addChild(nuevoPatron)
+            }
+            self.addChild(self.menu)
+            self.menu.name = "menu"
         }
-        addChild(menu)
-        menu.name = "menu"
     }
     
     

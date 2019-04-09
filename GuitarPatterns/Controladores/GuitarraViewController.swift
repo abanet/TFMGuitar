@@ -58,7 +58,7 @@ class GuitarraViewController: SKNode {
       for traste in 1..<Medidas.numTrastes + 1 {
         var trasteActual = mastil.getTraste(numCuerda: cuerda, numTraste: traste)!
         if !trasteActual.estaBlanco() {
-          if let distanciaATonica = mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trasteActual) {
+          if let distanciaATonica = Mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trasteActual) {
             if let nuevoIntervalo = TipoIntervaloMusical.intervalosConDistancia(semitonos: distanciaATonica).first {
               trasteActual.setEstado(tipo: TipoTraste.intervalo(nuevoIntervalo))
               marcarTraste(trasteActual)

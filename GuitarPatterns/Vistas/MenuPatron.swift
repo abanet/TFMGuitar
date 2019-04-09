@@ -15,14 +15,9 @@ class MenuPatron: GuitarraView {
     
      init(size: CGSize) {
         zonaTactil = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0,y: 50), size: size))
-        zonaTactil.fillColor = .clear
-        zonaTactil.isUserInteractionEnabled = false
-        zonaTactil.zPosition  = 10
-        zonaTactil.name = "zonatactil"
-        
         super.init(size: size)
-        
-        deshabilitarGuitarra()
+        configurarZonaTactil()
+       // deshabilitarGuitarra()
         addChild(zonaTactil)
     }
     
@@ -40,4 +35,33 @@ class MenuPatron: GuitarraView {
             child.isUserInteractionEnabled = false
         }
     }
+    
+    private func configurarZonaTactil() {
+        zonaTactil.fillColor = .clear
+        zonaTactil.isUserInteractionEnabled = false
+        zonaTactil.zPosition  = 10
+        zonaTactil.name = "zonatactil"
+    }
+    
+    /**
+     Busca la tónica en el mástil y recalcula los intervalos existentes.
+     */
+    override func dibujarPatron(_ patron: Patron) {
+        // Si no existe tónica no se pueden calcular los intervalos
+        guard let trasteTonica = patron.getTonica() else {
+            return
+        }
+        var nuevosTrastes = [Traste]()
+        for var traste in patron.getTrastes() {
+            if let distanciaATonica = Mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: traste) {
+                if let nuevoIntervalo = TipoIntervaloMusical.intervalosConDistancia(semitonos: distanciaATonica).first {
+                    traste.setEstado(tipo: TipoTraste.intervalo(nuevoIntervalo))
+                    nuevosTrastes.append(traste)
+                }
+            }
+        }
+        patron.setTrastes(nuevosTrastes)
+        super.dibujarPatron(patron)
+    }
+    
 }

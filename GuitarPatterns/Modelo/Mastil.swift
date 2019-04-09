@@ -73,7 +73,7 @@ class Mastil {
    Se utiliza la afinación universal basada en una bajada por cuartas (o subida por quintas)
    Tener en cuenta la excepción que existe de un semitono entre segunda y tercera cuerda.
    */
-  func distanciaEnSemitonos(traste1: Traste, traste2: Traste) -> Int? {
+  static func distanciaEnSemitonos(traste1: Traste, traste2: Traste) -> Int? {
     guard traste1.getCuerda() != 0 && traste2.getCuerda() != 0 && traste1.getTraste() != 0 && traste2.getTraste() != 0 else {
       return nil
     }
@@ -122,7 +122,7 @@ class Mastil {
   /**
    Función que busca trastes que contienen notas que cumplen una función interválica concreta
    */
-  func encuentraIntervalos(delTipo intervalo: TipoIntervaloMusical) -> [Traste] {
+   func encuentraIntervalos(delTipo intervalo: TipoIntervaloMusical) -> [Traste] {
     //print(self.description)
     var resultado = [Traste]()
     for (indexCuerda, arrayTrastes) in trastes.enumerated() {
@@ -133,7 +133,6 @@ class Mastil {
       }
     }
     return resultado
-    
   }
   
   

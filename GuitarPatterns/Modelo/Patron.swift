@@ -48,6 +48,9 @@ class Patron {
         self.decodificaTonica(tonicaRegistro)
         self.decodificarTrastes(trastesCodificados: trastesRegistro)
         self.descripcion = iCloudRegistro[iCloudPatron.descripcion] as? String
+        
+        // Hemos leído el patrón de iCloud.
+        // Hay que generar los intervalos / notas que conforman el patrón
     }
     
     func addTraste(_ traste: Traste) {
@@ -93,6 +96,8 @@ class Patron {
     func setTrastes(_ trastes: [Traste]) {
         self.trastes = trastes
     }
+    
+    
     /**
      Indica si un patrón está completo o no.
      Un patrón está completo si tiene al menos dos trastes, una tónica, y el tipo y nombre definidos.

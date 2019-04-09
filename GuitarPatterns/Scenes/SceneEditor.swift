@@ -78,7 +78,7 @@ class SceneEditor: SKScene {
         if case TipoTraste.blanco = trastePulsado.getEstado() { //No hay nota, hay que añadirla
           // calcular distancia entre tónica y nota pulsada
           if let trasteTonica = guitarra.mastil.encuentraIntervalos(delTipo: tonica).first {
-            if let distancia = guitarra.mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trastePulsado) {
+            if let distancia = Mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trastePulsado) {
               let intervalos = TipoIntervaloMusical.intervalosConDistancia(semitonos: distancia)
               // De momento siempre el primer intervalo encontrado. No tenemos en cuenta enarmónicos.
               let tipoTraste = TipoTraste.intervalo(intervalos.first!)
