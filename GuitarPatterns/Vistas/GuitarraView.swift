@@ -181,7 +181,9 @@ class GuitarraView: SKNode {
         }
     }
     
-    
+    /**
+     Dibuja un patrón en la vista de la guitarra añadiendo las notas necesarias y marcándolas en el mástil
+    */
     func dibujarPatron(_ patron: Patron) {
         for traste in patron.getTrastes() {
             addNotaGuitarra(traste: traste)

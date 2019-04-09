@@ -21,6 +21,7 @@ class SceneMenu: SKScene {
              var x: CGFloat = 0.0
             for n in 1...patrones.count {
                 let nuevoPatron = MenuPatron(size: CGSize(width: 250, height: 150))
+                nuevoPatron.name = "patron\(n)"
                 nuevoPatron.dibujarPatron(patrones[n-1])
                 nuevoPatron.isUserInteractionEnabled = false
                 nuevoPatron.position = CGPoint(x: x, y: 50)
