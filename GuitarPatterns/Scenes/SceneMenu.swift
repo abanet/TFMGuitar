@@ -42,8 +42,10 @@ class SceneMenu: SKScene {
             if menu.contains(location) {
                 moviendo = true
                 startLocationX = menu.position.x - location.x
-                if let nodoTocado = menu.nodes(at:locationMenu).first as? MenuPatron {
-                print("Hemos tocado: \(nodoTocado.name) en \(location)")
+                print(menu.nodes(at:locationMenu).first?.name)
+                if menu.nodes(at:locationMenu).first?.name == "zonatactil" {
+                    let nodo = menu.nodes(at:locationMenu).first?.parent as? MenuPatron
+                    print("Hemos tocado: \(nodo?.name) en \(location)")
                 }
             }
         }

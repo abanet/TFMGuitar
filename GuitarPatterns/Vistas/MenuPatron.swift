@@ -14,9 +14,11 @@ class MenuPatron: GuitarraView {
     var zonaTactil:SKShapeNode
     
      init(size: CGSize) {
-        zonaTactil = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0,y: 0), size: size))
-        zonaTactil.fillColor = .orange
+        zonaTactil = SKShapeNode(rect: CGRect(origin: CGPoint(x: 0,y: 50), size: size))
+        zonaTactil.fillColor = .clear
         zonaTactil.isUserInteractionEnabled = false
+        zonaTactil.zPosition  = 10
+        zonaTactil.name = "zonatactil"
         
         super.init(size: size)
         
