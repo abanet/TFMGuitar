@@ -28,10 +28,10 @@ class SceneEditor: SKScene {
         }
     }
 
-    lazy var btnReset: UIButton = crearBoton(nombre: "Reset".localizada())
-    lazy var btnEditarNombre: UIButton = crearBoton(nombre: "Editar Nombre".localizada())
-    lazy var btnSave: UIButton = crearBoton(nombre: "Grabar".localizada())
-    lazy var btnNuevo: UIButton = crearBoton(nombre: "Nuevo".localizada())
+    lazy var btnReset: UIButton = Boton.crearBoton(nombre: "Reset".localizada())
+    lazy var btnEditarNombre: UIButton = Boton.crearBoton(nombre: "Editar Nombre".localizada())
+    lazy var btnSave: UIButton = Boton.crearBoton(nombre: "Grabar".localizada())
+    lazy var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
     
     var lblNombrePatron: UILabel = {
         let label = UILabel()
@@ -122,6 +122,7 @@ class SceneEditor: SKScene {
         lblDescripcionPatron.translatesAutoresizingMaskIntoConstraints = false
         lblCategoriaPatron.translatesAutoresizingMaskIntoConstraints = false
         
+        // cálculos para posicionamiento de 4 botones
         let anchoBoton: CGFloat = (self.view!.frame.width / 4) - Medidas.minimumMargin * 4 - Medidas.minimumMargin * 3
         let posTrailingReset: CGFloat = -(self.view!.frame.width - 4 * anchoBoton - 3 * Medidas.minimumMargin) / 2
         
@@ -237,14 +238,7 @@ class SceneEditor: SKScene {
     }
     
     
-    private func crearBoton(nombre: String) -> UIButton {
-        let b = UIButton(type: UIButton.ButtonType.custom)
-        b.backgroundColor = Colores.botones
-        b.setTitle(nombre, for: UIControl.State.normal)
-        b.layer.cornerRadius = 5
-        b.translatesAutoresizingMaskIntoConstraints = false
-        return b
-    }
+    
     
  
 }

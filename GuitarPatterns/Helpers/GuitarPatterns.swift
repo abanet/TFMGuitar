@@ -52,7 +52,7 @@ struct Medidas {
     
     // Strings
     /// ancho de la cuerda
-    static let widthString: CGFloat = 5.0
+    static let widthString: CGFloat = 3.0 // 5.0
     /// número de trastes a mostrar en el mástil
     static let numTrastes = 7
     /// ratio entre espacio entre cuerdas y el tamaño de la nota

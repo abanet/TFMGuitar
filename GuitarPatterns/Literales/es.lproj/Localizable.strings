@@ -42,3 +42,6 @@
 "El patrón tiene que tener un nombre." = "El patrón tiene que tener un nombre.";
 "Salir" = "Salir";
 
+/* Texto de Scene menu */
+"Eliminar" = "Eliminar";
+"Editar Patron" = "Editar Patrón";

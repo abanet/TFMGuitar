@@ -93,6 +93,7 @@ class GuitarraView: SKNode {
     // MARK: Métodos SKNode
     init(size: CGSize, tipo: TipoGuitarra = TipoGuitarra.guitarra) {
         self.size = size
+        print("Tamaño = \(size)")
         self.tipo = tipo
         super.init()
         dibujarCuerdas()
@@ -111,7 +112,7 @@ class GuitarraView: SKNode {
      Dibuja e identifica las cuerdas del mástil
     */
     func dibujarCuerdas() {
-        var posicionCuerda = Medidas.bottomSpace
+        var posicionCuerda:CGFloat = Medidas.bottomSpace
         for n in (1...tipo.numeroCuerdas()).reversed() {
             arrayPosicionCuerdas.append(posicionCuerda)
             let puntoOrigen  = CGPoint(x: 0, y: posicionCuerda)

@@ -37,6 +37,7 @@
 		C0DE7F3D2256141500A5BD9C /* Alertas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE7F3C2256141500A5BD9C /* Alertas.swift */; };
 		D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */; };
 		D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC6225A16BB00C93C66 /* NexaBook.otf */; };
+		D33B7965225E4721003E2FB8 /* Boton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33B7964225E4721003E2FB8 /* Boton.swift */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
 		D3613B6222566DE000F15420 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3613B6122566DE000F15420 /* Extension+String.swift */; };
@@ -100,6 +101,7 @@
 		C0DE7F3C2256141500A5BD9C /* Alertas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertas.swift; sourceTree = "<group>"; };
 		D3223FC6225A16BB00C93C66 /* NexaBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBook.otf; sourceTree = "<group>"; };
 		D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nexa-Bold.otf"; sourceTree = "<group>"; };
+		D33B7964225E4721003E2FB8 /* Boton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boton.swift; sourceTree = "<group>"; };
 		D34F00732229A9D200165192 /* SceneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditor.swift; sourceTree = "<group>"; };
 		D34F00752229BDC200165192 /* ShapeNota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNota.swift; sourceTree = "<group>"; };
 		D3613B6122566DE000F15420 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				C07C636F222957F300B36913 /* GuitarraView.swift */,
 				D34F00752229BDC200165192 /* ShapeNota.swift */,
 				C0CA3E1E225C9A1C00796AA4 /* GuitarraStatica.swift */,
+				D33B7964225E4721003E2FB8 /* Boton.swift */,
 			);
 			path = Vistas;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				D34F00742229A9D200165192 /* SceneEditor.swift in Sources */,
 				C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */,
 				C0D0A162222D299A00666D6A /* Nota.swift in Sources */,
+				D33B7965225E4721003E2FB8 /* Boton.swift in Sources */,
 				C0DE7F3D2256141500A5BD9C /* Alertas.swift in Sources */,
 				C063233F2257514500649DBB /* PatronesDB.swift in Sources */,
 				D3613B6222566DE000F15420 /* Extension+String.swift in Sources */,
