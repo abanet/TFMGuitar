@@ -20,6 +20,8 @@
 "Vaya a editar nombre para asignar el nombre y el tipo del patrón." = "Press Edit Name button to assign a name and the patron's kind.";
 "¡Defina un patrón!" = "There is not patron!";
 "Un patrón tiene que tener al menos 3 notas asignadas." = "We need at least 3 notes in order to save a patron.";
+"Patrón grabado" = "Patron saved";
+"El patrón se ha grabado en la base de datos." = "Patron has been saved in the database.";
 
 /* Textos en grabación de datos de patrón */
 "Introduzca los datos del patrón" = "Patron data";

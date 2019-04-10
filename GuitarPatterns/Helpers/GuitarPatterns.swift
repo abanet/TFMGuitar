@@ -12,12 +12,13 @@ import SpriteKit
 
 /// Constantes de los colores de la aplicación
 struct Colores {
-    static let background   = SKColor(cgColor: UIColor(red: 247, green: 247, blue: 248, alpha: 1.0).cgColor) //SKColor.lightGray
+    static let background   = SKColor.lightGray
     static let strings      = SKColor.black
     static let noteStroke   = SKColor.black
     static let noteFill     = SKColor.lightGray //SKColor.clear
     static let noteFillResaltada = SKColor.orange
     static let tonica = SKColor.red
+    static let botones = UIColor.orange
 }
 
 /// Contiene las medidas generales de la aplicación

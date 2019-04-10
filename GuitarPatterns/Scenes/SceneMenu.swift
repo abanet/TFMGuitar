@@ -8,6 +8,9 @@
 
 import SpriteKit
 
+/**
+ Clase encargada de generar un menú que permite elegir entre diferentes patrones
+*/
 class SceneMenu: SKScene {
     var patrones: [Patron] = [Patron]() // patrones por los que vamos a navegar
     
@@ -20,7 +23,7 @@ class SceneMenu: SKScene {
         PatronesDB.share.getPatronesPublica { [unowned self] patrones in
              var x: CGFloat = 0.0
             for n in 1...patrones.count {
-                let nuevoPatron = MenuPatron(size: CGSize(width: 250, height: 150))
+                let nuevoPatron = GuitarraStatica(size: CGSize(width: 350, height: 200))
                 nuevoPatron.name = "patron\(n)"
                 nuevoPatron.dibujarPatron(patrones[n-1])
                 nuevoPatron.isUserInteractionEnabled = false
@@ -43,7 +46,7 @@ class SceneMenu: SKScene {
                 startLocationX = menu.position.x - location.x
                 print(menu.nodes(at:locationMenu).first?.name)
                 if menu.nodes(at:locationMenu).first?.name == "zonatactil" {
-                    let nodo = menu.nodes(at:locationMenu).first?.parent as? MenuPatron
+                    let nodo = menu.nodes(at:locationMenu).first?.parent as? GuitarraStatica
                     print("Hemos tocado: \(nodo?.name) en \(location)")
                 }
             }

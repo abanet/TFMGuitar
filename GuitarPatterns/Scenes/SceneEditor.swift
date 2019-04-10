@@ -18,7 +18,15 @@ class SceneEditor: SKScene {
     
     var guitarra: GuitarraViewController!
     var patron: Patron?
-    var datosGrabados = false
+    var datosGrabados = false {
+        didSet {
+            if datosGrabados {
+                btnSave.backgroundColor = Colores.botones
+            } else {
+                btnSave.backgroundColor = UIColor.red
+            }
+        }
+    }
 
     lazy var btnReset: UIButton = crearBoton(nombre: "Reset".localizada())
     lazy var btnEditarNombre: UIButton = crearBoton(nombre: "Editar Nombre".localizada())
@@ -123,8 +131,8 @@ class SceneEditor: SKScene {
         btnNuevo.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
         
         lblCategoriaPatron.topAnchor.constraint(equalTo: btnReset.bottomAnchor, constant: Medidas.minimumMargin * 2).isActive = true
-        lblNombrePatron.topAnchor.constraint(equalTo: btnReset.bottomAnchor, constant: Medidas.minimumMargin).isActive = true
-        lblDescripcionPatron.topAnchor.constraint(equalTo: lblNombrePatron.bottomAnchor, constant: Medidas.minimumMargin).isActive = true
+        lblNombrePatron.topAnchor.constraint(equalTo: btnReset.bottomAnchor, constant: Medidas.minimumMargin * 2).isActive = true
+        lblDescripcionPatron.topAnchor.constraint(equalTo: lblNombrePatron.bottomAnchor, constant: 0).isActive = true
         
         btnReset.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: posTrailingReset).isActive = true
         btnEditarNombre.trailingAnchor.constraint(equalTo: btnReset.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
@@ -157,7 +165,8 @@ class SceneEditor: SKScene {
             let vc = EditDataVC()
             vc.nombrePatron = lblNombrePatron.text
             vc.descripcionPatron = lblDescripcionPatron.text
-            
+            vc.categoriaPatron = lblCategoriaPatron.text
+        
             vc.delegate = self
             vc.view.frame = (self.view?.frame)!
             vc.view.layoutIfNeeded()
@@ -177,10 +186,11 @@ class SceneEditor: SKScene {
                     patron!.setTonica(tonica)
                     PatronesDB.share.grabarPatronEnPublica(patron!) { ok in
                         if ok {
-                            print("Registro grabado")
-                            self.datosGrabados = true
-                            //self.guitarra.limpiarMastil()
-                            //self.patron = nil
+                            DispatchQueue.main.async {
+                                self.datosGrabados = true
+                            }
+                            Alertas.mostrar(titulo: "Patrón grabado".localizada(), mensaje: "El patrón se ha grabado en la base de datos.".localizada(), enViewController: self.view!.window!.rootViewController!)
+                            
                         }
                     }
                 } else {
@@ -229,7 +239,7 @@ class SceneEditor: SKScene {
     
     private func crearBoton(nombre: String) -> UIButton {
         let b = UIButton(type: UIButton.ButtonType.custom)
-        b.backgroundColor = UIColor.orange
+        b.backgroundColor = Colores.botones
         b.setTitle(nombre, for: UIControl.State.normal)
         b.layer.cornerRadius = 5
         b.translatesAutoresizingMaskIntoConstraints = false
@@ -243,7 +253,6 @@ class SceneEditor: SKScene {
  Implementación del protocolo FormularioDelegate
  */
 extension SceneEditor: FormularioDelegate {
-    
     /**
      Se ha completado el formulario con los datos del patrón.
      El patrón ya tiene los metadatos para grabarse, creamos patrón y asignamos datos.
@@ -253,9 +262,7 @@ extension SceneEditor: FormularioDelegate {
         patron!.setDescripcion(descripcion)
         lblNombrePatron.text = nombre
         lblDescripcionPatron.text = descripcion
-        lblCategoriaPatron.text = tipo + ":"
+        lblCategoriaPatron.text = tipo 
         datosGrabados = false
     }
-    
-    
 }

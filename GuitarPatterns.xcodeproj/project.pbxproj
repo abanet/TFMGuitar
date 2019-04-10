@@ -24,7 +24,7 @@
 		C07C6370222957F300B36913 /* GuitarraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636F222957F300B36913 /* GuitarraView.swift */; };
 		C0B41229225B733800BF5C4E /* launchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B41228225B733700BF5C4E /* launchScreen.png */; };
 		C0C5E78922397C3500A39031 /* testTraste.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5E78822397C3500A39031 /* testTraste.swift */; };
-		C0CA3E1F225C9A1C00796AA4 /* MenuPatron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3E1E225C9A1C00796AA4 /* MenuPatron.swift */; };
+		C0CA3E1F225C9A1C00796AA4 /* GuitarraStatica.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CA3E1E225C9A1C00796AA4 /* GuitarraStatica.swift */; };
 		C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */; };
 		C0D0A15E222D271400666D6A /* Traste.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A15D222D271400666D6A /* Traste.swift */; };
 		C0D0A162222D299A00666D6A /* Nota.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D0A161222D299A00666D6A /* Nota.swift */; };
@@ -85,7 +85,7 @@
 		C07C636F222957F300B36913 /* GuitarraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraView.swift; sourceTree = "<group>"; };
 		C0B41228225B733700BF5C4E /* launchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchScreen.png; sourceTree = "<group>"; };
 		C0C5E78822397C3500A39031 /* testTraste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTraste.swift; sourceTree = "<group>"; };
-		C0CA3E1E225C9A1C00796AA4 /* MenuPatron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPatron.swift; sourceTree = "<group>"; };
+		C0CA3E1E225C9A1C00796AA4 /* GuitarraStatica.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraStatica.swift; sourceTree = "<group>"; };
 		C0D0A15A222D21E400666D6A /* GuitarraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarraViewController.swift; sourceTree = "<group>"; };
 		C0D0A15D222D271400666D6A /* Traste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Traste.swift; sourceTree = "<group>"; };
 		C0D0A161222D299A00666D6A /* Nota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nota.swift; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 				C07C636D222952AD00B36913 /* StringGuitar.swift */,
 				C07C636F222957F300B36913 /* GuitarraView.swift */,
 				D34F00752229BDC200165192 /* ShapeNota.swift */,
-				C0CA3E1E225C9A1C00796AA4 /* MenuPatron.swift */,
+				C0CA3E1E225C9A1C00796AA4 /* GuitarraStatica.swift */,
 			);
 			path = Vistas;
 			sourceTree = "<group>";
@@ -514,7 +514,7 @@
 				C07C636E222952AD00B36913 /* StringGuitar.swift in Sources */,
 				C0D4CEE1224242FD00B0B835 /* EditDataVC.swift in Sources */,
 				C07C636B22294B5E00B36913 /* Extension+SKShapeNode.swift in Sources */,
-				C0CA3E1F225C9A1C00796AA4 /* MenuPatron.swift in Sources */,
+				C0CA3E1F225C9A1C00796AA4 /* GuitarraStatica.swift in Sources */,
 				C07C6370222957F300B36913 /* GuitarraView.swift in Sources */,
 				C07C635022292B0100B36913 /* AppDelegate.swift in Sources */,
 			);

@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 
-class MenuPatron: GuitarraView {
+class GuitarraStatica: GuitarraView {
     var zonaTactil:SKShapeNode
     
      init(size: CGSize) {

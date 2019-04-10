@@ -19,6 +19,8 @@
 "Vaya a editar nombre para asignar el nombre y el tipo del patrón." = "Vaya a editar nombre para asignar el nombre y el tipo del patrón.";
 "¡Defina un patrón!" = "¡Defina un patrón!";
 "Un patrón tiene que tener al menos 3 notas asignadas." = "Un patrón tiene que tener al menos 3 notas asignadas.";
+"Patrón grabado" = "Patrón grabado";
+"El patrón se ha grabado en la base de datos." = "El patrón se ha grabado en la base de datos.";
 
 /* Textos en grabación de datos de patrón */
 "Introduzca los datos del patrón" = "Introduzca los datos del patrón";
