@@ -91,7 +91,7 @@ class Mastil {
       semitonos = cuerdasInvolucradas * 7 // subida por quintas
     }
     if traste1.getCuerda() <= traste2.getCuerda() {
-      if (traste1.getCuerda()...traste2.getCuerda()).contains(3) {
+      if (traste1.getCuerda()...traste2.getCuerda()).contains(3) && (traste1.getCuerda()...traste2.getCuerda()).contains(2) {
         semitonos += 1              // Corrección para 2 cuerda
       }
     } else {

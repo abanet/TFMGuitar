@@ -18,7 +18,8 @@ class TestMastil: XCTestCase {
     let traste4 = Traste(cuerda: 1, traste: 4)
     let traste5 = Traste(cuerda: 1, traste: 2)
     let traste6 = Traste(cuerda: 2, traste: 2)
-    
+    let traste7 = Traste(cuerda: 3, traste: 3)
+    let traste8 = Traste(cuerda: 6, traste: 6)
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -29,12 +30,17 @@ class TestMastil: XCTestCase {
     }
 
     func testDistanciaEnSemitonos() {
-        let resultado1 = mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste2)
-        let resultado2 = mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste3)
-        let resultado3 = mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste4)
-        let resultado4 = mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste1)
-        let resultado5 = mastil.distanciaEnSemitonos(traste1: traste5, traste2: traste6)
-      
+        let resultado6 = Mastil.distanciaEnSemitonos(traste1: traste7, traste2: traste8)
+        let resultado1 = Mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste2)
+        let resultado2 = Mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste3)
+        let resultado3 = Mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste4)
+        let resultado4 = Mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste1)
+        let resultado5 = Mastil.distanciaEnSemitonos(traste1: traste5, traste2: traste6)
+        
+        
+    
+      XCTAssert(resultado6 == TipoIntervaloMusical.octavajusta.distancia(), "Error, en lugar de tónica devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado6!).first))")
+        
       XCTAssert(resultado1 == TipoIntervaloMusical.quintadisminuida.distancia(), "Error, en lugar de una quinta disminuida devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado1!).first))")
         
       XCTAssert(resultado2 == TipoIntervaloMusical.segundamayor.distancia(), "Error, en lugar de una quinta disminuida devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado2!).first))")
@@ -45,8 +51,6 @@ class TestMastil: XCTestCase {
       
       XCTAssert(resultado5 == TipoIntervaloMusical.quintajusta.distancia(), "Error, en lugar de quinta justa devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado5!).first))")
       
-      
-        
     }
 
     func testEncuentraIntervalo() {
