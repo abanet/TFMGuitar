@@ -8,11 +8,13 @@
 
 import SpriteKit
 
+
 /**
  Clase encargada de generar un menú que permite elegir entre diferentes patrones
 */
 class SceneMenu: SKScene {
     var patrones: [Patron] = [Patron]() // patrones por los que vamos a navegar
+    var patronSeleccionado: Int? // posición del patrón seleccionado
     
     let menu = SKNode()
     var startLocationX: CGFloat = 0.0
@@ -63,8 +65,9 @@ class SceneMenu: SKScene {
                 print(menu.nodes(at:locationMenu).first?.name)
                 if menu.nodes(at:locationMenu).first?.name == "zonatactil" {
                     if let nodo = menu.nodes(at:locationMenu).first?.parent as? GuitarraStatica,
-                        let indice = Int(nodo.name!) {
-                        actualizarDatosPatron(indice: indice - 1)
+                        let indicePatronElegido = Int(nodo.name!) {
+                        actualizarDatosPatron(indice: indicePatronElegido - 1)
+                        patronSeleccionado = indicePatronElegido - 1
                     }
                 }
             }
@@ -88,22 +91,33 @@ class SceneMenu: SKScene {
     
     private func crearMenuGrafico() {
         PatronesDB.share.getPatronesPublica { [unowned self] patrones in
-            var x: CGFloat = 0.0
-            for n in 1...patrones.count {
-                let nuevoPatron = GuitarraStatica(size: CGSize(width: self.size.width/2.5, height: self.size.height/2.5))
-                nuevoPatron.name = "\(n)"
-                nuevoPatron.dibujarPatron(patrones[n-1])
-                nuevoPatron.isUserInteractionEnabled = false
-                nuevoPatron.position = CGPoint(x: x, y: 0)
-                x += self.size.width/2.5// + self.size.width/25 // dejamos un espacio extra de margen
-                self.menu.addChild(nuevoPatron)
-                self.patrones.append(patrones[n-1])
-            }
-            self.maxPosXMenu = x
-            self.addChild(self.menu)
-            self.menu.name = "menu"
-            self.menu.position.y = Medidas.bottomSpace 
+            self.crearMenuGrafico(conPatrones: patrones)
         }
+    }
+    
+    private func crearMenuGrafico(conPatrones patrones: [Patron]) {
+        eliminarMenu() // Antes de crear el menú eliminamos el que pudiera existir
+        
+        var x: CGFloat = 0.0
+        for n in 1...patrones.count {
+            let nuevoPatron = GuitarraStatica(size: CGSize(width: self.size.width/2.2, height: self.size.height/2.2))
+            nuevoPatron.name = "\(n)"
+            nuevoPatron.dibujarPatron(patrones[n-1])
+            nuevoPatron.isUserInteractionEnabled = false
+            nuevoPatron.position = CGPoint(x: x, y: 0)
+            x += self.size.width/2.5// + self.size.width/25 // dejamos un espacio extra de margen
+            self.menu.addChild(nuevoPatron)
+            self.patrones.append(patrones[n-1])
+        }
+        self.maxPosXMenu = x
+        self.addChild(self.menu)
+        self.menu.name = "menu"
+        self.menu.position.y = Medidas.bottomSpace
+    }
+    
+    private func eliminarMenu() {
+        menu.removeAllChildren()
+        menu.removeFromParent()
     }
     
     private func addUserInterfaz() {
@@ -118,9 +132,9 @@ class SceneMenu: SKScene {
         let anchoBoton: CGFloat = (self.view!.frame.width / 3) - Medidas.minimumMargin * 3 - Medidas.minimumMargin * 2
         let posTrailingReset: CGFloat = -(self.view!.frame.width - 3 * anchoBoton - 3 * Medidas.minimumMargin) / 2
         
-        btnNuevo.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
-        btnEditar.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
-        btnDelete.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
+        btnNuevo.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
+        btnEditar.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
+        btnDelete.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
         
         btnNuevo.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: posTrailingReset).isActive = true
         btnDelete.trailingAnchor.constraint(equalTo: btnNuevo.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
@@ -143,7 +157,23 @@ class SceneMenu: SKScene {
      Elimina el patrón seleccionado de la base de datos.
     */
     @objc func btnDeletePulsado() {
-       
+        if let indice = patronSeleccionado  {
+            Alertas.mostrarOkCancel(titulo: "¡Atención!", mensaje: "El patrón seleccionado se borrará de su base de datos de patrones.", enViewController: view!.window!.rootViewController!) {
+                [unowned self] alerta in
+                // Eliminar registro de la base de datos
+                if let id = self.patrones[indice].getId() {
+                    PatronesDB.share.eliminarRegistroPublica(id: id)
+                    self.patrones.remove(at: indice)
+                    self.crearMenuGrafico(conPatrones: self.patrones)
+                    // eliminar posición del array de patrones y volver a crear menú gráfico
+                    // basándose en el array. La base de datos sólo se usa para crear la primera vez.
+                    // se puede hacer patrones optional y al crear el gráfico ver si existe o no. Si no existe se tira de base de datos y si existe se tira de array.
+                }
+                    
+            }
+             print("Vamos a eliminar el id \(patrones[indice].getId())")
+        }
+      
     }
     
     /**

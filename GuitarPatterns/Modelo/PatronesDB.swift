@@ -123,4 +123,18 @@ class PatronesDB {
             
         }
     }
+    
+    func eliminarRegistro(id: CKRecord.ID, bbdd: CKDatabase) {
+        bbdd.delete(withRecordID: id) { (id: CKRecord.ID?, error: Error?) -> Void in
+            if error == nil {
+                print("Registro eliminado", id ?? "nil")
+            }
+        }
+    }
+    
+    func eliminarRegistroPublica(id: CKRecord.ID) {
+        eliminarRegistro(id: id, bbdd: publicDB)
+    }
+    
+
 }

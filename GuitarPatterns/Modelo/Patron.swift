@@ -18,6 +18,7 @@ enum TipoPatron: String {
 
 class Patron {
     
+    private var id: CKRecord.ID?
     private var nombre: String? // nombre del patrón
     private var descripcion: String? // descripción del patrón
     private var tipo: TipoPatron?
@@ -43,6 +44,7 @@ class Patron {
               let trastesRegistro = iCloudRegistro[iCloudPatron.trastes] as? [Int],
               let tonicaRegistro  = iCloudRegistro[iCloudPatron.tonica] as? Int
             else { return nil }
+        self.id = iCloudRegistro.recordID
         self.nombre = nombreRegistro
         self.tipo   = TipoPatron(rawValue: tipoRegistro)
         self.decodificaTonica(tonicaRegistro)
@@ -51,6 +53,10 @@ class Patron {
         
         // Hemos leído el patrón de iCloud.
         // Hay que generar los intervalos / notas que conforman el patrón
+    }
+    
+    func getId() -> CKRecord.ID? {
+        return self.id 
     }
     
     func addTraste(_ traste: Traste) {
