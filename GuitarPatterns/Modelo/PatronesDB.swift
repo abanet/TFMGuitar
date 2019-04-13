@@ -35,6 +35,8 @@ class PatronesDB {
     var sharedDB : CKDatabase!
     var registroActual: CKRecord?
     
+    var cachePatronesPublica: [Patron] = [Patron]()
+    
     private init() {
         container = CKContainer.default()
         publicDB  = container.publicCloudDatabase
@@ -72,6 +74,14 @@ class PatronesDB {
         // creamos registro con los datos del patrón
         if registroActual == nil { // creamos un registro nuevo
             crearNuevoRegistro()
+            cachePatronesPublica.append(patron)
+        } else {
+            for (indice, patron) in cachePatronesPublica.enumerated() {
+                if patron.getId() == registroActual?.recordID {
+                    cachePatronesPublica[indice] = patron
+                    break
+                }
+            }
         }
         
         // a estas alturas tiene que haber un registro para modificar seguro pero por si acaso...
@@ -100,7 +110,11 @@ class PatronesDB {
     
     // MARK: Funciones de recuperación de registros en la base de datos
     func getPatronesPublica(completion: @escaping ([Patron]) ->()) {
-       getPatrones(bbdd: publicDB, completion: completion)
+        if cachePatronesPublica.count == 0 {
+            getPatrones(bbdd: publicDB, completion: completion)
+        } else {
+            completion(cachePatronesPublica)
+        }
     }
     
     
@@ -116,6 +130,7 @@ class PatronesDB {
                 for registro in registros {
                     if let patron = Patron(iCloudRegistro: registro) {
                         patrones.append(patron)
+                        self.cachePatronesPublica.append(patron)
                     }
                 }
                 completion(patrones)
@@ -128,12 +143,19 @@ class PatronesDB {
         bbdd.delete(withRecordID: id) { (id: CKRecord.ID?, error: Error?) -> Void in
             if error == nil {
                 print("Registro eliminado", id ?? "nil")
+                
             }
         }
     }
     
     func eliminarRegistroPublica(id: CKRecord.ID) {
         eliminarRegistro(id: id, bbdd: publicDB)
+        for (indice, patron) in self.cachePatronesPublica.enumerated() {
+            if patron.getId() == id {
+                self.cachePatronesPublica.remove(at: indice)
+                break
+            }
+        }
     }
     
 

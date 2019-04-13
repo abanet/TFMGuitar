@@ -211,8 +211,9 @@ class SceneEditor: SKScene {
                         if ok {
                             DispatchQueue.main.async {
                                 self.datosGrabados = true
+                                Alertas.mostrar(titulo: "Patrón grabado".localizada(), mensaje: "El patrón se ha grabado en la base de datos.".localizada(), enViewController: self.view!.window!.rootViewController!)
                             }
-                            Alertas.mostrar(titulo: "Patrón grabado".localizada(), mensaje: "El patrón se ha grabado en la base de datos.".localizada(), enViewController: self.view!.window!.rootViewController!)
+                            
                             
                         }
                     }

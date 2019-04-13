@@ -13,7 +13,6 @@ import SpriteKit
  Clase encargada de generar un menú que permite elegir entre diferentes patrones
 */
 class SceneMenu: SKScene {
-    var patrones: [Patron] = [Patron]() // patrones por los que vamos a navegar
     var patronSeleccionado: Int? // posición del patrón seleccionado
     
     let menu = SKNode()
@@ -110,7 +109,7 @@ class SceneMenu: SKScene {
             nuevoPatron.position = CGPoint(x: x, y: 0)
             x += self.size.width/2.5// + self.size.width/25 // dejamos un espacio extra de margen
             self.menu.addChild(nuevoPatron)
-            self.patrones.append(patrones[n-1])
+            
         }
         self.maxPosXMenu = x
         self.addChild(self.menu)
@@ -171,10 +170,9 @@ class SceneMenu: SKScene {
             Alertas.mostrarOkCancel(titulo: "¡Atención!", mensaje: "El patrón seleccionado se borrará de su base de datos de patrones.", enViewController: view!.window!.rootViewController!) {
                 [unowned self] alerta in
                 // Eliminar registro de la base de datos
-                if let id = self.patrones[indice].getId() {
+                if let id = PatronesDB.share.cachePatronesPublica[indice].getId() {
                     PatronesDB.share.eliminarRegistroPublica(id: id)
-                    self.patrones.remove(at: indice)
-                    self.crearMenuGrafico(conPatrones: self.patrones)
+                    self.crearMenuGrafico(conPatrones: PatronesDB.share.cachePatronesPublica)
                     DispatchQueue.main.async {
                         self.resetDatosPatron()
                     }
@@ -189,7 +187,7 @@ class SceneMenu: SKScene {
      */
     @objc func btnEditarPulsado() {
         if let indice = patronSeleccionado {
-            irAPatron(patrones[indice])
+            irAPatron(PatronesDB.share.cachePatronesPublica[indice])
         }
     }
     
@@ -201,8 +199,8 @@ class SceneMenu: SKScene {
     }
     
     private func actualizarDatosPatron(indice: Int) {
-        lblNombrePatron.text = patrones[indice].getNombre()
-        lblDescripcionPatron.text = patrones[indice].getDescripcion()
+        lblNombrePatron.text = PatronesDB.share.cachePatronesPublica[indice].getNombre()
+        lblDescripcionPatron.text = PatronesDB.share.cachePatronesPublica[indice].getDescripcion()
         for (index, opcion) in menu.children.enumerated() {
             if let opcion = opcion as? GuitarraStatica {
                 if index == indice {
