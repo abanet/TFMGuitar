@@ -38,6 +38,8 @@
 		D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */; };
 		D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC6225A16BB00C93C66 /* NexaBook.otf */; };
 		D3282E3E2261FC78008218AC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3D2261FC78008218AC /* Extension+UIView.swift */; };
+		D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */; };
+		D3282E42226238FC008218AC /* BotonMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */; };
 		D33B7965225E4721003E2FB8 /* Boton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33B7964225E4721003E2FB8 /* Boton.swift */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
@@ -103,6 +105,8 @@
 		D3223FC6225A16BB00C93C66 /* NexaBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBook.otf; sourceTree = "<group>"; };
 		D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nexa-Bold.otf"; sourceTree = "<group>"; };
 		D3282E3D2261FC78008218AC /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneMenuPrincipal.swift; sourceTree = "<group>"; };
+		D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotonMenuPrincipal.swift; sourceTree = "<group>"; };
 		D33B7964225E4721003E2FB8 /* Boton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boton.swift; sourceTree = "<group>"; };
 		D34F00732229A9D200165192 /* SceneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditor.swift; sourceTree = "<group>"; };
 		D34F00752229BDC200165192 /* ShapeNota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNota.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				D34F00752229BDC200165192 /* ShapeNota.swift */,
 				C0CA3E1E225C9A1C00796AA4 /* GuitarraStatica.swift */,
 				D33B7964225E4721003E2FB8 /* Boton.swift */,
+				D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */,
 			);
 			path = Vistas;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 				C07C635522292B0100B36913 /* GameScene.swift */,
 				D34F00732229A9D200165192 /* SceneEditor.swift */,
 				C0D4CEE2224263F700B0B835 /* SceneMenu.swift */,
+				D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -502,6 +508,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */,
 				C07C635622292B0100B36913 /* GameScene.swift in Sources */,
 				D34F00742229A9D200165192 /* SceneEditor.swift in Sources */,
 				D3282E3E2261FC78008218AC /* Extension+UIView.swift in Sources */,
@@ -513,6 +520,7 @@
 				D3613B6222566DE000F15420 /* Extension+String.swift in Sources */,
 				C0D4CEE3224263F700B0B835 /* SceneMenu.swift in Sources */,
 				C0D0A15E222D271400666D6A /* Traste.swift in Sources */,
+				D3282E42226238FC008218AC /* BotonMenuPrincipal.swift in Sources */,
 				C011999A2235711B00C3C643 /* Patron.swift in Sources */,
 				C0D0A166222D43BE00666D6A /* Mastil.swift in Sources */,
 				D34F00762229BDC200165192 /* ShapeNota.swift in Sources */,

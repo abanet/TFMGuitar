@@ -12,6 +12,13 @@
 "Sí" = "Sí";
 "Volver" = "Volver";
 
+/* Textos en menú principal */
+"Acordes" = "Acordes";
+"Arpegios" = "Arpegios";
+"Escalas" = "Escalas";
+"Mis patrones" = "Mis patrones";
+"Editor" = "Editor";
+"Logros" = "Logros";
 
 /* Textos en SceneEditor */
 "¡Tónica obligatoria!" = "¡Tónica obligatoria!";

@@ -12,7 +12,13 @@
 "Sí" = "Yes";
 "Volver" = "Back";
 
-
+/* Textos en menú principal */
+"Acordes" = "Chords";
+"Arpegios" = "Arpeggios";
+"Escalas" = "Escales";
+"Mis patrones" = "My patrons";
+"Editor" = "Editor";
+"Logros" = "Achievement";
 
 /* Textos en SceneEditor */
 "¡Tónica obligatoria!" = "Tonic mandatory!";
