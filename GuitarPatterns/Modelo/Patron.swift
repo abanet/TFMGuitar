@@ -53,6 +53,19 @@ class Patron {
         
         // Hemos leído el patrón de iCloud.
         // Hay que generar los intervalos / notas que conforman el patrón
+        guard let trasteTonica = self.getTonica() else {
+            return
+        }
+        var nuevosTrastes = [Traste]()
+        for var traste in self.getTrastes() {
+            if let distanciaATonica = Mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: traste) {
+                if let nuevoIntervalo = TipoIntervaloMusical.intervalosConDistancia(semitonos: distanciaATonica).first {
+                    traste.setEstado(tipo: TipoTraste.intervalo(nuevoIntervalo))
+                    nuevosTrastes.append(traste)
+                }
+            }
+        }
+        self.setTrastes(nuevosTrastes)
     }
     
     func getId() -> CKRecord.ID? {

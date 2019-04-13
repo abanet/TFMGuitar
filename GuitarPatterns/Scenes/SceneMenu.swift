@@ -25,14 +25,12 @@ class SceneMenu: SKScene {
         let label = SKLabelNode()
         label.fontSize = 18.0
         label.fontName = "Nexa-Bold"
-        label.text = "Seleccione un patrón"
         return label
     }()
     var lblDescripcionPatron: SKLabelNode = {
         let label = SKLabelNode()
         label.fontSize = 18.0
         label.fontName = "NexaBook"
-        label.text = "y pulsa sobre el para empezar a trabajar."
         return label
     }()
     var lblNumPatrones: SKLabelNode = {
@@ -48,12 +46,18 @@ class SceneMenu: SKScene {
     lazy var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
     
     
+    override init(size: CGSize) {
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
         crearMenuGrafico()
         addUserInterfaz()
     }
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -97,7 +101,6 @@ class SceneMenu: SKScene {
     
     private func crearMenuGrafico(conPatrones patrones: [Patron]) {
         eliminarMenu() // Antes de crear el menú eliminamos el que pudiera existir
-        
         var x: CGFloat = 0.0
         for n in 1...patrones.count {
             let nuevoPatron = GuitarraStatica(size: CGSize(width: self.size.width/2.2, height: self.size.height/2.2))
@@ -151,6 +154,13 @@ class SceneMenu: SKScene {
         
         lblNombrePatron.position = CGPoint(x: self.view!.frame.width/2, y: Medidas.bottomSpace + Medidas.minimumMargin)
         lblDescripcionPatron.position = CGPoint(x: self.view!.frame.width/2, y: lblNombrePatron.position.y - Medidas.minimumMargin * 3)
+        
+        resetDatosPatron()
+    }
+    
+    private func resetDatosPatron() {
+        lblNombrePatron.text = "Selecciona un patrón".localizada()
+        lblDescripcionPatron.text = "y pulsa sobre el para empezar a trabajar.".localizada()
     }
     
     /**
@@ -165,13 +175,11 @@ class SceneMenu: SKScene {
                     PatronesDB.share.eliminarRegistroPublica(id: id)
                     self.patrones.remove(at: indice)
                     self.crearMenuGrafico(conPatrones: self.patrones)
-                    // eliminar posición del array de patrones y volver a crear menú gráfico
-                    // basándose en el array. La base de datos sólo se usa para crear la primera vez.
-                    // se puede hacer patrones optional y al crear el gráfico ver si existe o no. Si no existe se tira de base de datos y si existe se tira de array.
+                    DispatchQueue.main.async {
+                        self.resetDatosPatron()
+                    }
                 }
-                    
             }
-             print("Vamos a eliminar el id \(patrones[indice].getId())")
         }
       
     }
@@ -180,14 +188,16 @@ class SceneMenu: SKScene {
      Llama a la escena de edición con el patrón seleccionado
      */
     @objc func btnEditarPulsado() {
-        
+        if let indice = patronSeleccionado {
+            irAPatron(patrones[indice])
+        }
     }
     
     /**
      Va al editor de patrones para crear un nuevo patrón
      */
     @objc func btnNuevoPulsado() {
-        
+        irAPatron(nil)
     }
     
     private func actualizarDatosPatron(indice: Int) {
@@ -203,4 +213,21 @@ class SceneMenu: SKScene {
             }
         }
     }
+    
+    private func irAPatron(_ patron: Patron?) {
+        guard let vista = self.scene?.view else {
+            return
+        }
+        vista.eliminarUIKit()
+        //let wait = SKAction.wait(forDuration: 2.0)
+        let irPatronAction = SKAction.run {
+            let escena = SceneEditor(size: self.size, patron: patron)
+            vista.ignoresSiblingOrder = true
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            vista.presentScene(escena, transition: reveal)
+        }
+        self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
+    }
+    
+    
 }

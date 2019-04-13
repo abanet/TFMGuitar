@@ -10,6 +10,7 @@
 "Ok" = "Ok";
 "Cancelar" = "Cancelar";
 "Sí" = "Sí";
+"Volver" = "Volver";
 
 
 /* Textos en SceneEditor */
@@ -45,3 +46,5 @@
 /* Texto de Scene menu */
 "Eliminar" = "Eliminar";
 "Editar Patron" = "Editar Patrón";
+"Selecciona un patrón" = "Selecciona un patrón";
+"y pulsa sobre el para empezar a trabajar." = "y pulsa sobre el para empezar a trabajar.";

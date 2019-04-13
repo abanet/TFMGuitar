@@ -65,6 +65,12 @@ class Mastil {
     return nil
   }
   
+    func setPatron(_ patron: Patron) {
+        crearMastilVacio()
+        for traste in patron.getTrastes() {
+            setTraste(datosTraste: traste)
+        }
+    }
   // MARK: Cálculos armónicos en el mástil
   /**
    Devuelve los semitonos desde el primer traste hasta el segundo

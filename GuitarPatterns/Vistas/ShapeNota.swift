@@ -31,7 +31,9 @@ class ShapeNota: SKNode {
             if let traste = traste {
                 switch traste.getEstado() {
                 case .blanco:
-                    self.setTextNota("")
+                    DispatchQueue.main.async { // a veces el traste cambia su valor en otros threads
+                        self.setTextNota("")
+                    }
                     tipoShapeNota = .unselected
                 case let .nota(nota):
                     self.setTextNota(nota.getNombreAsText())
@@ -40,6 +42,7 @@ class ShapeNota: SKNode {
                     self.setTextNota(TipoIntervaloMusical.unisono.rawValue)
                     tipoShapeNota = .tonica
                   } else {
+                    tipoShapeNota = .selected // 13/04 para que estén marcadas al editar un patrón
                     self.setTextNota(intervalo.rawValue)
                   }
                 }

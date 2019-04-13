@@ -237,7 +237,7 @@ class GuitarraView: SKNode {
                 }
             }
             if var traste = shapeNota.getTraste() {
-                traste.setEstado(tipo: tipo)
+                traste.setEstado(tipo: tipo) 
                 shapeNota.setTraste(traste)
                 completion(traste)
             }

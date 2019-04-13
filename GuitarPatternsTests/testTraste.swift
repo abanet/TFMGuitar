@@ -36,5 +36,11 @@ class testTraste: XCTestCase {
         let nuevoTraste = Traste.decodificar(61)
         XCTAssertTrue(nuevoTraste.getPosicion() == trasteBlanco.getPosicion())
     }
+    
+    func testSetEstado() {
+        var traste = Traste(cuerda: 4, traste: 4, estado: TipoTraste.intervalo(.cuartajusta))
+        traste.setEstado(tipo: TipoTraste.intervalo(.quintajusta))
+        XCTAssertTrue(traste.getIntervalo() == TipoIntervaloMusical.quintajusta)
+    }
 
 }

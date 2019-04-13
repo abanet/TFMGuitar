@@ -32,6 +32,7 @@ class SceneEditor: SKScene {
     lazy var btnEditarNombre: UIButton = Boton.crearBoton(nombre: "Editar Nombre".localizada())
     lazy var btnSave: UIButton = Boton.crearBoton(nombre: "Grabar".localizada())
     lazy var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
+    lazy var btnSalir: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
     
     var lblNombrePatron: UILabel = {
         let label = UILabel()
@@ -52,6 +53,14 @@ class SceneEditor: SKScene {
         return label
     }()
         
+    init(size: CGSize, patron: Patron?) {
+        self.patron = patron
+        super.init(size: size)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
@@ -67,7 +76,13 @@ class SceneEditor: SKScene {
         let sizeGuitar = CGSize(width: size.width, height: size.height * Medidas.porcentajeAltoMastil)
         guitarra = GuitarraViewController(size: sizeGuitar, tipo: .guitarra)
         addChild(guitarra)
-        guitarra.crearMastilVacio()
+        
+        // si no hay patrón crear mástil vacío, en otro caso rellenar mástil con el patrón pasado como parámetro: guitarra.dibujarPatron(patron)
+        if let patron = patron {
+            guitarra.dibujarPatron(patron)
+        } else {
+            guitarra.crearMastilVacio()
+        }
     }
   
   
@@ -113,6 +128,7 @@ class SceneEditor: SKScene {
         self.view?.addSubview(btnEditarNombre)
         self.view?.addSubview(btnSave)
         self.view?.addSubview(btnNuevo)
+        self.view?.addSubview(btnSalir)
         
         self.view?.addSubview(lblNombrePatron)
         self.view?.addSubview(lblDescripcionPatron)
@@ -123,13 +139,14 @@ class SceneEditor: SKScene {
         lblCategoriaPatron.translatesAutoresizingMaskIntoConstraints = false
         
         // cálculos para posicionamiento de 4 botones
-        let anchoBoton: CGFloat = (self.view!.frame.width / 4) - Medidas.minimumMargin * 4 - Medidas.minimumMargin * 3
-        let posTrailingReset: CGFloat = -(self.view!.frame.width - 4 * anchoBoton - 3 * Medidas.minimumMargin) / 2
+        let anchoBoton: CGFloat = (self.view!.frame.width / 5) - Medidas.minimumMargin * 5 - Medidas.minimumMargin * 4
+        let posTrailingReset: CGFloat = -(self.view!.frame.width - 5 * anchoBoton - 4 * Medidas.minimumMargin) / 2
         
         btnReset.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
         btnEditarNombre.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
         btnSave.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
         btnNuevo.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
+        btnSalir.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
         
         lblCategoriaPatron.topAnchor.constraint(equalTo: btnReset.bottomAnchor, constant: Medidas.minimumMargin * 2).isActive = true
         lblNombrePatron.topAnchor.constraint(equalTo: btnReset.bottomAnchor, constant: Medidas.minimumMargin * 2).isActive = true
@@ -139,8 +156,9 @@ class SceneEditor: SKScene {
         btnEditarNombre.trailingAnchor.constraint(equalTo: btnReset.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
         btnSave.trailingAnchor.constraint(equalTo: btnEditarNombre.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
         btnNuevo.trailingAnchor.constraint(equalTo: btnSave.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
+        btnSalir.trailingAnchor.constraint(equalTo: btnNuevo.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
         
-        lblCategoriaPatron.leadingAnchor.constraint(equalTo: btnNuevo.leadingAnchor).isActive = true
+        lblCategoriaPatron.leadingAnchor.constraint(equalTo: btnSalir.leadingAnchor).isActive = true
         lblNombrePatron.leadingAnchor.constraint(equalTo: lblCategoriaPatron.trailingAnchor, constant: Medidas.minimumMargin * 2).isActive = true
         lblDescripcionPatron.leadingAnchor.constraint(equalTo: lblCategoriaPatron.leadingAnchor).isActive = true
         
@@ -149,11 +167,13 @@ class SceneEditor: SKScene {
         btnEditarNombre.widthAnchor.constraint(equalToConstant: anchoBoton).isActive  = true
         btnSave.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
         btnNuevo.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
+        btnSalir.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
         
         btnReset.addTarget(self, action: #selector(btnResetPulsado), for: .touchDown)
         btnEditarNombre.addTarget(self, action: #selector(btnEditarNombrePulsado), for: .touchDown)
         btnSave.addTarget(self, action: #selector(btnSavePatronPulsado), for: .touchDown)
         btnNuevo.addTarget(self, action: #selector(btnNuevoPatronPulsado), for: .touchDown)
+        btnSalir.addTarget(self, action: #selector(btnSalirPulsado), for: .touchDown)
     }
     
     
@@ -217,6 +237,22 @@ class SceneEditor: SKScene {
         }
     }
     
+    @objc func btnSalirPulsado() {
+        guard let vista = self.scene?.view else {
+            return
+        }
+        vista.eliminarUIKit()
+        //let wait = SKAction.wait(forDuration: 2.0)
+        let irPatronAction = SKAction.run {
+            let escena = SceneMenu(size: self.size)
+            vista.ignoresSiblingOrder = true
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            vista.presentScene(escena, transition: reveal)
+        }
+        self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
+    }
+    
+   
     /**
     Esta funcioón se utiliza cuando se ha terminado de trabajar con un patrón y se desea comenzar con uno nuevo.
     Vacía el mástil, elimina el patrón con el que se está trabajando y se cierra el registro de la bbdd.

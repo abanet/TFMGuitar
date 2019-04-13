@@ -46,6 +46,12 @@ class GuitarraViewController: SKNode {
         }
     }
   
+    func dibujarPatron(_ patron: Patron) {
+        self.crearMastilVacio()
+        self.viewGuitarra.dibujarPatron(patron)
+        self.mastil.setPatron(patron)
+    }
+    
   /**
    Busca la tónica en el mástil y recalcula los intervalos existentes.
   */
