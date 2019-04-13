@@ -66,6 +66,7 @@ class SceneEditor: SKScene {
         backgroundColor = Colores.background
         iniciarGuitarra()
         addUserInterfaz()
+        setDatosPatron()
     }
     
     /**
@@ -80,6 +81,7 @@ class SceneEditor: SKScene {
         // si no hay patrón crear mástil vacío, en otro caso rellenar mástil con el patrón pasado como parámetro: guitarra.dibujarPatron(patron)
         if let patron = patron {
             guitarra.dibujarPatron(patron)
+            PatronesDB.share.registroActual = patron.getRegistro()
         } else {
             guitarra.crearMastilVacio()
         }
@@ -139,7 +141,7 @@ class SceneEditor: SKScene {
         lblCategoriaPatron.translatesAutoresizingMaskIntoConstraints = false
         
         // cálculos para posicionamiento de 4 botones
-        let anchoBoton: CGFloat = (self.view!.frame.width / 5) - Medidas.minimumMargin * 5 - Medidas.minimumMargin * 4
+        let anchoBoton: CGFloat = (self.view!.frame.width / 5) - Medidas.minimumMargin * 4
         let posTrailingReset: CGFloat = -(self.view!.frame.width - 5 * anchoBoton - 4 * Medidas.minimumMargin) / 2
         
         btnReset.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
@@ -262,6 +264,18 @@ class SceneEditor: SKScene {
         resetLabels()
         patron = nil
         PatronesDB.share.cerrarRegistro()
+    }
+    
+    /**
+     Establecer los metadatos del patron
+    */
+    
+    private func setDatosPatron() {
+        lblNombrePatron.text = patron?.getNombre()
+        lblDescripcionPatron.text = patron?.getDescripcion()
+        if let tipoString = patron?.getTipoAsString() {
+            lblCategoriaPatron.text = tipoString
+        }
     }
     
     /**

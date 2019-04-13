@@ -18,7 +18,7 @@ enum TipoPatron: String {
 
 class Patron {
     
-    private var id: CKRecord.ID?
+    private var registro: CKRecord?
     private var nombre: String? // nombre del patrón
     private var descripcion: String? // descripción del patrón
     private var tipo: TipoPatron?
@@ -44,7 +44,7 @@ class Patron {
               let trastesRegistro = iCloudRegistro[iCloudPatron.trastes] as? [Int],
               let tonicaRegistro  = iCloudRegistro[iCloudPatron.tonica] as? Int
             else { return nil }
-        self.id = iCloudRegistro.recordID
+        self.registro = iCloudRegistro
         self.nombre = nombreRegistro
         self.tipo   = TipoPatron(rawValue: tipoRegistro)
         self.decodificaTonica(tonicaRegistro)
@@ -68,8 +68,12 @@ class Patron {
         self.setTrastes(nuevosTrastes)
     }
     
+    func getRegistro() -> CKRecord? {
+        return self.registro
+    }
+    
     func getId() -> CKRecord.ID? {
-        return self.id 
+        return getRegistro()?.recordID
     }
     
     func addTraste(_ traste: Traste) {
@@ -94,6 +98,10 @@ class Patron {
     
     func getTipo() -> TipoPatron? {
         return tipo
+    }
+    
+    func getTipoAsString() -> String? {
+        return tipo?.rawValue
     }
     
     func setTipo(_ tipo: TipoPatron) {
