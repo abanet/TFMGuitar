@@ -15,7 +15,7 @@ import CoreGraphics
  */
 
 class SceneEditor: SKScene {
-    
+    var parentScene: SKScene? = nil // para poder volver a la pantalla desde la que es llamada
     var guitarra: GuitarraViewController!
     var patron: Patron?
     var datosGrabados = false {
@@ -250,7 +250,7 @@ class SceneEditor: SKScene {
             let escena = SceneMenu(size: self.size)
             vista.ignoresSiblingOrder = true
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            vista.presentScene(escena, transition: reveal)
+            vista.presentScene(self.parentScene!, transition: reveal)
         }
         self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
     }

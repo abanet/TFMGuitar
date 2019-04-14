@@ -40,10 +40,11 @@ class SceneMenu: SKScene {
         return label
     }()
     
-    lazy var btnDelete: UIButton = Boton.crearBoton(nombre: "Eliminar".localizada())
-    lazy var btnEditar: UIButton = Boton.crearBoton(nombre: "Editar Patron".localizada())
-    lazy var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
-    
+
+    var btnDelete: UIButton = Boton.crearBoton(nombre: "Eliminar".localizada())
+    var btnEditar: UIButton = Boton.crearBoton(nombre: "Editar Patron".localizada())
+    var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
+    var btnVolver: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -127,30 +128,36 @@ class SceneMenu: SKScene {
         self.view?.addSubview(btnNuevo)
         self.view?.addSubview(btnDelete)
         self.view?.addSubview(btnEditar)
+        self.view?.addSubview(btnVolver)
         addChild(lblNumPatrones)
         addChild(lblNombrePatron)
         addChild(lblDescripcionPatron)
         
-        // Cálculo de dimensiones y posiciones para 3 botones
-        let anchoBoton: CGFloat = (self.view!.frame.width / 3) - Medidas.minimumMargin * 3 - Medidas.minimumMargin * 2
-        let posTrailingReset: CGFloat = -(self.view!.frame.width - 3 * anchoBoton - 3 * Medidas.minimumMargin) / 2
+        // Cálculo de dimensiones y posiciones para 4 botones
+        let anchoBoton: CGFloat = (self.view!.frame.width / 4) - Medidas.minimumMargin * 4 - Medidas.minimumMargin * 3
+        let posTrailingReset: CGFloat = -(self.view!.frame.width - 4 * anchoBoton - 4 * Medidas.minimumMargin) / 2
         
         btnNuevo.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
         btnEditar.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
         btnDelete.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
+        btnVolver.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
         
         btnNuevo.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: posTrailingReset).isActive = true
         btnDelete.trailingAnchor.constraint(equalTo: btnNuevo.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
         btnEditar.trailingAnchor.constraint(equalTo: btnDelete.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
+        btnVolver.trailingAnchor.constraint(equalTo: btnEditar.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
+        
         
         btnNuevo.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
         btnEditar.widthAnchor.constraint(equalToConstant: anchoBoton).isActive  = true
         btnDelete.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
+        btnVolver.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
        
         
         btnDelete.addTarget(self, action: #selector(btnDeletePulsado), for: .touchDown)
         btnEditar.addTarget(self, action: #selector(btnEditarPulsado), for: .touchDown)
         btnNuevo.addTarget(self, action: #selector(btnNuevoPulsado), for: .touchDown)
+        btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
         
         lblNombrePatron.position = CGPoint(x: self.view!.frame.width/2, y: Medidas.bottomSpace + Medidas.minimumMargin)
         lblDescripcionPatron.position = CGPoint(x: self.view!.frame.width/2, y: lblNombrePatron.position.y - Medidas.minimumMargin * 3)
@@ -199,6 +206,25 @@ class SceneMenu: SKScene {
         irAPatron(nil)
     }
     
+    /**
+     Regresa a la pantalla del menú principal
+     */
+    @objc func btnVolverPulsado() {
+        guard let vista = self.scene?.view else {
+            return
+        }
+        vista.eliminarUIKit()
+        removeAllChildren()
+        
+        let accion = SKAction.run {
+            let escena = SceneMenuPrincipal(size: self.size)
+            //vista.ignoresSiblingOrder = true
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            vista.presentScene(escena, transition: reveal)
+        }
+        self.run(SKAction.sequence([accion]))
+    }
+    
     private func actualizarDatosPatron(indice: Int) {
         lblNombrePatron.text = PatronesDB.share.cachePatronesPublica[indice].getNombre()
         lblDescripcionPatron.text = PatronesDB.share.cachePatronesPublica[indice].getDescripcion()
@@ -218,9 +244,11 @@ class SceneMenu: SKScene {
             return
         }
         vista.eliminarUIKit()
+        removeAllChildren()
         //let wait = SKAction.wait(forDuration: 2.0)
         let irPatronAction = SKAction.run {
             let escena = SceneEditor(size: self.size, patron: patron)
+            escena.parentScene = self // para saber a que escena volver
             vista.ignoresSiblingOrder = true
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             vista.presentScene(escena, transition: reveal)

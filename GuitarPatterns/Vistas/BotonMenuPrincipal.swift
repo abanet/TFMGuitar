@@ -7,11 +7,16 @@
 //
 
 import SpriteKit
+protocol BotonMenuPulsado: class {
+    func botonMenuPulsado(opcion: OpcionesMenu) -> Void
+}
 
 class BotonMenuPrincipal: SKNode {
+    weak var delegate: BotonMenuPulsado?
     var opcion: SKShapeNode
     var image: SKSpriteNode
     var texto: SKLabelNode
+    var tipo: OpcionesMenu
     var activado: Bool = false {
         didSet {
             if activado {
@@ -22,11 +27,11 @@ class BotonMenuPrincipal: SKNode {
         }
     }
     
-    init(size: CGSize, imagen: String, titulo: String) {
-        
+    init(size: CGSize, imagen: String, titulo: String, tipo: OpcionesMenu) {
         opcion = SKShapeNode(rectOf: size, cornerRadius: size.width/10)
         image = SKSpriteNode(imageNamed: imagen)
         texto = SKLabelNode(fontNamed: "Nexa-Bold")
+        self.tipo = tipo
         super.init()
         isUserInteractionEnabled = true
         texto.text = titulo
@@ -65,5 +70,6 @@ class BotonMenuPrincipal: SKNode {
    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         activado = false
+        delegate?.botonMenuPulsado(opcion: self.tipo)
     }
 }

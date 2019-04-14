@@ -7,6 +7,14 @@
 //
 
 import SpriteKit
+enum OpcionesMenu: String {
+    case acordes
+    case arpegios
+    case escalas
+    case mispatrones
+    case editor
+    case logros
+}
 
 class SceneMenuPrincipal: SKScene {
 
@@ -15,7 +23,6 @@ class SceneMenuPrincipal: SKScene {
         self.backgroundColor = .white
         self.setBackground()
         self.crearMenu()
-       
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,24 +43,29 @@ class SceneMenuPrincipal: SKScene {
         let cuartoAlto = size.height / 4
         
         // Menú principal
-        let opcion1 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "mispatrones", titulo: "Mis Patrones".localizada())
+        let opcion1 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "mispatrones", titulo: "Mis Patrones".localizada(), tipo: OpcionesMenu.mispatrones)
         opcion1.position = CGPoint(x: sextoAncho, y: cuartoAlto)
-       
+        opcion1.delegate = self
         
-        let opcion2 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "editor", titulo: "Editor".localizada())
+        let opcion2 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "editor", titulo: "Editor".localizada(), tipo: OpcionesMenu.editor)
         opcion2.position = CGPoint(x: sextoAncho * 3, y: cuartoAlto)
+        opcion2.delegate = self
 
-        let opcion3 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "logros", titulo: "Logros".localizada())
+        let opcion3 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "logros", titulo: "Logros".localizada(), tipo: OpcionesMenu.logros)
         opcion3.position = CGPoint(x: sextoAncho * 5, y: cuartoAlto)
+        opcion3.delegate = self
 
-        let opcion4 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "acordes", titulo: "Acordes".localizada())
+        let opcion4 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "acordes", titulo: "Acordes".localizada(), tipo: OpcionesMenu.acordes)
         opcion4.position = CGPoint(x: sextoAncho, y: cuartoAlto * 3)
+        opcion4.delegate = self
 
-        let opcion5 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "arpegios", titulo: "Arpegios".localizada())
+        let opcion5 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "arpegios", titulo: "Arpegios".localizada(), tipo: OpcionesMenu.arpegios)
         opcion5.position = CGPoint(x: sextoAncho * 3, y: cuartoAlto * 3)
+        opcion5.delegate = self
 
-        let opcion6 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "escalas", titulo: "Escalas".localizada())
+        let opcion6 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "escalas", titulo: "Escalas".localizada(), tipo: OpcionesMenu.escalas)
         opcion6.position = CGPoint(x: sextoAncho * 5, y: cuartoAlto * 3)
+        opcion6.delegate = self
         
         addChild(opcion1);addChild(opcion2)
         addChild(opcion3)
@@ -62,5 +74,37 @@ class SceneMenuPrincipal: SKScene {
         addChild(opcion6)
     }
     
+}
+
+extension SceneMenuPrincipal: BotonMenuPulsado {
+    func botonMenuPulsado(opcion: OpcionesMenu) {
+        switch opcion {
+        case .acordes:
+            let escena = SceneMenu(size: self.size)
+            irAEscena(escena)
+        case .arpegios:
+            let escena = SceneMenu(size: self.size)
+            irAEscena(escena)
+        case .escalas:
+            let escena = SceneMenu(size: self.size)
+            irAEscena(escena)
+        case .editor:
+            let escena = SceneEditor(size: self.size, patron: nil)
+            escena.parentScene = self
+            irAEscena(escena)
+        case .logros:
+            break
+        case .mispatrones:
+            break
+        }
+    }
+    
+    func irAEscena(_ escena: SKScene) {
+        let accion = SKAction.run {
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            self.view?.presentScene(escena, transition: reveal)
+        }
+        self.run(SKAction.sequence([accion]))
+    }
 }
 
