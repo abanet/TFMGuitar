@@ -19,6 +19,8 @@ struct Colores {
     static let noteFillResaltada = SKColor.orange
     static let tonica = SKColor.red
     static let botones = UIColor.orange
+    static let botonPrincipalOff = UIColor.lightGray.withAlphaComponent(0.35)
+    static let botonPrincipalOn = UIColor.orange.withAlphaComponent(0.35)
 }
 
 /// Contiene las medidas generales de la aplicación

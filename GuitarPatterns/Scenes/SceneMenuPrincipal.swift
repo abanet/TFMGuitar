@@ -15,6 +15,7 @@ class SceneMenuPrincipal: SKScene {
         self.backgroundColor = .white
         self.setBackground()
         self.crearMenu()
+       
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +38,7 @@ class SceneMenuPrincipal: SKScene {
         // Menú principal
         let opcion1 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "mispatrones", titulo: "Mis Patrones".localizada())
         opcion1.position = CGPoint(x: sextoAncho, y: cuartoAlto)
+       
         
         let opcion2 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "editor", titulo: "Editor".localizada())
         opcion2.position = CGPoint(x: sextoAncho * 3, y: cuartoAlto)
