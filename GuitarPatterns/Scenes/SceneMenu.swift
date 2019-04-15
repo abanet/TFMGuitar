@@ -293,8 +293,13 @@ class SceneMenu: SKScene {
   
     
     private func actualizarDatosPatron(indice: Int) {
+      if privada {
+        lblNombrePatron.text = PatronesDB.share.cachePatronesPrivada[indice].getNombre()
+        lblDescripcionPatron.text = PatronesDB.share.cachePatronesPrivada[indice].getDescripcion()
+      } else {
         lblNombrePatron.text = PatronesDB.share.cachePatronesPublica[indice].getNombre()
         lblDescripcionPatron.text = PatronesDB.share.cachePatronesPublica[indice].getDescripcion()
+      }
         for (index, opcion) in menu.children.enumerated() {
             if let opcion = opcion as? GuitarraStatica {
                 if index == indice {

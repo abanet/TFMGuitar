@@ -134,7 +134,7 @@ class PatronesDB {
     // MARK: Funciones de recuperación de registros en la base de datos
     func getPatronesPublica(completion: @escaping ([Patron]) ->()) {
         if cachePatronesPublica.count == 0 {
-            getPatrones(bbdd: publicDB, completion: completion)
+          getPatrones(bbdd: publicDB, privada: false, completion: completion)
         } else {
             completion(cachePatronesPublica)
         }
@@ -142,13 +142,13 @@ class PatronesDB {
     
     func getPatronesPrivada(completion: @escaping ([Patron]) ->()) {
         if cachePatronesPrivada.count == 0 {
-            getPatrones(bbdd: privateDB, completion: completion)
+          getPatrones(bbdd: privateDB, privada: true, completion: completion)
         } else {
             completion(cachePatronesPrivada)
         }
     }
     
-    func getPatrones(bbdd: CKDatabase, completion: @escaping ([Patron]) ->()) {
+  func getPatrones(bbdd: CKDatabase, privada: Bool, completion: @escaping ([Patron]) ->()) {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: iCloudRegistros.patron, predicate: predicate)
         bbdd.perform(query, inZoneWith: nil) { registros, error in
@@ -160,7 +160,11 @@ class PatronesDB {
                 for registro in registros {
                     if let patron = Patron(iCloudRegistro: registro) {
                         patrones.append(patron)
+                      if privada {
+                        self.cachePatronesPrivada.append(patron)
+                      } else {
                         self.cachePatronesPublica.append(patron)
+                      }
                     }
                 }
                 completion(patrones)

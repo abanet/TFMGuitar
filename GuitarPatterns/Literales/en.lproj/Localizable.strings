@@ -54,7 +54,7 @@
 
 /* Texto de Scene menu */
 "Eliminar" = "Delete";
-"Editar Patron" = "Edit Patron";
+"Editar Patron" = "Edit";
 "Selecciona un patrón" = "Select a patron";
 "y pulsa sobre la opción deseada del menú." = "and press over it to start working.";
 "Patron Añadido" = "Patron Added";

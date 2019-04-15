@@ -67,11 +67,8 @@ class SceneMenuPrincipal: SKScene {
         opcion6.position = CGPoint(x: sextoAncho * 5, y: cuartoAlto * 3)
         opcion6.delegate = self
         
-        addChild(opcion1);addChild(opcion2)
-        addChild(opcion3)
-        addChild(opcion4)
-        addChild(opcion5)
-        addChild(opcion6)
+      addChild(opcion1); addChild(opcion2); addChild(opcion3)
+      addChild(opcion4); addChild(opcion5); addChild(opcion6)
     }
     
 }
@@ -98,7 +95,9 @@ extension SceneMenuPrincipal: BotonMenuPulsado {
         case .logros:
             break
         case .mispatrones:
-            break
+          let escena = SceneMenu(size: self.size)
+          escena.privada = true
+          irAEscena(escena)
         }
     }
     
