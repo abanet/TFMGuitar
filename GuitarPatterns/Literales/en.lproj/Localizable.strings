@@ -46,6 +46,8 @@
 "Reset" = "Limpiar";
 "Editar Nombre" = "Edit Name";
 "Nuevo" = "New";
+"Añadir" = "+ My patrons";
+"Jugar" = "Play";
 "¡Datos incompletos!" = "¡incomplete data!";
 "El patrón tiene que tener un nombre." = "Patron must have a name";
 "Salir" = "Exit";
@@ -54,4 +56,4 @@
 "Eliminar" = "Delete";
 "Editar Patron" = "Edit Patron";
 "Selecciona un patrón" = "Select a patron";
-"y pulsa sobre el para empezar a trabajar." = "and press over it to start working.";
+"y pulsa sobre la opción deseada del menú." = "and press over it to start working.";

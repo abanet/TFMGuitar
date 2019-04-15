@@ -20,7 +20,7 @@ class SceneMenu: SKScene {
     var maxPosXMenu: CGFloat = 0.0
     var moviendo: Bool = false
     var filtro: TipoPatron? // tipo de patrones a mostrar. Por defecto todos (nil)
-    var privada: Bool = false // Buscamos en la base de datos privada?
+    var privada: Bool = false // estamos trabajando con patrones publicos o privados?
     
     var lblNombrePatron: SKLabelNode = {
         let label = SKLabelNode()
@@ -47,6 +47,9 @@ class SceneMenu: SKScene {
     var btnEditar: UIButton = Boton.crearBoton(nombre: "Editar Patron".localizada())
     var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
     var btnVolver: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
+    var btnAdd: UIButton = Boton.crearBoton(nombre: "Añadir".localizada())
+    var btnJugar: UIButton = Boton.crearBoton(nombre: "Jugar".localizada())
+  
     
     override init(size: CGSize) {
         super.init(size: size)
@@ -59,7 +62,11 @@ class SceneMenu: SKScene {
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
         crearMenuGrafico()
-        addUserInterfaz()
+      if privada {
+        addUserInterfaz(botones: [btnVolver, btnEditar, btnDelete, btnNuevo, btnJugar])
+      } else {
+        addUserInterfaz(botones: [btnVolver, btnAdd, btnJugar])
+      }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -139,50 +146,53 @@ class SceneMenu: SKScene {
         menu.removeFromParent()
     }
     
-    private func addUserInterfaz() {
-        self.view?.addSubview(btnNuevo)
-        self.view?.addSubview(btnDelete)
-        self.view?.addSubview(btnEditar)
-        self.view?.addSubview(btnVolver)
-        addChild(lblNumPatrones)
-        addChild(lblNombrePatron)
-        addChild(lblDescripcionPatron)
-        
-        // Cálculo de dimensiones y posiciones para 4 botones
-        let anchoBoton: CGFloat = (self.view!.frame.width / 4) - Medidas.minimumMargin * 4 - Medidas.minimumMargin * 3
-        let posTrailingReset: CGFloat = -(self.view!.frame.width - 4 * anchoBoton - 4 * Medidas.minimumMargin) / 2
-        
-        btnNuevo.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
-        btnEditar.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
-        btnDelete.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
-        btnVolver.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
-        
-        btnNuevo.trailingAnchor.constraint(equalTo: self.view!.trailingAnchor, constant: posTrailingReset).isActive = true
-        btnDelete.trailingAnchor.constraint(equalTo: btnNuevo.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
-        btnEditar.trailingAnchor.constraint(equalTo: btnDelete.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
-        btnVolver.trailingAnchor.constraint(equalTo: btnEditar.leadingAnchor, constant: -Medidas.minimumMargin).isActive = true
-        
-        
-        btnNuevo.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
-        btnEditar.widthAnchor.constraint(equalToConstant: anchoBoton).isActive  = true
-        btnDelete.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
-        btnVolver.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
-       
-        
-        btnDelete.addTarget(self, action: #selector(btnDeletePulsado), for: .touchDown)
-        btnEditar.addTarget(self, action: #selector(btnEditarPulsado), for: .touchDown)
-        btnNuevo.addTarget(self, action: #selector(btnNuevoPulsado), for: .touchDown)
-        btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
-        
-        lblNombrePatron.position = CGPoint(x: self.view!.frame.width/2, y: Medidas.bottomSpace + Medidas.minimumMargin)
-        lblDescripcionPatron.position = CGPoint(x: self.view!.frame.width/2, y: lblNombrePatron.position.y - Medidas.minimumMargin * 3)
-        
-        resetDatosPatron()
+  private func addUserInterfaz(botones:[UIButton]) {
+    // Cálculo de dimensiones y posiciones para n botones
+    let numBotones = CGFloat(botones.count)
+    let maxAnchoBoton = self.view!.frame.width / numBotones
+    let totalEspacioEntreBotones = Medidas.minimumMargin * numBotones
+    let anchoBoton: CGFloat = maxAnchoBoton - totalEspacioEntreBotones - (Medidas.minimumMargin * (numBotones - 1))
+    let totalEspacioBotones = numBotones * anchoBoton
+    let posLeading: CGFloat = (self.view!.frame.width - totalEspacioBotones - totalEspacioEntreBotones) / 2
+    
+    // Añadir los botones a la vista principal
+    for boton in botones {
+      self.view?.addSubview(boton)
     }
+    // Posicionar botones
+    for (indice, boton) in botones.enumerated() {
+      boton.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin * 3).isActive = true
+      boton.widthAnchor.constraint(equalToConstant: anchoBoton).isActive = true
+      if indice == 0 {
+         boton.leadingAnchor.constraint(equalTo: self.view!.leadingAnchor, constant: posLeading).isActive = true
+      } else {
+         boton.leadingAnchor.constraint(equalTo: botones[indice-1].trailingAnchor, constant: Medidas.minimumMargin).isActive = true
+      }
+    }
+    
+    
+    // Asociamos acciones
+    btnDelete.addTarget(self, action: #selector(btnDeletePulsado), for: .touchDown)
+    btnEditar.addTarget(self, action: #selector(btnEditarPulsado), for: .touchDown)
+    btnNuevo.addTarget(self, action: #selector(btnNuevoPulsado), for: .touchDown)
+    btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
+    btnAdd.addTarget(self, action: #selector(btnAddPulsado), for: .touchDown)
+    btnJugar.addTarget(self, action: #selector(btnJugarPulsado), for: .touchDown)
+    
+    // Añadimos etiquetas
+    addChild(lblNumPatrones)
+    addChild(lblNombrePatron)
+    addChild(lblDescripcionPatron)
+    
+    lblNombrePatron.position = CGPoint(x: self.view!.frame.width/2, y: Medidas.bottomSpace + Medidas.minimumMargin)
+    lblDescripcionPatron.position = CGPoint(x: self.view!.frame.width/2, y: lblNombrePatron.position.y - Medidas.minimumMargin * 3)
+    
+    resetDatosPatron()
+  }
     
     private func resetDatosPatron() {
         lblNombrePatron.text = "Selecciona un patrón".localizada()
-        lblDescripcionPatron.text = "y pulsa sobre el para empezar a trabajar.".localizada()
+        lblDescripcionPatron.text = "y pulsa sobre la opción deseada del menú.".localizada()
     }
     
     /**
@@ -253,6 +263,21 @@ class SceneMenu: SKScene {
         }
         self.run(SKAction.sequence([accion]))
     }
+  
+  /**
+    Añade el botón a la base de datos privada del usuario
+  */
+  @objc func btnAddPulsado() {
+    
+  }
+  
+  /**
+   Entra en la escena de juego para el patron seleccionado
+   */
+  @objc func btnJugarPulsado() {
+    
+  }
+  
     
     private func actualizarDatosPatron(indice: Int) {
         lblNombrePatron.text = PatronesDB.share.cachePatronesPublica[indice].getNombre()

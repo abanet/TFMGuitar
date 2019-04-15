@@ -46,6 +46,8 @@
 "Reset" = "Limpiar";
 "Editar Nombre" = "Editar Nombre";
 "Nuevo" = "Nuevo";
+"Añadir" = "+ Mis patrones";
+"Jugar" = "Jugar";
 "¡Datos incompletos!" = "¡Datos incompletos!";
 "El patrón tiene que tener un nombre." = "El patrón tiene que tener un nombre.";
 "Salir" = "Salir";
@@ -54,4 +56,4 @@
 "Eliminar" = "Eliminar";
 "Editar Patron" = "Editar Patrón";
 "Selecciona un patrón" = "Selecciona un patrón";
-"y pulsa sobre el para empezar a trabajar." = "y pulsa sobre el para empezar a trabajar.";
+"y pulsa sobre la opción deseada del menú." = "y pulsa sobre la opción deseada del menú.";
