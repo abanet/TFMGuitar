@@ -40,6 +40,21 @@
 		D3282E3E2261FC78008218AC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3D2261FC78008218AC /* Extension+UIView.swift */; };
 		D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */; };
 		D3282E42226238FC008218AC /* BotonMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */; };
+		D33128D92264673700FCB577 /* bombDrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128C92264673700FCB577 /* bombDrop.wav */; };
+		D33128DA2264673700FCB577 /* collectcoin.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CB2264673700FCB577 /* collectcoin.wav */; };
+		D33128DB2264673700FCB577 /* G0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CD2264673700FCB577 /* G0.wav */; };
+		D33128DC2264673700FCB577 /* F0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CE2264673700FCB577 /* F0.wav */; };
+		D33128DD2264673700FCB577 /* A0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CF2264673700FCB577 /* A0.wav */; };
+		D33128DE2264673700FCB577 /* C0#.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D02264673700FCB577 /* C0#.wav */; };
+		D33128DF2264673700FCB577 /* C0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D12264673700FCB577 /* C0.wav */; };
+		D33128E02264673700FCB577 /* A0#.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D22264673700FCB577 /* A0#.wav */; };
+		D33128E12264673700FCB577 /* B0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D32264673700FCB577 /* B0.wav */; };
+		D33128E22264673700FCB577 /* G0#.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D42264673700FCB577 /* G0#.wav */; };
+		D33128E32264673700FCB577 /* E0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D52264673700FCB577 /* E0.wav */; };
+		D33128E42264673700FCB577 /* F0#.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D62264673700FCB577 /* F0#.wav */; };
+		D33128E52264673700FCB577 /* D0#.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D72264673700FCB577 /* D0#.wav */; };
+		D33128E62264673700FCB577 /* D0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128D82264673700FCB577 /* D0.wav */; };
+		D33128E82264679D00FCB577 /* CJonico.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D33128E72264679D00FCB577 /* CJonico.mp3 */; };
 		D33B7965225E4721003E2FB8 /* Boton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33B7964225E4721003E2FB8 /* Boton.swift */; };
 		D34F00742229A9D200165192 /* SceneEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00732229A9D200165192 /* SceneEditor.swift */; };
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
@@ -107,6 +122,21 @@
 		D3282E3D2261FC78008218AC /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneMenuPrincipal.swift; sourceTree = "<group>"; };
 		D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotonMenuPrincipal.swift; sourceTree = "<group>"; };
+		D33128C92264673700FCB577 /* bombDrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bombDrop.wav; sourceTree = "<group>"; };
+		D33128CB2264673700FCB577 /* collectcoin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collectcoin.wav; sourceTree = "<group>"; };
+		D33128CD2264673700FCB577 /* G0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G0.wav; sourceTree = "<group>"; };
+		D33128CE2264673700FCB577 /* F0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = F0.wav; sourceTree = "<group>"; };
+		D33128CF2264673700FCB577 /* A0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = A0.wav; sourceTree = "<group>"; };
+		D33128D02264673700FCB577 /* C0#.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "C0#.wav"; sourceTree = "<group>"; };
+		D33128D12264673700FCB577 /* C0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = C0.wav; sourceTree = "<group>"; };
+		D33128D22264673700FCB577 /* A0#.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "A0#.wav"; sourceTree = "<group>"; };
+		D33128D32264673700FCB577 /* B0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = B0.wav; sourceTree = "<group>"; };
+		D33128D42264673700FCB577 /* G0#.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "G0#.wav"; sourceTree = "<group>"; };
+		D33128D52264673700FCB577 /* E0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = E0.wav; sourceTree = "<group>"; };
+		D33128D62264673700FCB577 /* F0#.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "F0#.wav"; sourceTree = "<group>"; };
+		D33128D72264673700FCB577 /* D0#.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "D0#.wav"; sourceTree = "<group>"; };
+		D33128D82264673700FCB577 /* D0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = D0.wav; sourceTree = "<group>"; };
+		D33128E72264679D00FCB577 /* CJonico.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CJonico.mp3; sourceTree = "<group>"; };
 		D33B7964225E4721003E2FB8 /* Boton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boton.swift; sourceTree = "<group>"; };
 		D34F00732229A9D200165192 /* SceneEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneEditor.swift; sourceTree = "<group>"; };
 		D34F00752229BDC200165192 /* ShapeNota.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNota.swift; sourceTree = "<group>"; };
@@ -172,6 +202,7 @@
 		C07C634322292B0100B36913 = {
 			isa = PBXGroup;
 			children = (
+				D33128C82264673700FCB577 /* sonidos */,
 				C0B4122A225B7EF500BF5C4E /* imagenes */,
 				D3223FBF225A169700C93C66 /* fonts */,
 				C07C634E22292B0100B36913 /* GuitarPatterns */,
@@ -286,6 +317,44 @@
 				D3223FC6225A16BB00C93C66 /* NexaBook.otf */,
 			);
 			path = fonts;
+			sourceTree = "<group>";
+		};
+		D33128C82264673700FCB577 /* sonidos */ = {
+			isa = PBXGroup;
+			children = (
+				D33128C92264673700FCB577 /* bombDrop.wav */,
+				D33128CA2264673700FCB577 /* back */,
+				D33128CB2264673700FCB577 /* collectcoin.wav */,
+				D33128CC2264673700FCB577 /* notas */,
+			);
+			path = sonidos;
+			sourceTree = "<group>";
+		};
+		D33128CA2264673700FCB577 /* back */ = {
+			isa = PBXGroup;
+			children = (
+				D33128E72264679D00FCB577 /* CJonico.mp3 */,
+			);
+			path = back;
+			sourceTree = "<group>";
+		};
+		D33128CC2264673700FCB577 /* notas */ = {
+			isa = PBXGroup;
+			children = (
+				D33128CD2264673700FCB577 /* G0.wav */,
+				D33128CE2264673700FCB577 /* F0.wav */,
+				D33128CF2264673700FCB577 /* A0.wav */,
+				D33128D02264673700FCB577 /* C0#.wav */,
+				D33128D12264673700FCB577 /* C0.wav */,
+				D33128D22264673700FCB577 /* A0#.wav */,
+				D33128D32264673700FCB577 /* B0.wav */,
+				D33128D42264673700FCB577 /* G0#.wav */,
+				D33128D52264673700FCB577 /* E0.wav */,
+				D33128D62264673700FCB577 /* F0#.wav */,
+				D33128D72264673700FCB577 /* D0#.wav */,
+				D33128D82264673700FCB577 /* D0.wav */,
+			);
+			path = notas;
 			sourceTree = "<group>";
 		};
 		D34F00722229A9AE00165192 /* Scenes */ = {
@@ -429,13 +498,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D33128E22264673700FCB577 /* G0#.wav in Resources */,
+				D33128E62264673700FCB577 /* D0.wav in Resources */,
 				C07C635B22292B0100B36913 /* Main.storyboard in Resources */,
 				D3613B6522566F7D00F15420 /* Localizable.strings in Resources */,
 				D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */,
+				D33128E02264673700FCB577 /* A0#.wav in Resources */,
+				D33128E12264673700FCB577 /* B0.wav in Resources */,
+				D33128E52264673700FCB577 /* D0#.wav in Resources */,
+				D33128DE2264673700FCB577 /* C0#.wav in Resources */,
 				C0B41229225B733800BF5C4E /* launchScreen.png in Resources */,
+				D33128E82264679D00FCB577 /* CJonico.mp3 in Resources */,
 				C07C635D22292B0300B36913 /* Assets.xcassets in Resources */,
+				D33128DB2264673700FCB577 /* G0.wav in Resources */,
+				D33128DC2264673700FCB577 /* F0.wav in Resources */,
+				D33128E32264673700FCB577 /* E0.wav in Resources */,
+				D33128DD2264673700FCB577 /* A0.wav in Resources */,
+				D33128DF2264673700FCB577 /* C0.wav in Resources */,
+				D33128D92264673700FCB577 /* bombDrop.wav in Resources */,
 				D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */,
+				D33128E42264673700FCB577 /* F0#.wav in Resources */,
 				C07C636022292B0300B36913 /* LaunchScreen.storyboard in Resources */,
+				D33128DA2264673700FCB577 /* collectcoin.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
