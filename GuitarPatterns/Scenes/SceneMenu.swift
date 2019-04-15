@@ -14,6 +14,7 @@ import SpriteKit
 */
 class SceneMenu: SKScene {
     var patronSeleccionado: Int? // posición del patrón seleccionado
+    var numeroPatrones: Int = 0
     
     let menu = SKNode()
     var startLocationX: CGFloat = 0.0
@@ -89,7 +90,7 @@ class SceneMenu: SKScene {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first, moviendo {
+        if let touch = touches.first, moviendo, numeroPatrones > Int(Medidas.numeroPatronesEnPantalla) {
             let location = touch.location(in: self)
             menu.position.x = location.x + startLocationX
             // vigilamos que el menú no desborde la pantalla por la izquierda
@@ -107,14 +108,17 @@ class SceneMenu: SKScene {
         if privada {
             PatronesDB.share.getPatronesPrivada { [unowned self] patrones in
                 self.crearMenuGrafico(conPatrones: patrones)
+                self.numeroPatrones = patrones.count
             }
         } else {
             PatronesDB.share.getPatronesPublica { [unowned self] patrones in
                 if let filtro = self.filtro {
                     let patronesFiltrados = patrones.filter {patron in patron.getTipo() == filtro}
                     self.crearMenuGrafico(conPatrones: patronesFiltrados)
+                    self.numeroPatrones = patronesFiltrados.count
                 } else {
                     self.crearMenuGrafico(conPatrones: patrones)
+                    self.numeroPatrones = patrones.count
                 }
             }
         }
@@ -125,14 +129,13 @@ class SceneMenu: SKScene {
         var x: CGFloat = 0.0
         if patrones.count > 0 {
             for n in 1...patrones.count {
-                let nuevoPatron = GuitarraStatica(size: CGSize(width: self.size.width/2.2, height: self.size.height/2.2))
+                let nuevoPatron = GuitarraStatica(size: CGSize(width: self.size.width/(Medidas.numeroPatronesEnPantalla + 0.2), height: self.size.height/(Medidas.numeroPatronesEnPantalla + 0.2)))
                 nuevoPatron.name = "\(n)"
                 nuevoPatron.dibujarPatron(patrones[n-1])
                 nuevoPatron.isUserInteractionEnabled = false
                 nuevoPatron.position = CGPoint(x: x, y: 0)
-                x += self.size.width/2.5// + self.size.width/25 // dejamos un espacio extra de margen
+                x += self.size.width/(Medidas.numeroPatronesEnPantalla + 0.5) // dejamos un espacio extra de margen
                 self.menu.addChild(nuevoPatron)
-                
             }
             self.maxPosXMenu = x
             self.addChild(self.menu)
@@ -271,9 +274,11 @@ class SceneMenu: SKScene {
     guard !privada else { return } // estamos en la pública con total seguridad.
     if let indice = patronSeleccionado { // existe un patrón seleccionado
       let patron = PatronesDB.share.cachePatronesPublica[indice]
+      patron.setRegistro(nil)
       PatronesDB.share.grabarPatronEnPrivada(patron) {
         grabado in
         if grabado {
+          PatronesDB.share.setPatronesPrivadaToNil() // para obligar a recargar
           DispatchQueue.main.async {
             Alertas.mostrar(titulo: "Patron Añadido".localizada(), mensaje: "El patrón seleccionado se ha añadido a la lista de tus patrones.".localizada(), enViewController: self.view!.window!.rootViewController!)
           }

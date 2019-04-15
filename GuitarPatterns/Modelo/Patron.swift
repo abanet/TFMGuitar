@@ -71,6 +71,10 @@ class Patron {
     func getRegistro() -> CKRecord? {
         return self.registro
     }
+  
+  func setRegistro(_ registro: CKRecord?) {
+    self.registro = registro
+  }
     
     func getId() -> CKRecord.ID? {
         return getRegistro()?.recordID

@@ -147,6 +147,10 @@ class PatronesDB {
             completion(cachePatronesPrivada)
         }
     }
+  
+  func setPatronesPrivadaToNil() {
+    self.cachePatronesPrivada.removeAll()
+  }
     
   func getPatrones(bbdd: CKDatabase, privada: Bool, completion: @escaping ([Patron]) ->()) {
         let predicate = NSPredicate(value: true)

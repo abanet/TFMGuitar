@@ -60,6 +60,8 @@ struct Medidas {
     /// ratio entre espacio entre cuerdas y el tamaño de la nota
     static let ratioCuerdasNota: CGFloat = 2.4
 
+    // Patrones en menu
+  static let numeroPatronesEnPantalla: CGFloat = 2.0
 }
 
 struct Notas {
