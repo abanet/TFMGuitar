@@ -81,12 +81,15 @@ extension SceneMenuPrincipal: BotonMenuPulsado {
         switch opcion {
         case .acordes:
             let escena = SceneMenu(size: self.size)
+            escena.filtro = TipoPatron.Acorde
             irAEscena(escena)
         case .arpegios:
             let escena = SceneMenu(size: self.size)
+            escena.filtro = TipoPatron.Arpegio
             irAEscena(escena)
         case .escalas:
             let escena = SceneMenu(size: self.size)
+            escena.filtro = TipoPatron.Escala
             irAEscena(escena)
         case .editor:
             let escena = SceneEditor(size: self.size, patron: nil)

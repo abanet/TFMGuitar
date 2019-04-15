@@ -207,7 +207,7 @@ class SceneEditor: SKScene {
                 if patron != nil {
                     patron!.setTrastes(guitarra.mastil.getTrastes())
                     patron!.setTonica(tonica)
-                    PatronesDB.share.grabarPatronEnPublica(patron!) { ok in
+                    PatronesDB.share.grabarPatronEnPrivada(patron!) { ok in
                         if ok {
                             DispatchQueue.main.async {
                                 self.datosGrabados = true

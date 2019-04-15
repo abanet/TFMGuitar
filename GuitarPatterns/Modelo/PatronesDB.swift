@@ -24,6 +24,10 @@ enum iCloudPatron {
     static let visible = "visible"
 }
 
+enum TipoCache {
+    case privada
+    case publica
+}
 
 class PatronesDB {
     
@@ -36,6 +40,7 @@ class PatronesDB {
     var registroActual: CKRecord?
     
     var cachePatronesPublica: [Patron] = [Patron]()
+    var cachePatronesPrivada: [Patron] = [Patron]()
     
     private init() {
         container = CKContainer.default()
@@ -63,22 +68,40 @@ class PatronesDB {
      Graba un patrón en la base de datos pública
     */
     func grabarPatronEnPublica(_ patron: Patron, completion: @escaping (Bool) ->()) {
-        grabarPatron(patron, enBbdd: publicDB, completion: completion)
+        grabarPatron(patron, enBbdd: publicDB, cache: .publica, completion: completion)
+    }
+    
+    /**
+     Graba un patrón en la base de datos privada
+     */
+    func grabarPatronEnPrivada(_ patron: Patron, completion: @escaping (Bool) ->()) {
+        grabarPatron(patron, enBbdd: privateDB, cache: .privada, completion: completion)
     }
     
     /**
      Crea y graba un patrón en la base de datos indicada.
      El patrón tiene que contener datos válidos
     */
-    func grabarPatron(_ patron: Patron, enBbdd bbdd: CKDatabase, completion: @escaping (Bool) ->()) {
+    func grabarPatron(_ patron: Patron, enBbdd bbdd: CKDatabase, cache: TipoCache, completion: @escaping (Bool) ->()) {
         // creamos registro con los datos del patrón
         if registroActual == nil { // creamos un registro nuevo
             crearNuevoRegistro()
-            cachePatronesPublica.append(patron)
+            switch cache {
+            case .privada:
+                cachePatronesPrivada.append(patron)
+            case .publica:
+                cachePatronesPublica.append(patron)
+            }
+            
         } else {
             for (indice, patron) in cachePatronesPublica.enumerated() {
                 if patron.getId() == registroActual?.recordID {
-                    cachePatronesPublica[indice] = patron
+                    switch cache {
+                    case .privada:
+                        cachePatronesPrivada[indice] = patron
+                    case .publica:
+                        cachePatronesPublica[indice] = patron
+                    }
                     break
                 }
             }
@@ -117,6 +140,13 @@ class PatronesDB {
         }
     }
     
+    func getPatronesPrivada(completion: @escaping ([Patron]) ->()) {
+        if cachePatronesPrivada.count == 0 {
+            getPatrones(bbdd: privateDB, completion: completion)
+        } else {
+            completion(cachePatronesPrivada)
+        }
+    }
     
     func getPatrones(bbdd: CKDatabase, completion: @escaping ([Patron]) ->()) {
         let predicate = NSPredicate(value: true)
@@ -158,5 +188,14 @@ class PatronesDB {
         }
     }
     
+    func eliminarRegistroPrivada(id: CKRecord.ID) {
+        eliminarRegistro(id: id, bbdd: privateDB)
+        for (indice, patron) in self.cachePatronesPrivada.enumerated() {
+            if patron.getId() == id {
+                self.cachePatronesPrivada.remove(at: indice)
+                break
+            }
+        }
+    }
 
 }

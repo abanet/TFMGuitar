@@ -19,6 +19,8 @@ class SceneMenu: SKScene {
     var startLocationX: CGFloat = 0.0
     var maxPosXMenu: CGFloat = 0.0
     var moviendo: Bool = false
+    var filtro: TipoPatron? // tipo de patrones a mostrar. Por defecto todos (nil)
+    var privada: Bool = false // Buscamos en la base de datos privada?
     
     var lblNombrePatron: SKLabelNode = {
         let label = SKLabelNode()
@@ -95,28 +97,41 @@ class SceneMenu: SKScene {
     }
     
     private func crearMenuGrafico() {
-        PatronesDB.share.getPatronesPublica { [unowned self] patrones in
-            self.crearMenuGrafico(conPatrones: patrones)
+        if privada {
+            PatronesDB.share.getPatronesPrivada { [unowned self] patrones in
+                self.crearMenuGrafico(conPatrones: patrones)
+            }
+        } else {
+            PatronesDB.share.getPatronesPublica { [unowned self] patrones in
+                if let filtro = self.filtro {
+                    let patronesFiltrados = patrones.filter {patron in patron.getTipo() == filtro}
+                    self.crearMenuGrafico(conPatrones: patronesFiltrados)
+                } else {
+                    self.crearMenuGrafico(conPatrones: patrones)
+                }
+            }
         }
     }
     
     private func crearMenuGrafico(conPatrones patrones: [Patron]) {
         eliminarMenu() // Antes de crear el menú eliminamos el que pudiera existir
         var x: CGFloat = 0.0
-        for n in 1...patrones.count {
-            let nuevoPatron = GuitarraStatica(size: CGSize(width: self.size.width/2.2, height: self.size.height/2.2))
-            nuevoPatron.name = "\(n)"
-            nuevoPatron.dibujarPatron(patrones[n-1])
-            nuevoPatron.isUserInteractionEnabled = false
-            nuevoPatron.position = CGPoint(x: x, y: 0)
-            x += self.size.width/2.5// + self.size.width/25 // dejamos un espacio extra de margen
-            self.menu.addChild(nuevoPatron)
-            
+        if patrones.count > 0 {
+            for n in 1...patrones.count {
+                let nuevoPatron = GuitarraStatica(size: CGSize(width: self.size.width/2.2, height: self.size.height/2.2))
+                nuevoPatron.name = "\(n)"
+                nuevoPatron.dibujarPatron(patrones[n-1])
+                nuevoPatron.isUserInteractionEnabled = false
+                nuevoPatron.position = CGPoint(x: x, y: 0)
+                x += self.size.width/2.5// + self.size.width/25 // dejamos un espacio extra de margen
+                self.menu.addChild(nuevoPatron)
+                
+            }
+            self.maxPosXMenu = x
+            self.addChild(self.menu)
+            self.menu.name = "menu"
+            self.menu.position.y = Medidas.bottomSpace
         }
-        self.maxPosXMenu = x
-        self.addChild(self.menu)
-        self.menu.name = "menu"
-        self.menu.position.y = Medidas.bottomSpace
     }
     
     private func eliminarMenu() {
@@ -178,12 +193,22 @@ class SceneMenu: SKScene {
             Alertas.mostrarOkCancel(titulo: "¡Atención!", mensaje: "El patrón seleccionado se borrará de su base de datos de patrones.", enViewController: view!.window!.rootViewController!) {
                 [unowned self] alerta in
                 // Eliminar registro de la base de datos
+                if self.privada {
+                    if let id = PatronesDB.share.cachePatronesPrivada[indice].getId() {
+                        PatronesDB.share.eliminarRegistroPrivada(id: id)
+                        self.crearMenuGrafico(conPatrones: PatronesDB.share.cachePatronesPrivada)
+                        DispatchQueue.main.async {
+                            self.resetDatosPatron()
+                        }
+                    }
+                } else {
                 if let id = PatronesDB.share.cachePatronesPublica[indice].getId() {
                     PatronesDB.share.eliminarRegistroPublica(id: id)
                     self.crearMenuGrafico(conPatrones: PatronesDB.share.cachePatronesPublica)
                     DispatchQueue.main.async {
                         self.resetDatosPatron()
                     }
+                }
                 }
             }
         }
@@ -195,7 +220,11 @@ class SceneMenu: SKScene {
      */
     @objc func btnEditarPulsado() {
         if let indice = patronSeleccionado {
-            irAPatron(PatronesDB.share.cachePatronesPublica[indice])
+            if self.privada {
+                irAPatron(PatronesDB.share.cachePatronesPrivada[indice])
+            } else {
+                irAPatron(PatronesDB.share.cachePatronesPublica[indice])
+            }
         }
     }
     
