@@ -268,7 +268,20 @@ class SceneMenu: SKScene {
     Añade el botón a la base de datos privada del usuario
   */
   @objc func btnAddPulsado() {
-    
+    guard !privada else { return } // estamos en la pública con total seguridad.
+    if let indice = patronSeleccionado { // existe un patrón seleccionado
+      let patron = PatronesDB.share.cachePatronesPublica[indice]
+      PatronesDB.share.grabarPatronEnPrivada(patron) {
+        grabado in
+        if grabado {
+          DispatchQueue.main.async {
+            Alertas.mostrar(titulo: "Patron Añadido".localizada(), mensaje: "El patrón seleccionado se ha añadido a la lista de tus patrones.".localizada(), enViewController: self.view!.window!.rootViewController!)
+          }
+        }
+      }
+    } else {
+      Alertas.mostrar(titulo: "Selecciona un patrón".localizada(), mensaje: "Para poder añadir un patrón en tu sección 'Mis Patrones' tienes que tenerlo seleccionado".localizada(), enViewController: self.view!.window!.rootViewController!)
+    }
   }
   
   /**
