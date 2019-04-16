@@ -43,6 +43,12 @@ class SceneMenu: SKScene {
         return label
     }()
     
+    var indicadorActividad: UIActivityIndicatorView = {
+        let indicador = UIActivityIndicatorView()
+        indicador.color = .green
+        indicador.style = UIActivityIndicatorView.Style.whiteLarge
+        return indicador
+    }()
 
     var btnDelete: UIButton = Boton.crearBoton(nombre: "Eliminar".localizada())
     var btnEditar: UIButton = Boton.crearBoton(nombre: "Editar Patron".localizada())
@@ -104,14 +110,17 @@ class SceneMenu: SKScene {
         }
     }
     
+
     private func crearMenuGrafico() {
         if privada {
             PatronesDB.share.getPatronesPrivada { [unowned self] patrones in
+                self.stopIndicadorActividad()
                 self.crearMenuGrafico(conPatrones: patrones)
                 self.numeroPatrones = patrones.count
             }
         } else {
             PatronesDB.share.getPatronesPublica { [unowned self] patrones in
+                self.stopIndicadorActividad()
                 if let filtro = self.filtro {
                     let patronesFiltrados = patrones.filter {patron in patron.getTipo() == filtro}
                     self.crearMenuGrafico(conPatrones: patronesFiltrados)
@@ -181,6 +190,11 @@ class SceneMenu: SKScene {
     btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
     btnAdd.addTarget(self, action: #selector(btnAddPulsado), for: .touchDown)
     btnJugar.addTarget(self, action: #selector(btnJugarPulsado), for: .touchDown)
+    
+    // Indicador
+    indicadorActividad.center = CGPoint(x: self.view!.frame.midX, y: self.view!.frame.midY)
+    indicadorActividad.startAnimating()
+    self.view?.addSubview(indicadorActividad)
     
     // Añadimos etiquetas
     addChild(lblNumPatrones)
@@ -333,5 +347,9 @@ class SceneMenu: SKScene {
         self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
     }
     
-    
+    fileprivate func stopIndicadorActividad() {
+        DispatchQueue.main.async {
+            self.indicadorActividad.stopAnimating()
+        }
+    }
 }
