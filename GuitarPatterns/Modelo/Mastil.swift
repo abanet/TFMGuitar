@@ -79,48 +79,48 @@ class Mastil {
    Se utiliza la afinación universal basada en una bajada por cuartas (o subida por quintas)
    Tener en cuenta la excepción que existe de un semitono entre segunda y tercera cuerda.
    */
-  static func distanciaEnSemitonos(traste1: Traste, traste2: Traste) -> Int? {
-    guard traste1.getCuerda() != 0 && traste2.getCuerda() != 0 && traste1.getTraste() != 0 && traste2.getTraste() != 0 else {
-      return nil
+    static func distanciaEnSemitonos(traste1: Traste, traste2: Traste) -> Int? {
+        guard traste1.getCuerda() != 0 && traste2.getCuerda() != 0 && traste1.getTraste() != 0 && traste2.getTraste() != 0 else {
+            return nil
+        }
+        // Si los dos trastes son iguales la distancia es de cero (unísono)
+        if traste1.getPosicion() == traste2.getPosicion() {
+            return 0
+        }
+        
+        // Contamos semitonos debidos al cambio de cuerda
+        let cuerdasInvolucradas = abs(traste1.getCuerda() - traste2.getCuerda())
+        var semitonos = 0
+        if traste1.getCuerda() >= traste2.getCuerda() {
+            semitonos = cuerdasInvolucradas * 5 // afinación universal: bajada por cuartas
+        } else {
+            semitonos = cuerdasInvolucradas * 7 // subida por quintas
+        }
+        if traste1.getCuerda() <= traste2.getCuerda() {
+            if (traste1.getCuerda()...traste2.getCuerda()).contains(3) && (traste1.getCuerda()...traste2.getCuerda()).contains(2) {
+                semitonos += 1              // Corrección para 2 cuerda
+            }
+        } else {
+            if (traste2.getCuerda()...traste1.getCuerda()).contains(2) && (traste2.getCuerda()...traste1.getCuerda()).contains(3) {
+                semitonos -= 1              // Corrección por 2 cuerda
+            }
+            
+        }
+        
+        // Ajustamos semitonos que ocurren por desplazamiento en el mástil
+        semitonos += traste2.getTraste() - traste1.getTraste()
+        let octavaJusta = TipoIntervaloMusical.octavajusta
+        if semitonos < 0 { // este caso se da cuando la nota está en la misma cuerda antes que la tónica
+            semitonos = octavaJusta.distancia() + semitonos
+        }
+        
+        semitonos = semitonos % octavaJusta.distancia()
+        if semitonos == 0 {
+            semitonos = octavaJusta.distancia()
+        }
+        
+        return semitonos
     }
-    // Si los dos trastes son iguales la distancia es de cero (unísono)
-    if traste1.getPosicion() == traste2.getPosicion() {
-      return 0
-    }
-    
-    // Contamos semitonos debidos al cambio de cuerda
-    let cuerdasInvolucradas = abs(traste1.getCuerda() - traste2.getCuerda())
-    var semitonos = 0
-    if traste1.getCuerda() >= traste2.getCuerda() {
-      semitonos = cuerdasInvolucradas * 5 // afinación universal: bajada por cuartas
-    } else {
-      semitonos = cuerdasInvolucradas * 7 // subida por quintas
-    }
-    if traste1.getCuerda() <= traste2.getCuerda() {
-      if (traste1.getCuerda()...traste2.getCuerda()).contains(3) && (traste1.getCuerda()...traste2.getCuerda()).contains(2) {
-        semitonos += 1              // Corrección para 2 cuerda
-      }
-    } else {
-      if (traste2.getCuerda()...traste1.getCuerda()).contains(2) {
-        semitonos -= 1              // Corrección por 2 cuerda
-      }
-      
-    }
-    
-    // Ajustamos semitonos que ocurren por desplazamiento en el mástil
-    semitonos += traste2.getTraste() - traste1.getTraste()
-    let octavaJusta = TipoIntervaloMusical.octavajusta
-    if semitonos < 0 { // este caso se da cuando la nota está en la misma cuerda antes que la tónica
-      semitonos = octavaJusta.distancia() + semitonos
-    }
-    
-    semitonos = semitonos % octavaJusta.distancia()
-    if semitonos == 0 {
-      semitonos = octavaJusta.distancia()
-    }
-    
-    return semitonos
-  }
   
   
   // MARK: Funciones de búsqueda en el mástil
