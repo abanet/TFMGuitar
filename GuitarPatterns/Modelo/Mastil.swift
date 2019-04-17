@@ -101,7 +101,7 @@ class Mastil {
         semitonos += 1              // Corrección para 2 cuerda
       }
     } else {
-      if (traste2.getCuerda()...traste1.getCuerda()).contains(2) {
+      if (traste2.getCuerda()...traste1.getCuerda()).contains(2) && (traste2.getCuerda()...traste1.getCuerda()).contains(3) {
         semitonos -= 1              // Corrección por 2 cuerda
       }
       

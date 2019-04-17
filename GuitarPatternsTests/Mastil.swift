@@ -30,6 +30,7 @@ class TestMastil: XCTestCase {
     }
 
     func testDistanciaEnSemitonos() {
+        let resultado7 = Mastil.distanciaEnSemitonos(traste1: traste6, traste2: traste5)
         let resultado6 = Mastil.distanciaEnSemitonos(traste1: traste7, traste2: traste8)
         let resultado1 = Mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste2)
         let resultado2 = Mastil.distanciaEnSemitonos(traste1: traste1, traste2: traste3)
@@ -39,6 +40,7 @@ class TestMastil: XCTestCase {
         
         
     
+      XCTAssert(resultado7 == TipoIntervaloMusical.cuartajusta.distancia(), "Error, en lugar de cuarta justa devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado7!).first))")
       XCTAssert(resultado6 == TipoIntervaloMusical.octavajusta.distancia(), "Error, en lugar de tónica devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado6!).first))")
         
       XCTAssert(resultado1 == TipoIntervaloMusical.quintadisminuida.distancia(), "Error, en lugar de una quinta disminuida devuelve \(String(describing: TipoIntervaloMusical.intervalosConDistancia(semitonos: resultado1!).first))")
