@@ -13,7 +13,7 @@
 		C063233D22574EFE00649DBB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C063233C22574EFE00649DBB /* CloudKit.framework */; };
 		C063233F2257514500649DBB /* PatronesDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C063233E2257514500649DBB /* PatronesDB.swift */; };
 		C07C635022292B0100B36913 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C634F22292B0100B36913 /* AppDelegate.swift */; };
-		C07C635622292B0100B36913 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C635522292B0100B36913 /* GameScene.swift */; };
+		C07C635622292B0100B36913 /* SceneJuego.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C635522292B0100B36913 /* SceneJuego.swift */; };
 		C07C635822292B0100B36913 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C635722292B0100B36913 /* GameViewController.swift */; };
 		C07C635B22292B0100B36913 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C07C635922292B0100B36913 /* Main.storyboard */; };
 		C07C635D22292B0300B36913 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C07C635C22292B0300B36913 /* Assets.xcassets */; };
@@ -92,7 +92,7 @@
 		C063233E2257514500649DBB /* PatronesDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatronesDB.swift; sourceTree = "<group>"; };
 		C07C634C22292B0100B36913 /* GuitarPatterns.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuitarPatterns.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C07C634F22292B0100B36913 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C07C635522292B0100B36913 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		C07C635522292B0100B36913 /* SceneJuego.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneJuego.swift; sourceTree = "<group>"; };
 		C07C635722292B0100B36913 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		C07C635A22292B0100B36913 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C07C635C22292B0300B36913 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -360,7 +360,7 @@
 		D34F00722229A9AE00165192 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				C07C635522292B0100B36913 /* GameScene.swift */,
+				C07C635522292B0100B36913 /* SceneJuego.swift */,
 				D34F00732229A9D200165192 /* SceneEditor.swift */,
 				C0D4CEE2224263F700B0B835 /* SceneMenu.swift */,
 				D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */,
@@ -593,7 +593,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */,
-				C07C635622292B0100B36913 /* GameScene.swift in Sources */,
+				C07C635622292B0100B36913 /* SceneJuego.swift in Sources */,
 				D34F00742229A9D200165192 /* SceneEditor.swift in Sources */,
 				D3282E3E2261FC78008218AC /* Extension+UIView.swift in Sources */,
 				C0D0A164222D29B700666D6A /* Intervalo.swift in Sources */,

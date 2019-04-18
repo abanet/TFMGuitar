@@ -318,7 +318,20 @@ class SceneMenu: SKScene {
    Entra en la escena de juego para el patron seleccionado
    */
   @objc func btnJugarPulsado() {
-    
+    if let indice = patronSeleccionado { // existe un patrón seleccionado
+      var patron: Patron
+      if self.privada {
+        jugarPatron(PatronesDB.share.cachePatronesPrivada[indice])
+      } else {
+        if self.filtro == nil {
+          jugarPatron(PatronesDB.share.cachePatronesPublica[indice])
+        } else {
+          jugarPatron(patronesFiltrados![indice])
+        }
+      }
+    } else {
+      Alertas.mostrar(titulo: "Selecciona un patrón".localizada(), mensaje: "Elige el patrón que quieres practicar.".localizada(), enViewController: self.view!.window!.rootViewController!)
+    }
   }
   
     
@@ -363,7 +376,24 @@ class SceneMenu: SKScene {
         }
         self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
     }
-    
+  
+  private func jugarPatron(_ patron: Patron?) {
+    guard let vista = self.scene?.view, let patron = patron else {
+      return
+    }
+    vista.eliminarUIKit()
+    removeAllChildren()
+    let irPatronAction = SKAction.run {
+      let escena = SceneJuego(size: self.size, patron: patron)
+      escena.parentScene = self // para saber a que escena volver
+      vista.ignoresSiblingOrder = true
+      let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+      vista.presentScene(escena, transition: reveal)
+    }
+    self.run(SKAction.sequence([irPatronAction]))
+  }
+  
+  
     fileprivate func stopIndicadorActividad() {
         DispatchQueue.main.async {
             self.indicadorActividad.stopAnimating()
