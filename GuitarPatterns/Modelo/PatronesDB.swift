@@ -84,7 +84,11 @@ class PatronesDB {
     */
     func grabarPatron(_ patron: Patron, enBbdd bbdd: CKDatabase, cache: TipoCache, completion: @escaping (Bool) ->()) {
         // creamos registro con los datos del patrón
-        if registroActual == nil { // creamos un registro nuevo
+      if let registro = patron.getRegistro() {
+        registroActual = registro
+      }
+      
+        if registroActual == nil  { // creamos un registro nuevo
             crearNuevoRegistro()
             switch cache {
             case .privada:

@@ -21,6 +21,7 @@ class SceneMenu: SKScene {
     var maxPosXMenu: CGFloat = 0.0
     var moviendo: Bool = false
     var filtro: TipoPatron? // tipo de patrones a mostrar. Por defecto todos (nil)
+    var patronesFiltrados: [Patron]?
     var privada: Bool = false // estamos trabajando con patrones publicos o privados?
     
     var lblNombrePatron: SKLabelNode = {
@@ -122,9 +123,9 @@ class SceneMenu: SKScene {
             PatronesDB.share.getPatronesPublica { [unowned self] patrones in
                 self.stopIndicadorActividad()
                 if let filtro = self.filtro {
-                    let patronesFiltrados = patrones.filter {patron in patron.getTipo() == filtro}
-                    self.crearMenuGrafico(conPatrones: patronesFiltrados)
-                    self.numeroPatrones = patronesFiltrados.count
+                  self.patronesFiltrados = patrones.filter {patron in patron.getTipo() == filtro}
+                  self.crearMenuGrafico(conPatrones: self.patronesFiltrados ?? [])
+                  self.numeroPatrones = self.patronesFiltrados?.count ?? 0
                 } else {
                     self.crearMenuGrafico(conPatrones: patrones)
                     self.numeroPatrones = patrones.count
@@ -250,7 +251,11 @@ class SceneMenu: SKScene {
             if self.privada {
                 irAPatron(PatronesDB.share.cachePatronesPrivada[indice])
             } else {
+              if self.filtro == nil {
                 irAPatron(PatronesDB.share.cachePatronesPublica[indice])
+              } else {
+                irAPatron(patronesFiltrados![indice])
+              }
             }
         }
     }
@@ -287,8 +292,14 @@ class SceneMenu: SKScene {
   @objc func btnAddPulsado() {
     guard !privada else { return } // estamos en la pública con total seguridad.
     if let indice = patronSeleccionado { // existe un patrón seleccionado
-      let patron = PatronesDB.share.cachePatronesPublica[indice]
+      var patron: Patron
+      if filtro == nil {
+        patron = PatronesDB.share.cachePatronesPublica[indice]
+      } else {
+        patron = patronesFiltrados![indice]
+      }
       patron.setRegistro(nil)
+      PatronesDB.share.cerrarRegistro() // obligamos a añadir un nuevo registro
       PatronesDB.share.grabarPatronEnPrivada(patron) {
         grabado in
         if grabado {
@@ -316,8 +327,14 @@ class SceneMenu: SKScene {
         lblNombrePatron.text = PatronesDB.share.cachePatronesPrivada[indice].getNombre()
         lblDescripcionPatron.text = PatronesDB.share.cachePatronesPrivada[indice].getDescripcion()
       } else {
-        lblNombrePatron.text = PatronesDB.share.cachePatronesPublica[indice].getNombre()
-        lblDescripcionPatron.text = PatronesDB.share.cachePatronesPublica[indice].getDescripcion()
+        if filtro == nil {
+          lblNombrePatron.text = PatronesDB.share.cachePatronesPublica[indice].getNombre()
+          lblDescripcionPatron.text = PatronesDB.share.cachePatronesPublica[indice].getDescripcion()
+        } else {
+          lblNombrePatron.text = patronesFiltrados?[indice].getNombre()
+          lblDescripcionPatron.text = patronesFiltrados?[indice].getDescripcion()
+        }
+        
       }
         for (index, opcion) in menu.children.enumerated() {
             if let opcion = opcion as? GuitarraStatica {
