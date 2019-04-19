@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		93B39E007FC0366F080F6F34 /* Pods_GuitarPatterns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0E7AF507D8B5CC43346A1D /* Pods_GuitarPatterns.framework */; };
 		C011999A2235711B00C3C643 /* Patron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01199992235711B00C3C643 /* Patron.swift */; };
+		C0391780226A476500D0701F /* Nivel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C039177F226A476500D0701F /* Nivel.swift */; };
 		C045E5DE223BECE500ACF510 /* GuitarPatternsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045E5DD223BECE500ACF510 /* GuitarPatternsUITests.swift */; };
 		C063233D22574EFE00649DBB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C063233C22574EFE00649DBB /* CloudKit.framework */; };
 		C063233F2257514500649DBB /* PatronesDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = C063233E2257514500649DBB /* PatronesDB.swift */; };
@@ -84,6 +85,7 @@
 		5F927DA8F023E42A4EDCE6EF /* Pods-GuitarPatterns.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuitarPatterns.release.xcconfig"; path = "Target Support Files/Pods-GuitarPatterns/Pods-GuitarPatterns.release.xcconfig"; sourceTree = "<group>"; };
 		A3AF2B9FB0B5D8CC1F7262C9 /* Pods-GuitarPatterns.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuitarPatterns.debug.xcconfig"; path = "Target Support Files/Pods-GuitarPatterns/Pods-GuitarPatterns.debug.xcconfig"; sourceTree = "<group>"; };
 		C01199992235711B00C3C643 /* Patron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patron.swift; sourceTree = "<group>"; };
+		C039177F226A476500D0701F /* Nivel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nivel.swift; sourceTree = "<group>"; };
 		C045E5DB223BECE400ACF510 /* GuitarPatternsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuitarPatternsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C045E5DD223BECE500ACF510 /* GuitarPatternsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuitarPatternsUITests.swift; sourceTree = "<group>"; };
 		C045E5DF223BECE500ACF510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				C0D0A165222D43BE00666D6A /* Mastil.swift */,
 				C01199992235711B00C3C643 /* Patron.swift */,
 				C063233E2257514500649DBB /* PatronesDB.swift */,
+				C039177F226A476500D0701F /* Nivel.swift */,
 			);
 			path = Modelo;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0391780226A476500D0701F /* Nivel.swift in Sources */,
 				D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */,
 				C07C635622292B0100B36913 /* SceneJuego.swift in Sources */,
 				D34F00742229A9D200165192 /* SceneEditor.swift in Sources */,

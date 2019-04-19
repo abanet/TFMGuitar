@@ -25,7 +25,9 @@ class Patron {
     
     private var trastes: [Traste] = [Traste]()
     private var tonica: Traste?
-    
+  
+    // La interválica de un patrón no se almacena, se genera al recuperar un patrón.
+    private var intervalica = Set<TipoIntervaloMusical>()
     
     init(nombre: String, tipo: String) {
         self.nombre = nombre
@@ -62,6 +64,7 @@ class Patron {
                 if let nuevoIntervalo = TipoIntervaloMusical.intervalosConDistancia(semitonos: distanciaATonica).first {
                     traste.setEstado(tipo: TipoTraste.intervalo(nuevoIntervalo))
                     nuevosTrastes.append(traste)
+                    intervalica.insert(nuevoIntervalo)
                 }
             }
         }
@@ -128,7 +131,9 @@ class Patron {
         self.trastes = trastes
     }
     
-    
+  func getIntervaloAzar() -> TipoIntervaloMusical {
+    return intervalica.randomElement()!
+  }
     /**
      Indica si un patrón está completo o no.
      Un patrón está completo si tiene al menos dos trastes, una tónica, y el tipo y nombre definidos.
