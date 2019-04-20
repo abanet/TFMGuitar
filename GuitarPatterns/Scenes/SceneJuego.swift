@@ -60,22 +60,26 @@ class SceneJuego: SKScene {
     let touchPosition = touch.location(in: self)
     let touchedNodes = nodes(at: touchPosition)
     for node in touchedNodes {
-      if let mynode = node as? ShapeNota, node.name == "nota", mynode.getTextNota() != "T" {
+      if let mynode = node as? ShapeNota, node.name == "nota", mynode.getTagNota() != "T" {
         // si hemos acertado sumar un punto y eliminar la primera nota
-        if let textoEnNota = mynode.getTextNota(), textoEnNota == notasObjetivo[0].getTextNota() {
+        if let textoEnNota = mynode.getTagNota(), textoEnNota == notasObjetivo[0].getTextNota() {
           // Marcar en verde como que está acertada pero hay q comprobar que no queden más
           mynode.coloreaCon(UIColor.green)
           mynode.name = "notaAcertada"
           efectos.hacerSonarNotaConTonica(mynode)
           if !quedanNotas(withText: textoEnNota) {
             // se acertaron todas, eliminar notaObjetivo y restaurar mástil para que todas las notas sean "nota"
-            print("No quedan notas con \(textoEnNota)")
+            
             if let nota = notasObjetivo.first {
-               nota.removeFromParent()
-               notasObjetivo.remove(at: 0)
+              nota.coloreaCon(Colores.acierto)
+              self.notasObjetivo.remove(at: 0)
+              nota.run(SKAction.afterDelay(0.5) {
+                nota.removeFromParent()
+              })
+              
 //              acierto()
             }
-            let espera = SKAction.wait(forDuration: 0.8)
+            let espera = SKAction.wait(forDuration: 0.5)
             self.isUserInteractionEnabled = false
             run(espera) {
               self.restaurarNombresNotasEnMastil()
@@ -107,7 +111,25 @@ class SceneJuego: SKScene {
     guitarra = GuitarraViewController(size: sizeGuitar, tipo: .guitarra)
     addChild(guitarra)
     guitarra.dibujarPatron(patron)
+    self.ajustarMastilNivel()
   }
+  
+  func ajustarMastilNivel() {
+    guitarra.viewGuitarra.enumerateChildNodes(withName: "nota") { nodoNota , _ in
+      if let shapeNota = nodoNota as? ShapeNota,
+         let tagNota = shapeNota.getTagNota(),
+         tagNota != TipoIntervaloMusical.tonica().rawValue {
+            if !self.nivel.marcarNotas {
+              shapeNota.coloreaCon(Colores.noteFill)
+            }
+            if !self.nivel.mostrarNotas {
+              shapeNota.setTextNota("")
+            }
+          }
+        }
+      }
+    
+  
   
   /**
    Activa la generación de notas de examen.
@@ -129,7 +151,9 @@ class SceneJuego: SKScene {
     let nota = ShapeNota(radio: radio)
     nota.name = "notaObjetivo"
     // Asignamos una interválica al azar
-    nota.setTextNota(obtenerObjetivo())
+    let textNota = obtenerObjetivo()
+    nota.setTextNota(textNota)
+    nota.setTagNota(textNota)
     // Ponemos la nota en movimiento
     nota.position = posicionInicial
     addChild(nota)
@@ -177,12 +201,12 @@ class SceneJuego: SKScene {
   }
   
   /**
-   Devuelve true si quedan notas marcadas como "nota" con el texto pasado como parámetro
+   Devuelve true si quedan notas marcadas como "nota" con el tag pasado como parámetro
   */
   func quedanNotas(withText text: String) -> Bool {
     for child in guitarra.viewGuitarra.children {
       if let nodo = child as? ShapeNota, nodo.name == "nota" {
-        if nodo.getTextNota() == text {
+        if nodo.getTagNota() == text {
           return true
         }
       }
@@ -197,7 +221,7 @@ class SceneJuego: SKScene {
     for child in guitarra.viewGuitarra.children {
       if let shapeNota = child as? ShapeNota, shapeNota.name == "notaFallada" || shapeNota.name == "notaAcertada" {
         shapeNota.name = "nota"
-        if shapeNota.getTextNota() != nil && nivel.marcarNotas { // contiene información de nota
+        if shapeNota.getTagNota() != nil && nivel.marcarNotas { // contiene información de nota
           shapeNota.coloreaCon(Colores.noteFillResaltada)
         } else {
           shapeNota.coloreaCon(Colores.noteFill)

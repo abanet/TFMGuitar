@@ -51,6 +51,8 @@ class GuitarraViewController: SKNode {
         self.viewGuitarra.dibujarPatron(patron)
         self.mastil.setPatron(patron)
     }
+  
+  
     
   /**
    Busca la tónica en el mástil y recalcula los intervalos existentes.

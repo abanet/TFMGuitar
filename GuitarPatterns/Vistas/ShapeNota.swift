@@ -37,13 +37,16 @@ class ShapeNota: SKNode {
                     tipoShapeNota = .unselected
                 case let .nota(nota):
                     self.setTextNota(nota.getNombreAsText())
+                    self.setTagNota(nota.getNombreAsText())
                 case let .intervalo(intervalo):
                   if intervalo.esTonica() { // Las octavas se muestran siempre como tónicas.
                     self.setTextNota(TipoIntervaloMusical.unisono.rawValue)
+                    self.setTagNota(TipoIntervaloMusical.unisono.rawValue)
                     tipoShapeNota = .tonica
                   } else {
                     tipoShapeNota = .selected // 13/04 para que estén marcadas al editar un patrón
                     self.setTextNota(intervalo.rawValue)
+                    self.setTagNota(intervalo.rawValue)
                   }
                 }
             }
