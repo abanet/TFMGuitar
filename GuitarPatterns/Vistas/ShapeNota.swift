@@ -145,5 +145,12 @@ class ShapeNota: SKNode {
         
         
     }
+  
+   /**
+    Colorea la nota con el color indicado
+   */
+  func coloreaCon(_ color: UIColor) {
+    shape.fillColor = color
+  }
 }
 

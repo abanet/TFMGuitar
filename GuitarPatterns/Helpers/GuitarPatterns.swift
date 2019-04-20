@@ -21,6 +21,8 @@ struct Colores {
     static let botones = UIColor.orange
     static let botonPrincipalOff = UIColor.lightGray.withAlphaComponent(0.35)
     static let botonPrincipalOn = UIColor.orange.withAlphaComponent(0.35)
+    static let fallo = SKColor.darkGray
+    static let acierto = SKColor.green
 }
 
 /// Contiene las medidas generales de la aplicación

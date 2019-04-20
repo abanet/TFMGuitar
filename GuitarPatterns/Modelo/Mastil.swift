@@ -129,7 +129,6 @@ class Mastil {
    Función que busca trastes que contienen notas que cumplen una función interválica concreta
    */
    func encuentraIntervalos(delTipo intervalo: TipoIntervaloMusical) -> [Traste] {
-    //print(self.description)
     var resultado = [Traste]()
     for (indexCuerda, arrayTrastes) in trastes.enumerated() {
       for (indexTraste, traste) in arrayTrastes.enumerated() {

@@ -93,7 +93,6 @@ class GuitarraView: SKNode {
     // MARK: Métodos SKNode
     init(size: CGSize, tipo: TipoGuitarra = TipoGuitarra.guitarra) {
         self.size = size
-        print("Tamaño = \(size)")
         self.tipo = tipo
         super.init()
         dibujarCuerdas()
@@ -206,8 +205,13 @@ class GuitarraView: SKNode {
             matrizPosicion.append(posicionUnaCuerda)
         }
     }
-    
-    
+  
+  // Devuelve la posición x de un traste determinado
+  // El traste pasado como parámetro comienza en el 1
+  func posicionXTraste(num: Int) -> CGFloat {
+    guard num > 0 else { return matrizPosicion[0][0].x }
+    return matrizPosicion[0][num-1].x
+  }
     /**
      Convierte unas coordenadas lógicas de la guitarra en las coordenadas físicas de su representación gráfica.
     */
@@ -269,7 +273,6 @@ class GuitarraView: SKNode {
     */
     func trastePulsado(_ touches: Set<UITouch>) -> Traste? {
         if let shapeNota = getNotaTocada(touches) {
-            //print("Traste pulsado: \(shapeNota.getTraste())")
             return shapeNota.getTraste()
         } else {
             return nil
