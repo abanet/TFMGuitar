@@ -38,6 +38,8 @@ class Nivel {
   var mostrarTodasLasTonicas: Bool
   var mostrarNotas: Bool // true si se quiere enseñar el texto con los intervalos
   var marcarNotas: Bool   // true si se quiere colorear las notas
+    var puntosPorNota: Int!
+    var puntosPorIntervalo: Int!
   
   init(idNivel: Int, tiempoPantalla: TimeInterval, tiempoJuego: TimeInterval, mostrarTonicas: Bool, mostrarNotas: Bool, marcarNotas: Bool) {
     self.idNivel = idNivel
@@ -46,6 +48,9 @@ class Nivel {
     self.mostrarTodasLasTonicas = mostrarTonicas
     self.mostrarNotas = mostrarNotas
     self.marcarNotas = marcarNotas
+    puntosPorNota = idNivel
+    puntosPorIntervalo = idNivel * 10
+    
   }
   
   convenience init(idNivel: Int, tiempoPantalla: TimeInterval) {

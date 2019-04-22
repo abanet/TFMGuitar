@@ -83,4 +83,30 @@ class EfectosEspeciales {
     
     return emitter
   }
+    
+  /**
+    Cuenta atrás en pantalla
+  */
+    class func countdown(desde: Int, enPosicion posicion: CGPoint, size: CGFloat, nodo: SKNode, completion: @escaping () -> Void) {
+        let label = SKLabelNode(fontNamed: Letras.negrita)
+        label.position = posicion
+        label.fontColor = SKColor.white.withAlphaComponent(1.0)
+        label.fontSize = size
+        label.zPosition = zPositionNodes.foreground
+        label.text = String(desde)
+        nodo.addChild(label)
+        var contador = desde
+        let creceryesperar = SKAction.group([SKAction.fadeOut(withDuration: 1.0), SKAction.scale(by: 3.0, duration: 1.0)])
+        let decrementoAction = SKAction.sequence([creceryesperar, SKAction.run { contador -= 1
+            label.text = String(contador)
+            label.alpha = 1.0
+            label.setScale(1.0)
+            }])
+        label.run(SKAction.repeat(decrementoAction, count: contador + 1)) {
+            label.removeFromParent()
+            completion()
+        }
+    }
+    
+    
 }

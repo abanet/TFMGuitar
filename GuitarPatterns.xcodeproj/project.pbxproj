@@ -36,7 +36,7 @@
 		C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE16D22311D93002BF466 /* GuitarPatternsTests.swift */; };
 		C0DCE176223120C7002BF466 /* Mastil.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DCE175223120C7002BF466 /* Mastil.swift */; };
 		C0DE7F3D2256141500A5BD9C /* Alertas.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE7F3C2256141500A5BD9C /* Alertas.swift */; };
-		C0F14162226B839F00F905CD /* EfectosEspaciales.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F14161226B839F00F905CD /* EfectosEspaciales.swift */; };
+		C0F14162226B839F00F905CD /* EfectosEspeciales.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F14161226B839F00F905CD /* EfectosEspeciales.swift */; };
 		C0F14164226B84C800F905CD /* Extension+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F14163226B84C800F905CD /* Extension+CGFloat.swift */; };
 		C0F14166226B858C00F905CD /* Extension+SKAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F14165226B858C00F905CD /* Extension+SKAction.swift */; };
 		D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */; };
@@ -123,7 +123,7 @@
 		C0DCE16F22311D93002BF466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0DCE175223120C7002BF466 /* Mastil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mastil.swift; sourceTree = "<group>"; };
 		C0DE7F3C2256141500A5BD9C /* Alertas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertas.swift; sourceTree = "<group>"; };
-		C0F14161226B839F00F905CD /* EfectosEspaciales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfectosEspaciales.swift; sourceTree = "<group>"; };
+		C0F14161226B839F00F905CD /* EfectosEspeciales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EfectosEspeciales.swift; sourceTree = "<group>"; };
 		C0F14163226B84C800F905CD /* Extension+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+CGFloat.swift"; sourceTree = "<group>"; };
 		C0F14165226B858C00F905CD /* Extension+SKAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SKAction.swift"; sourceTree = "<group>"; };
 		D3223FC6225A16BB00C93C66 /* NexaBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBook.otf; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 				C0DE7F3C2256141500A5BD9C /* Alertas.swift */,
 				D3613B6122566DE000F15420 /* Extension+String.swift */,
 				D3282E3D2261FC78008218AC /* Extension+UIView.swift */,
-				C0F14161226B839F00F905CD /* EfectosEspaciales.swift */,
+				C0F14161226B839F00F905CD /* EfectosEspeciales.swift */,
 				C0F14163226B84C800F905CD /* Extension+CGFloat.swift */,
 				C0F14165226B858C00F905CD /* Extension+SKAction.swift */,
 			);
@@ -627,7 +627,7 @@
 				D34F00762229BDC200165192 /* ShapeNota.swift in Sources */,
 				C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */,
 				C07C636922292DEB00B36913 /* GuitarPatterns.swift in Sources */,
-				C0F14162226B839F00F905CD /* EfectosEspaciales.swift in Sources */,
+				C0F14162226B839F00F905CD /* EfectosEspeciales.swift in Sources */,
 				D322C8F0226DA44000B6AC01 /* HUD.swift in Sources */,
 				C07C635822292B0100B36913 /* GameViewController.swift in Sources */,
 				C07C636E222952AD00B36913 /* StringGuitar.swift in Sources */,

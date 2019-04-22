@@ -32,7 +32,7 @@ class SceneJuego: SKScene {
     }
     
     var hud = HUD() // head-up display
-    var puntos: Double = 0 // puntos que se llevan ganados
+    var puntos: Int = 0 // puntos que se llevan ganados
     var numAciertos: Int = 0 // número de aciertos que lleva el jugador
     
     // variables para control del paso del tiempo
@@ -61,7 +61,10 @@ class SceneJuego: SKScene {
         iniciarGuitarra()
         setupHUD()
         posicionInicial =  CGPoint(x: size.width + Medidas.marginSpace, y: (size.height - Medidas.porcentajeTopSpace * size.height))
-        activarSalidaNotas()
+        
+        EfectosEspeciales.countdown(desde: 5, enPosicion: CGPoint(x: size.width/2, y: 0), size: size.height/2, nodo: self) {
+            self.activarSalidaNotas()
+        }
     }
     
     // Actualización de la escena
@@ -92,20 +95,19 @@ class SceneJuego: SKScene {
                     // Marcar en verde como que está acertada pero hay q comprobar que no queden más
                     mynode.coloreaCon(UIColor.green)
                     mynode.name = "notaAcertada"
-                    animarPuntos(posicion: touchPosition, puntos: "100", dy: 70)
+                    animarPuntos(posicion: touchPosition, puntos: nivel.puntosPorNota, dy: 70)
+                    puntos += nivel.puntosPorNota
                     efectos.hacerSonarNotaConTonica(mynode)
                     if !quedanNotas(withText: textoEnNota) {
                         // se acertaron todas, eliminar notaObjetivo y restaurar mástil para que todas las notas sean "nota"
-                        
-                        if let nota = notasObjetivo.first {
+                        if let nota = notasObjetivo.first { // acierto
                             nota.coloreaCon(Colores.acierto)
-                            animarPuntos(posicion: nota.position, puntos: "10", dy: 20)
+                            animarPuntos(posicion: nota.position, puntos: nivel.puntosPorIntervalo, dy: 20)
                             self.notasObjetivo.remove(at: 0)
                             nota.run(SKAction.afterDelay(0.5) {
                                 nota.removeFromParent()
                             })
-                            
-                            //              acierto()
+                            acierto()
                         }
                         let espera = SKAction.wait(forDuration: 0.5)
                         self.isUserInteractionEnabled = false
@@ -126,6 +128,22 @@ class SceneJuego: SKScene {
                 
             }
         }
+    }
+    
+    /**
+     Se ha acertado una nota objetivo.
+     Incrementamos puntuación
+    */
+    func acierto() {
+        puntos += nivel.puntosPorIntervalo
+        numAciertos += 1
+    }
+    
+    /**
+     Se ha fallado una nota. Penalizamos restando puntuación.
+     */
+    func fallo() {
+        puntos -= nivel.puntosPorNota
     }
     
     /**
@@ -291,7 +309,7 @@ class SceneJuego: SKScene {
             startTime = Int(currentTime) - elapsedTime
         }
         hud.updateTimer(time: Int(nivel.tiempoJuego) - elapsedTime)
-        hud.updatePuntosTo(Int(puntos))
+        hud.updatePuntosTo(puntos)
     }
     
     // Volver a la pantalla origen
@@ -328,11 +346,11 @@ class SceneJuego: SKScene {
     /**
      Añade una etiqueta animada con los puntos ganados sobre una nota.
     */
-    func animarPuntos(posicion: CGPoint, puntos: String, dy: Int) {
+    func animarPuntos(posicion: CGPoint, puntos: Int, dy: Int) {
         let scoreLabel = SKLabelNode(fontNamed: Letras.puntosNota)
         scoreLabel.fontColor = Colores.noteFillResaltada
         scoreLabel.fontSize = 20
-        scoreLabel.text = puntos
+        scoreLabel.text = String(puntos)
         scoreLabel.position = posicion
         scoreLabel.zPosition = 500
         
