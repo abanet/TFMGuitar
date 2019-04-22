@@ -10,7 +10,7 @@ import SpriteKit
 
 class EfectosEspeciales {
   // Sonidos
-  let collectcoin = SKAction.playSoundFileNamed("collectcoin.wav", waitForCompletion: true)
+  let sonidoPuntos = SKAction.playSoundFileNamed("collectcoin.wav", waitForCompletion: true)
   let dropBomb = SKAction.playSoundFileNamed("bombDrop.wav", waitForCompletion: true)
   let sonidoC0 = SKAction.playSoundFileNamed("C0.wav", waitForCompletion: false)
   let sonidoC0s = SKAction.playSoundFileNamed("C0#.wav", waitForCompletion: false)
@@ -26,6 +26,7 @@ class EfectosEspeciales {
   let sonidoB0 = SKAction.playSoundFileNamed("B0.wav", waitForCompletion: false)
   var sonidos = [SKAction]()
   
+
   init() {
     // cargamos los sonidos
     sonidos = [sonidoC0, sonidoC0s, sonidoD0, sonidoD0s, sonidoE0, sonidoF0, sonidoF0s, sonidoG0, sonidoG0s, sonidoA0, sonidoA0s, sonidoB0]
@@ -49,6 +50,11 @@ class EfectosEspeciales {
     }
   }
   
+    func hacerSonarPuntos(nodo: SKNode) {
+        let volumenAction = SKAction.changeVolume(by: 3.0, duration: 0.7)
+        let sonidoConVolumen = SKAction.group([sonidoPuntos, volumenAction])
+        nodo.run(sonidoConVolumen)
+    }
   /**
    Devuelve un SKEmitterNode que simula una explosión
   */

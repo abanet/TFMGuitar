@@ -64,6 +64,9 @@ struct Medidas {
 
     // Patrones en menu
   static let numeroPatronesEnPantalla: CGFloat = 2.0
+
+    // Juego
+    static let trasteRuedaDentada: Int = 1
 }
 
 struct Notas {
@@ -74,6 +77,7 @@ struct Letras {
     static let normal = "Nexa-Book"
     static let negrita = "Nexa-Bold"
     static let contador = "Menlo"
+    static let puntosNota = "GillSans-BoldItalic"
 }
 struct zPositionNodes {
     static let background: CGFloat = -3.0

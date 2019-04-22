@@ -43,6 +43,8 @@ class SceneJuego: SKScene {
     
     // Botón para volver atrás
     var btnVolver: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
+    // Rueda dentada
+    var ruedaDentada: SKSpriteNode = SKSpriteNode(imageNamed: "ruedaDentada")
     
     init(size: CGSize, patron: Patron, nivel: Int = 1) {
         self.patron = patron
@@ -90,12 +92,14 @@ class SceneJuego: SKScene {
                     // Marcar en verde como que está acertada pero hay q comprobar que no queden más
                     mynode.coloreaCon(UIColor.green)
                     mynode.name = "notaAcertada"
+                    animarPuntos(posicion: touchPosition, puntos: "100", dy: 70)
                     efectos.hacerSonarNotaConTonica(mynode)
                     if !quedanNotas(withText: textoEnNota) {
                         // se acertaron todas, eliminar notaObjetivo y restaurar mástil para que todas las notas sean "nota"
                         
                         if let nota = notasObjetivo.first {
                             nota.coloreaCon(Colores.acierto)
+                            animarPuntos(posicion: nota.position, puntos: "10", dy: 20)
                             self.notasObjetivo.remove(at: 0)
                             nota.run(SKAction.afterDelay(0.5) {
                                 nota.removeFromParent()
@@ -206,7 +210,7 @@ class SceneJuego: SKScene {
      Comprueba si hay que destruir algún nodo objetivo
      */
     func comprobarDestruccionNotas() {
-        let posFinNotaX = guitarra.viewGuitarra.posicionXTraste(num: 2)
+        let posFinNotaX = guitarra.viewGuitarra.posicionXTraste(num: Medidas.trasteRuedaDentada)
         enumerateChildNodes(withName: "notaObjetivo") {[unowned self] (node, _) in
             if node.position.x <= posFinNotaX { // Punto x tope para las bolas
                 let down = SKAction.moveTo(y: 0, duration: 1.0)
@@ -274,12 +278,9 @@ class SceneJuego: SKScene {
         }
         // Marcador
         hud.addPuntos(position: CGPoint(x:view.frame.width - Medidas.marginSpace, y: view.frame.height - Medidas.minimumMargin * 6))
-        // Botón para volver atrás
-        btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
-        self.view?.addSubview(btnVolver)
-        btnVolver.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
-        btnVolver.leadingAnchor.constraint(equalTo: self.view!.leadingAnchor, constant: Medidas.minimumMargin * 3).isActive = true
-        btnVolver.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        setupBotonVolver()
+        setupRuedaDentada()
         
     }
     
@@ -305,5 +306,42 @@ class SceneJuego: SKScene {
             vista.presentScene(self.parentScene!, transition: reveal)
         }
         self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
+    }
+    
+    func setupBotonVolver() {
+        btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
+        self.view?.addSubview(btnVolver)
+        btnVolver.topAnchor.constraint(equalTo: self.view!.topAnchor, constant: Medidas.minimumMargin).isActive = true
+        btnVolver.leadingAnchor.constraint(equalTo: self.view!.leadingAnchor, constant: Medidas.minimumMargin * 3).isActive = true
+        btnVolver.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    }
+    
+    func setupRuedaDentada() {
+        ruedaDentada.position = CGPoint(x: guitarra.viewGuitarra.posicionXTraste(num: Medidas.trasteRuedaDentada), y: (size.height - Medidas.porcentajeTopSpace * size.height))
+        ruedaDentada.scale(to: CGSize(width: 50, height: 50))
+        let girar = SKAction.rotate(byAngle: .pi * 2, duration: 5)
+        let girarForever = SKAction.repeatForever(girar)
+        ruedaDentada.run(girarForever)
+        addChild(ruedaDentada)
+    }
+    
+    /**
+     Añade una etiqueta animada con los puntos ganados sobre una nota.
+    */
+    func animarPuntos(posicion: CGPoint, puntos: String, dy: Int) {
+        let scoreLabel = SKLabelNode(fontNamed: Letras.puntosNota)
+        scoreLabel.fontColor = Colores.noteFillResaltada
+        scoreLabel.fontSize = 20
+        scoreLabel.text = puntos
+        scoreLabel.position = posicion
+        scoreLabel.zPosition = 500
+        
+        self.addChild(scoreLabel)
+        let moveAction = SKAction.move(by: CGVector(dx: 2, dy: dy), duration: 1.0)
+        moveAction.timingMode = .easeOut
+        scoreLabel.run(SKAction.sequence([moveAction, SKAction.removeFromParent()])) {
+            self.efectos.hacerSonarPuntos(nodo: scoreLabel)
+        }
+        
     }
 }

@@ -33,13 +33,13 @@ class SceneMenu: SKScene {
     var lblDescripcionPatron: SKLabelNode = {
         let label = SKLabelNode()
         label.fontSize = 18.0
-        label.fontName = "NexaBook"
+        label.fontName = Letras.normal
         return label
     }()
     var lblNumPatrones: SKLabelNode = {
         let label = SKLabelNode()
         label.fontSize = 18.0
-        label.fontName = "NexaBook"
+        label.fontName = Letras.normal
         label.text = "0"
         return label
     }()

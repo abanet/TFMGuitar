@@ -48,7 +48,7 @@ class SceneEditor: SKScene {
     }()
     var lblDescripcionPatron: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "NexaBook", size: 16.0)
+        label.font = UIFont(name: Letras.normal, size: 16.0)
         label.sizeToFit()
         return label
     }()
