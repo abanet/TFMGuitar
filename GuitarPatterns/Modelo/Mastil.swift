@@ -130,8 +130,8 @@ class Mastil {
    */
    func encuentraIntervalos(delTipo intervalo: TipoIntervaloMusical) -> [Traste] {
     var resultado = [Traste]()
-    for (indexCuerda, arrayTrastes) in trastes.enumerated() {
-      for (indexTraste, traste) in arrayTrastes.enumerated() {
+    for  arrayTrastes in trastes {
+      for traste in arrayTrastes {
         if traste.tieneFuncionIntervalica(intervalo) {
           resultado.append(traste)
         }

@@ -28,11 +28,11 @@ class SceneEditor: SKScene {
         }
     }
 
-    lazy var btnReset: UIButton = Boton.crearBoton(nombre: "Reset".localizada())
-    lazy var btnEditarNombre: UIButton = Boton.crearBoton(nombre: "Editar Nombre".localizada())
-    lazy var btnSave: UIButton = Boton.crearBoton(nombre: "Grabar".localizada())
-    lazy var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
-    lazy var btnSalir: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
+    var btnReset: UIButton = Boton.crearBoton(nombre: "Reset".localizada())
+    var btnEditarNombre: UIButton = Boton.crearBoton(nombre: "Editar Nombre".localizada())
+    var btnSave: UIButton = Boton.crearBoton(nombre: "Grabar".localizada())
+    var btnNuevo: UIButton = Boton.crearBoton(nombre: "Nuevo".localizada())
+    var btnSalir: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
     
     var lblNombrePatron: UILabel = {
         let label = UILabel()
@@ -247,7 +247,6 @@ class SceneEditor: SKScene {
         vista.eliminarUIKit()
         //let wait = SKAction.wait(forDuration: 2.0)
         let irPatronAction = SKAction.run {
-            let escena = SceneMenu(size: self.size)
             vista.ignoresSiblingOrder = true
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             vista.presentScene(self.parentScene!, transition: reveal)

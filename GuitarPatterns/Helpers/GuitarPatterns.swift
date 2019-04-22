@@ -70,8 +70,14 @@ struct Notas {
     static let font = "AvenirNext-Regular"
 }
 
+struct Letras {
+    static let normal = "Nexa-Book"
+    static let negrita = "Nexa-Bold"
+    static let contador = "Menlo"
+}
 struct zPositionNodes {
     static let background: CGFloat = -3.0
     static let trastes: CGFloat    = -2.0
     static let cuerdas: CGFloat    = -1.0
+    static let foreground: CGFloat = 10
 }

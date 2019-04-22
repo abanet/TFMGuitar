@@ -319,7 +319,6 @@ class SceneMenu: SKScene {
    */
   @objc func btnJugarPulsado() {
     if let indice = patronSeleccionado { // existe un patrón seleccionado
-      var patron: Patron
       if self.privada {
         jugarPatron(PatronesDB.share.cachePatronesPrivada[indice])
       } else {

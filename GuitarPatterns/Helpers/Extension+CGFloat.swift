@@ -24,14 +24,14 @@ public extension CGFloat {
   /**
    * Convertir de grados a radianes
    */
-  public func degreesToRadians() -> CGFloat {
+  func degreesToRadians() -> CGFloat {
     return π * self / 180.0
   }
   
   /**
    * Convertir de radianes a grados
    */
-  public func radiansToDegrees() -> CGFloat {
+  func radiansToDegrees() -> CGFloat {
     return self * 180.0 / π
   }
   

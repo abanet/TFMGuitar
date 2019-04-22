@@ -41,6 +41,7 @@
 		C0F14166226B858C00F905CD /* Extension+SKAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F14165226B858C00F905CD /* Extension+SKAction.swift */; };
 		D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */; };
 		D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC6225A16BB00C93C66 /* NexaBook.otf */; };
+		D322C8F0226DA44000B6AC01 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = D322C8EF226DA44000B6AC01 /* HUD.swift */; };
 		D3282E3E2261FC78008218AC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3D2261FC78008218AC /* Extension+UIView.swift */; };
 		D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */; };
 		D3282E42226238FC008218AC /* BotonMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */; };
@@ -127,6 +128,7 @@
 		C0F14165226B858C00F905CD /* Extension+SKAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SKAction.swift"; sourceTree = "<group>"; };
 		D3223FC6225A16BB00C93C66 /* NexaBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBook.otf; sourceTree = "<group>"; };
 		D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nexa-Bold.otf"; sourceTree = "<group>"; };
+		D322C8EF226DA44000B6AC01 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		D3282E3D2261FC78008218AC /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneMenuPrincipal.swift; sourceTree = "<group>"; };
 		D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotonMenuPrincipal.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				C0CA3E1E225C9A1C00796AA4 /* GuitarraStatica.swift */,
 				D33B7964225E4721003E2FB8 /* Boton.swift */,
 				D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */,
+				D322C8EF226DA44000B6AC01 /* HUD.swift */,
 			);
 			path = Vistas;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				C0D0A15B222D21E400666D6A /* GuitarraViewController.swift in Sources */,
 				C07C636922292DEB00B36913 /* GuitarPatterns.swift in Sources */,
 				C0F14162226B839F00F905CD /* EfectosEspaciales.swift in Sources */,
+				D322C8F0226DA44000B6AC01 /* HUD.swift in Sources */,
 				C07C635822292B0100B36913 /* GameViewController.swift in Sources */,
 				C07C636E222952AD00B36913 /* StringGuitar.swift in Sources */,
 				C0D4CEE1224242FD00B0B835 /* EditDataVC.swift in Sources */,
