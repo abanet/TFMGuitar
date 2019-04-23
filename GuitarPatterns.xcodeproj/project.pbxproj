@@ -45,6 +45,7 @@
 		D3282E3E2261FC78008218AC /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3D2261FC78008218AC /* Extension+UIView.swift */; };
 		D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */; };
 		D3282E42226238FC008218AC /* BotonMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */; };
+		D32F96A5226F067400A5990F /* Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32F96A4226F067400A5990F /* Panel.swift */; };
 		D33128D92264673700FCB577 /* bombDrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128C92264673700FCB577 /* bombDrop.wav */; };
 		D33128DA2264673700FCB577 /* collectcoin.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CB2264673700FCB577 /* collectcoin.wav */; };
 		D33128DB2264673700FCB577 /* G0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CD2264673700FCB577 /* G0.wav */; };
@@ -132,6 +133,7 @@
 		D3282E3D2261FC78008218AC /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
 		D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneMenuPrincipal.swift; sourceTree = "<group>"; };
 		D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotonMenuPrincipal.swift; sourceTree = "<group>"; };
+		D32F96A4226F067400A5990F /* Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panel.swift; sourceTree = "<group>"; };
 		D33128C92264673700FCB577 /* bombDrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bombDrop.wav; sourceTree = "<group>"; };
 		D33128CB2264673700FCB577 /* collectcoin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collectcoin.wav; sourceTree = "<group>"; };
 		D33128CD2264673700FCB577 /* G0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G0.wav; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				D33B7964225E4721003E2FB8 /* Boton.swift */,
 				D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */,
 				D322C8EF226DA44000B6AC01 /* HUD.swift */,
+				D32F96A4226F067400A5990F /* Panel.swift */,
 			);
 			path = Vistas;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				D33B7965225E4721003E2FB8 /* Boton.swift in Sources */,
 				C0DE7F3D2256141500A5BD9C /* Alertas.swift in Sources */,
 				C063233F2257514500649DBB /* PatronesDB.swift in Sources */,
+				D32F96A5226F067400A5990F /* Panel.swift in Sources */,
 				D3613B6222566DE000F15420 /* Extension+String.swift in Sources */,
 				C0D4CEE3224263F700B0B835 /* SceneMenu.swift in Sources */,
 				C0D0A15E222D271400666D6A /* Traste.swift in Sources */,

@@ -27,65 +27,68 @@ import Foundation
  */
 
 class Nivel {
-  
-  static let tiempoMinimoRecorrerPantalla: Double = 20.0  // Indica la velocidad máxima de la bola
-  static let segundosParaIncrementoVelocidad: Double = 3  // Indica los segundos para incrementar la velocidad
-  static let incrementoVelocidad: Int = -2   // Habrá 2 segundos menos para que la bola recorra la pantalla
-  
-  var idNivel: Int
-  var tiempoRecorrerPantalla: TimeInterval
-  var tiempoJuego: TimeInterval // Tiempo para completar cambio de nivel. 0 para tiempo infinito
-  var mostrarTodasLasTonicas: Bool
-  var mostrarNotas: Bool // true si se quiere enseñar el texto con los intervalos
-  var marcarNotas: Bool   // true si se quiere colorear las notas
+    
+    static let tiempoMinimoRecorrerPantalla: Double = 20.0  // Indica la velocidad máxima de la bola
+    static let segundosParaIncrementoVelocidad: Double = 3  // Indica los segundos para incrementar la velocidad
+    static let incrementoVelocidad: Int = -2   // Habrá 2 segundos menos para que la bola recorra la pantalla
+    static let nivelMaximo = 6
+    
+    var idNivel: Int
+    var tiempoRecorrerPantalla: TimeInterval
+    var tiempoJuego: TimeInterval // Tiempo para completar cambio de nivel. 0 para tiempo infinito
+    var mostrarTodasLasTonicas: Bool
+    var mostrarNotas: Bool // true si se quiere enseñar el texto con los intervalos
+    var marcarNotas: Bool   // true si se quiere colorear las notas
     var puntosPorNota: Int!
     var puntosPorIntervalo: Int!
-  
-  init(idNivel: Int, tiempoPantalla: TimeInterval, tiempoJuego: TimeInterval, mostrarTonicas: Bool, mostrarNotas: Bool, marcarNotas: Bool) {
-    self.idNivel = idNivel
-    self.tiempoRecorrerPantalla = tiempoPantalla
-    self.tiempoJuego = tiempoJuego
-    self.mostrarTodasLasTonicas = mostrarTonicas
-    self.mostrarNotas = mostrarNotas
-    self.marcarNotas = marcarNotas
-    puntosPorNota = idNivel
-    puntosPorIntervalo = idNivel * 10
+    var descripcion: String
     
-  }
-  
-  convenience init(idNivel: Int, tiempoPantalla: TimeInterval) {
-    self.init(idNivel: idNivel, tiempoPantalla: tiempoPantalla, tiempoJuego: 0, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true)
-  }
-  
-  
-  
-  // Algunos niveles para probar
-  class func getNivel(_ dificultad: Int) -> Nivel {
-    var nivel: Nivel
-    switch dificultad {
-    case 1:
-      nivel = Nivel(idNivel: 1, tiempoPantalla: 30, tiempoJuego: 60, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true)
-    case 2:
-      nivel = Nivel(idNivel: 2, tiempoPantalla: 40, tiempoJuego: 60, mostrarTonicas: false, mostrarNotas: true, marcarNotas: true)
-    case 3:
-      nivel = Nivel(idNivel: 3, tiempoPantalla: 40, tiempoJuego: 60, mostrarTonicas: true, mostrarNotas: false, marcarNotas: true)
-    case 4:
-      nivel = Nivel(idNivel: 4, tiempoPantalla: 40, tiempoJuego: 60, mostrarTonicas: false, mostrarNotas: false, marcarNotas: true)
-    case 5:
-      nivel = Nivel(idNivel: 5, tiempoPantalla: 40, tiempoJuego: 60, mostrarTonicas: true, mostrarNotas: false, marcarNotas: false)
-    case 6:
-      nivel = Nivel(idNivel: 6, tiempoPantalla: 40, tiempoJuego: 60, mostrarTonicas: false, mostrarNotas: false, marcarNotas: false)
-    default:
-      nivel = Nivel(idNivel: 1, tiempoPantalla: 40, tiempoJuego: 0, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true)
+    init(idNivel: Int, tiempoPantalla: TimeInterval, tiempoJuego: TimeInterval, mostrarTonicas: Bool, mostrarNotas: Bool, marcarNotas: Bool, descripcion: String = "") {
+        self.idNivel = idNivel
+        self.tiempoRecorrerPantalla = tiempoPantalla
+        self.tiempoJuego = tiempoJuego
+        self.mostrarTodasLasTonicas = mostrarTonicas
+        self.mostrarNotas = mostrarNotas
+        self.marcarNotas = marcarNotas
+        self.descripcion = descripcion
+        puntosPorNota = idNivel
+        puntosPorIntervalo = idNivel * 10
+        
     }
-    return nivel
-  }
-  
-  func siguienteNivel() -> Int {
-    if idNivel < 6 {
-      return idNivel + 1
-    } else {
-      return idNivel
+    
+    convenience init(idNivel: Int, tiempoPantalla: TimeInterval) {
+        self.init(idNivel: idNivel, tiempoPantalla: tiempoPantalla, tiempoJuego: 0, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "")
     }
-  }
+    
+    
+    
+    // Algunos niveles para probar
+    class func getNivel(_ dificultad: Int) -> Nivel {
+        var nivel: Nivel
+        switch dificultad {
+        case 1:
+            nivel = Nivel(idNivel: 1, tiempoPantalla: 30, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Comenzamos despacio. Sé consciente de la posición de la tónica y de su posición relativa a cada intervalo que pulsas")
+        case 2:
+            nivel = Nivel(idNivel: 2, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Vamos a probar un poco más rápido")
+        case 3:
+            nivel = Nivel(idNivel: 3, tiempoPantalla: 30, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: false, descripcion: "¡Vas muy bien! te vamos a quitar el color de las notas que puedes pulsar")
+        case 4:
+            nivel = Nivel(idNivel: 4, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: false, descripcion: "Vamos a darle un poco más de caña")
+        case 5:
+            nivel = Nivel(idNivel: 5, tiempoPantalla: 30, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: false, marcarNotas: false, descripcion: "Era fácil llegar hasta aquí... creo que ya no necesitas los nombres de los intervalos... 😂😂😂")
+        case 6:
+            nivel = Nivel(idNivel: 6, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: false, marcarNotas: false, descripcion: "Nadie ha superado jamás este nivel!! y seguirá siendo así!! 😠😡🤬")
+        default:
+            nivel = Nivel(idNivel: 1, tiempoPantalla: 40, tiempoJuego: 0, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "")
+        }
+        return nivel
+    }
+    
+    func siguienteNivel() -> Int {
+        if idNivel < 6 {
+            return idNivel + 1
+        } else {
+            return idNivel
+        }
+    }
 }

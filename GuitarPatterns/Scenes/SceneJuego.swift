@@ -10,6 +10,11 @@
 
 import SpriteKit
 
+enum EstadoJuego {
+    case jugando
+    case pausa
+}
+
 class SceneJuego: SKScene {
     var parentScene: SKScene? // escena padre para saber a qué escena volver
     
@@ -45,11 +50,16 @@ class SceneJuego: SKScene {
     var btnVolver: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
     // Rueda dentada
     var ruedaDentada: SKSpriteNode = SKSpriteNode(imageNamed: "ruedaDentada")
-    
+    // estado del juego
+    var estado = EstadoJuego.pausa
+
+  
     init(size: CGSize, patron: Patron, nivel: Int = 1) {
         self.patron = patron
         self.nivel = Nivel.getNivel(nivel)
         super.init(size: size)
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,24 +71,29 @@ class SceneJuego: SKScene {
         iniciarGuitarra()
         setupHUD()
         posicionInicial =  CGPoint(x: size.width + Medidas.marginSpace, y: (size.height - Medidas.porcentajeTopSpace * size.height))
-        
-        EfectosEspeciales.countdown(desde: 5, enPosicion: CGPoint(x: size.width/2, y: 0), size: size.height/2, nodo: self) {
-            self.activarSalidaNotas()
-        }
+        self.estado = .pausa
+        empezarJuego()
     }
     
     // Actualización de la escena
     override func update(_ currentTime: TimeInterval) {
-        // Calcular el deltaTime
-        if lastUpdateTime > 0 {
-            dt = currentTime - lastUpdateTime
-        } else {
-            dt = 0
+        switch estado {
+        case .pausa:
+            break
+        case .jugando:
+            // Calcular el deltaTime
+            if lastUpdateTime > 0 {
+                dt = currentTime - lastUpdateTime
+            } else {
+                dt = 0
+            }
+            lastUpdateTime = currentTime
+            updateHUD(currentTime: currentTime)
+            // ¿muere alguna nota?
+            comprobarDestruccionNotas()
+            // ¿se pasa de nivel?
+            checkPasoNivel()
         }
-        lastUpdateTime = currentTime
-        updateHUD(currentTime: currentTime)
-        // ¿muere alguna nota?
-        comprobarDestruccionNotas()
     }
     
     
@@ -91,7 +106,7 @@ class SceneJuego: SKScene {
         for node in touchedNodes {
             if let mynode = node as? ShapeNota, node.name == "nota", mynode.getTagNota() != "T" {
                 // si hemos acertado sumar un punto y eliminar la primera nota
-                if let textoEnNota = mynode.getTagNota(), textoEnNota == notasObjetivo[0].getTextNota() {
+                if let textoEnNota = mynode.getTagNota(), notasObjetivo.count > 0, textoEnNota == notasObjetivo[0].getTextNota() {
                     // Marcar en verde como que está acertada pero hay q comprobar que no queden más
                     mynode.coloreaCon(UIColor.green)
                     mynode.name = "notaAcertada"
@@ -123,10 +138,26 @@ class SceneJuego: SKScene {
                     // colorear en gris para que se vea que se ha utilizado (modo ayuda on)
                     mynode.coloreaCon(Colores.fallo)
                     mynode.name = "notaFallada"
+                    animarPuntos(posicion: touchPosition, puntos: -nivel.puntosPorNota, dy: -70)
+                    puntos -= nivel.puntosPorNota
                     //fallo()
                 }
                 
             }
+        }
+    }
+    
+    func empezarJuego() {
+        let nivelString = "Nivel".localizada() + " " + String(nivel.idNivel)
+        if let nombre = patron.getNombre() {
+            hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view!.frame.width / 2, y: view!.frame.height - Medidas.minimumMargin * 3))
+        }
+        
+        self.ajustarMastilNivel()
+        EfectosEspeciales.countdown(desde: 5, enPosicion: CGPoint(x: size.width/2, y: 0), size: size.height/2, nodo: self) {
+            self.estado = .jugando
+            self.restaurarNombresNotasEnMastil()
+            self.activarSalidaNotas()
         }
     }
     
@@ -190,6 +221,47 @@ class SceneJuego: SKScene {
     }
     
     /**
+     Comprobación del paso de nivel
+    */
+    func checkPasoNivel() {
+        if Int(self.nivel.tiempoJuego) - self.elapsedTime <= 0 {
+            estado = .pausa
+            if self.nivel.idNivel < Nivel.nivelMaximo {
+                let siguienteNivel = self.nivel.idNivel + 1
+                self.nivel = Nivel.getNivel(siguienteNivel)
+            }
+            self.removeAction(forKey: "salidaNotas")
+            let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
+            let panelAction = SKAction.run {
+                let titulo = "Nivel".localizada() + " " + String(self.nivel.idNivel)
+                let panel = Panel(size: self.size, titulo: titulo , descripcion: self.nivel.descripcion)
+                self.addChild(panel)
+                panel.aparecer() {
+                    panel.removeFromParent()
+                    self.resetJuego()
+                    self.empezarJuego()
+                }
+            }
+            let secuencia = SKAction.sequence([eliminarnotas, SKAction.wait(forDuration: 1.0),panelAction])
+            self.run(secuencia)
+            // Apuntar puntuación
+            //Puntuacion.setPuntuacionJuegoPatrones(puntos: puntos)
+        }
+        
+    }
+    
+    /**
+     Hace un reset del juego
+    */
+    func resetJuego() {
+        //self.puntos = 0
+        self.startTime = nil
+        self.elapsedTime = 0
+        self.lastUpdateTime = 0
+        self.dt = 0
+    }
+    
+    /**
      Crea una nueva nota objetivo y la lanza a la pantalla
      */
     func spawnNota() {
@@ -222,6 +294,24 @@ class SceneJuego: SKScene {
         } while intervaloElegido.rawValue == ultimoObjetivoEscogido
         ultimoObjetivoEscogido = intervaloElegido.rawValue
         return intervaloElegido.rawValue
+    }
+    
+    /**
+     Elimina todas las notas objetivo que haya en pantalla.
+    */
+    func eliminarNotasObjetivo() {
+        var pausa = 0.0
+        enumerateChildNodes(withName: "notaObjetivo") {[unowned self] (node, _) in
+            pausa += 0.2
+            let group = SKAction.group([SKAction.fadeAlpha(to:0, duration: 0.4), self.efectos.sonidoPuntos])
+            let secuencia = SKAction.sequence([SKAction.wait(forDuration: pausa), group, SKAction.run {
+                node.removeFromParent()
+                }])
+            node.run(secuencia) {
+                self.notasObjetivo.removeAll()
+            }
+        }
+        
     }
     
     /**
@@ -280,7 +370,6 @@ class SceneJuego: SKScene {
     // MARK: Funciones para mantenimiento del HUD
     func setupHUD(){
         guard let view = view, let nivel = nivel else { return }
-        
         let position = CGPoint(x:view.frame.width - Medidas.marginSpace, y: view.frame.height - Medidas.minimumMargin * 3)
         addChild(hud)
         // Timer
@@ -288,7 +377,7 @@ class SceneJuego: SKScene {
         // nombre + nivel
         let nivelString = "Nivel".localizada() + " " + String(nivel.idNivel)
         if let nombre = patron.getNombre() {
-            hud.add(message: nombre + " - " + nivelString, position: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 3))
+             hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 3))
         }
         // Descripción
         if let descripcion = patron.getDescripcion() {

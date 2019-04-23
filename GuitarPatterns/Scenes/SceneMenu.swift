@@ -383,7 +383,7 @@ class SceneMenu: SKScene {
     vista.eliminarUIKit()
     removeAllChildren()
     let irPatronAction = SKAction.run {
-      let escena = SceneJuego(size: self.size, patron: patron)
+        let escena = SceneJuego(size: self.size, patron: patron, nivel: 1)
       escena.parentScene = self // para saber a que escena volver
       vista.ignoresSiblingOrder = true
       let reveal = SKTransition.flipHorizontal(withDuration: 0.5)

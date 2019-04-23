@@ -23,6 +23,7 @@ struct Colores {
     static let botonPrincipalOn = UIColor.orange.withAlphaComponent(0.35)
     static let fallo = SKColor.darkGray
     static let acierto = SKColor.green
+    static let indicaciones = SKColor.white
 }
 
 /// Contiene las medidas generales de la aplicación
@@ -78,10 +79,12 @@ struct Letras {
     static let negrita = "Nexa-Bold"
     static let contador = "Menlo"
     static let puntosNota = "GillSans-BoldItalic"
+    static let pizarra = "Chalkduster"
 }
 struct zPositionNodes {
     static let background: CGFloat = -3.0
     static let trastes: CGFloat    = -2.0
     static let cuerdas: CGFloat    = -1.0
     static let foreground: CGFloat = 10
+    static let panel: CGFloat = 100
 }

@@ -18,14 +18,30 @@ class HUD: SKNode {
     
     var timerLabel: SKLabelNode?    // Tiempo restante
     var puntosLabel: SKLabelNode?   // puntuación conseguida
+    var lblTitulo: SKLabelNode?
     
     override init() {
         super.init()
         name = "HUD"
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setTitulo(titulo: String, en posicion: CGPoint) {
+        if let label = lblTitulo { // existe título
+            label.text = titulo
+        } else { // creamos título nuevo
+            lblTitulo = SKLabelNode(fontNamed: HUDSettings.font)
+            lblTitulo!.text = titulo
+            lblTitulo!.name = titulo
+            lblTitulo!.zPosition = zPositionNodes.foreground
+            lblTitulo!.fontSize = HUDSettings.fontSize
+            lblTitulo!.position = posicion
+            addChild(lblTitulo!)
+        }
     }
     
     func add(message: String, position: CGPoint,
@@ -68,5 +84,9 @@ class HUD: SKNode {
     
     func updatePuntosTo(_ puntos: Int) {
         puntosLabel?.text = String(format: "%06d", puntos)
+    }
+    
+    func eliminar() {
+        self.removeFromParent()
     }
 }
