@@ -46,6 +46,7 @@
 		D3282E40226233AD008218AC /* SceneMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */; };
 		D3282E42226238FC008218AC /* BotonMenuPrincipal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */; };
 		D32F96A5226F067400A5990F /* Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32F96A4226F067400A5990F /* Panel.swift */; };
+		D32F96A7226F6D7200A5990F /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32F96A6226F6D7200A5990F /* GameKit.framework */; };
 		D33128D92264673700FCB577 /* bombDrop.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128C92264673700FCB577 /* bombDrop.wav */; };
 		D33128DA2264673700FCB577 /* collectcoin.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CB2264673700FCB577 /* collectcoin.wav */; };
 		D33128DB2264673700FCB577 /* G0.wav in Resources */ = {isa = PBXBuildFile; fileRef = D33128CD2264673700FCB577 /* G0.wav */; };
@@ -134,6 +135,7 @@
 		D3282E3F226233AD008218AC /* SceneMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneMenuPrincipal.swift; sourceTree = "<group>"; };
 		D3282E41226238FC008218AC /* BotonMenuPrincipal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BotonMenuPrincipal.swift; sourceTree = "<group>"; };
 		D32F96A4226F067400A5990F /* Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panel.swift; sourceTree = "<group>"; };
+		D32F96A6226F6D7200A5990F /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		D33128C92264673700FCB577 /* bombDrop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bombDrop.wav; sourceTree = "<group>"; };
 		D33128CB2264673700FCB577 /* collectcoin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = collectcoin.wav; sourceTree = "<group>"; };
 		D33128CD2264673700FCB577 /* G0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = G0.wav; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D32F96A7226F6D7200A5990F /* GameKit.framework in Frameworks */,
 				93B39E007FC0366F080F6F34 /* Pods_GuitarPatterns.framework in Frameworks */,
 				C063233D22574EFE00649DBB /* CloudKit.framework in Frameworks */,
 			);
@@ -196,6 +199,7 @@
 		B4ECF099E153E36C47664824 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D32F96A6226F6D7200A5990F /* GameKit.framework */,
 				C063233C22574EFE00649DBB /* CloudKit.framework */,
 				0F0E7AF507D8B5CC43346A1D /* Pods_GuitarPatterns.framework */,
 			);
@@ -469,6 +473,9 @@
 					C07C634B22292B0100B36913 = {
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
