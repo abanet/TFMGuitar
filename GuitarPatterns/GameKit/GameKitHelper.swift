@@ -49,5 +49,23 @@ class GameKitHelper: NSObject {
     GKAchievement.report(achievements, withCompletionHandler: errorHandler)
   }
   
+  // Mostrar el tablero con los resultados
+  func showGKGameCenterViewController(viewController: UIViewController?) {
+    guard let viewController = viewController, gameCenterEnabled else {
+      return
+    }
+    let gameCenterViewController = GKGameCenterViewController()
+    gameCenterViewController.gameCenterDelegate = self
+    viewController.present(gameCenterViewController,
+                           animated: true, completion: nil)
+  }
+  
+}
+
+extension GameKitHelper: GKGameCenterControllerDelegate {
+  func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
+    gameCenterViewController.dismiss(animated: true, completion: nil)
+  }
+  
   
 }

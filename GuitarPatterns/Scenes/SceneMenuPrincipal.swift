@@ -93,7 +93,7 @@ extension SceneMenuPrincipal: BotonMenuPulsado {
             escena.parentScene = self
             irAEscena(escena)
         case .logros:
-            break
+          GameKitHelper.sharedInstance.showGKGameCenterViewController(viewController: self.view?.window?.rootViewController)
         case .mispatrones:
           let escena = SceneMenu(size: self.size)
           escena.privada = true
