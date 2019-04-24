@@ -13,6 +13,13 @@ import GameplayKit
 class GameViewController: UIViewController {
 
     override func viewDidLoad() {
+      NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(showAuthenticationViewController),
+        name: NSNotification.Name(GameKitHelper.PresentAuthenticationViewController),
+        object: nil)
+      GameKitHelper.sharedInstance.authenticateLocalPlayer()
+      
         super.viewDidLoad()
         let dimensionesDispositivo = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         let scene = SceneMenuPrincipal(size: dimensionesDispositivo)
@@ -29,4 +36,19 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+  
+  @objc func showAuthenticationViewController() {
+    let gameKitHelper = GameKitHelper.sharedInstance
+    if let authenticationViewController =
+      gameKitHelper.authenticationViewController {
+      self.present(
+        authenticationViewController,
+        animated: true, completion: nil)
+    }
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
 }
