@@ -41,6 +41,7 @@
 		C0F14166226B858C00F905CD /* Extension+SKAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F14165226B858C00F905CD /* Extension+SKAction.swift */; };
 		C0FA5A81227063E000137216 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA5A80227063E000137216 /* GameKitHelper.swift */; };
 		C0FA5A8322706A8700137216 /* LogrosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA5A8222706A8700137216 /* LogrosHelper.swift */; };
+		C0FA5A852270775500137216 /* Puntuacion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FA5A842270775500137216 /* Puntuacion.swift */; };
 		D3223FC8225A16C900C93C66 /* Nexa-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */; };
 		D3223FC9225A16CC00C93C66 /* NexaBook.otf in Resources */ = {isa = PBXBuildFile; fileRef = D3223FC6225A16BB00C93C66 /* NexaBook.otf */; };
 		D322C8F0226DA44000B6AC01 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = D322C8EF226DA44000B6AC01 /* HUD.swift */; };
@@ -132,6 +133,7 @@
 		C0F14165226B858C00F905CD /* Extension+SKAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SKAction.swift"; sourceTree = "<group>"; };
 		C0FA5A80227063E000137216 /* GameKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
 		C0FA5A8222706A8700137216 /* LogrosHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogrosHelper.swift; sourceTree = "<group>"; };
+		C0FA5A842270775500137216 /* Puntuacion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puntuacion.swift; sourceTree = "<group>"; };
 		D3223FC6225A16BB00C93C66 /* NexaBook.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NexaBook.otf; sourceTree = "<group>"; };
 		D3223FC7225A16BB00C93C66 /* Nexa-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nexa-Bold.otf"; sourceTree = "<group>"; };
 		D322C8EF226DA44000B6AC01 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				C01199992235711B00C3C643 /* Patron.swift */,
 				C063233E2257514500649DBB /* PatronesDB.swift */,
 				C039177F226A476500D0701F /* Nivel.swift */,
+				C0FA5A842270775500137216 /* Puntuacion.swift */,
 			);
 			path = Modelo;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				D3613B6222566DE000F15420 /* Extension+String.swift in Sources */,
 				C0FA5A8322706A8700137216 /* LogrosHelper.swift in Sources */,
 				C0D4CEE3224263F700B0B835 /* SceneMenu.swift in Sources */,
+				C0FA5A852270775500137216 /* Puntuacion.swift in Sources */,
 				C0D0A15E222D271400666D6A /* Traste.swift in Sources */,
 				D3282E42226238FC008218AC /* BotonMenuPrincipal.swift in Sources */,
 				C0FA5A81227063E000137216 /* GameKitHelper.swift in Sources */,
