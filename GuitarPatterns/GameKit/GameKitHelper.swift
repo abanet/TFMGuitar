@@ -17,13 +17,16 @@ import GameKit
 class GameKitHelper: NSObject {
   
   static let sharedInstance = GameKitHelper()
-  static let PresentAuthenticationViewController =
-  "PresentAuthenticationViewController"
+  static let PresentAuthenticationViewController = "PresentAuthenticationViewController"
   
   var authenticationViewController: UIViewController?
   var gameCenterEnabled = false
   
-  
+  /**
+   Función de autenticación en el GameCenter.
+   Si el usuario no está autenticado se envía notificación para presentar el viewcontroller de autenticación.
+   Si el usuario ya está autenticado se habilita el GameCenter directamente.
+  */
   func authenticateLocalPlayer() {
     GKLocalPlayer.local.authenticateHandler =
       { (viewController, error) in
@@ -37,6 +40,13 @@ class GameKitHelper: NSObject {
           self.gameCenterEnabled = true
         }
     }
+  }
+  
+  // Función que informa de la consecución de un logro
+  func reportAchievements(achievements: [GKAchievement],
+                             errorHandler: ((Error?)->Void)? = nil) {
+    guard gameCenterEnabled else { return }
+    GKAchievement.report(achievements, withCompletionHandler: errorHandler)
   }
   
   
