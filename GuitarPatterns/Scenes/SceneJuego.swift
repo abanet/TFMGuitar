@@ -13,6 +13,7 @@ import SpriteKit
 enum EstadoJuego {
     case jugando
     case pausa
+    case partidaperdida
 }
 
 class SceneJuego: SKScene {
@@ -38,6 +39,7 @@ class SceneJuego: SKScene {
     
     var hud = HUD() // head-up display
     var puntos: Int = 0 // puntos que se llevan ganados
+    var recordABatir: Int = 0
     var numAciertos: Int = 0 // número de aciertos que lleva el jugador
     
     // variables para control del paso del tiempo
@@ -93,6 +95,9 @@ class SceneJuego: SKScene {
             comprobarDestruccionNotas()
             // ¿se pasa de nivel?
             checkPasoNivel()
+        case .partidaperdida:
+          estado = .pausa
+          partidaPerdida()
         }
     }
     
@@ -154,13 +159,39 @@ class SceneJuego: SKScene {
         }
         
         self.ajustarMastilNivel()
-        EfectosEspeciales.countdown(desde: 5, enPosicion: CGPoint(x: size.width/2, y: 0), size: size.height/2, nodo: self) {
+        hud.updateTimer(time: Int(nivel.tiempoJuego))
+        EfectosEspeciales.countdown(desde: 3, enPosicion: CGPoint(x: size.width/2, y: 0), size: size.height/2, nodo: self) {
             self.estado = .jugando
             self.restaurarNombresNotasEnMastil()
             self.activarSalidaNotas()
         }
+      if let tipo = patron.getTipo() {
+        recordABatir = Puntuacion.getRecordTipoPatron(tipo)
+        hud.updateRecordTo(recordABatir)
+      }
+      
     }
-    
+  
+  func partidaPerdida() {
+    self.removeAction(forKey: "salidaNotas")
+    //let eliminarnotas = SKAction.run {self.notasObjetivo.removeAll()}
+    let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
+    let panelAction = SKAction.run {
+      let mensajeNumber = Int.random(in: 0...Mensajes.partidaperdida.count - 1)
+      let titulo = Mensajes.partidaperdida[mensajeNumber]
+      let panel = Panel(size: self.size, titulo: titulo , descripcion: "La practica y la constancia son la clave del éxito".localizada())
+      self.addChild(panel)
+      panel.aparecer() {
+        panel.removeFromParent()
+        self.resetJuego()
+        self.empezarJuego()
+      }
+    }
+    let secuencia = SKAction.sequence([eliminarnotas, panelAction])
+    self.run(secuencia)
+    //self.run(panelAction)
+  }
+  
     /**
      Se ha acertado una nota objetivo.
      Incrementamos puntuación
@@ -244,12 +275,18 @@ class SceneJuego: SKScene {
             }
             let secuencia = SKAction.sequence([eliminarnotas, SKAction.wait(forDuration: 1.0),panelAction])
             self.run(secuencia)
-            // Apuntar puntuación
-            //Puntuacion.setPuntuacionJuegoPatrones(puntos: puntos)
         }
-        
     }
-    
+  
+  func comprobarNuevoRecord() -> Bool {
+    if self.puntos > self.recordABatir, let tipo = patron.getTipo() {
+      self.recordABatir = self.puntos
+      Puntuacion.setRecordTipoPatron(tipo, puntos: self.recordABatir)
+      hud.blinkRecord()
+      return true
+    }
+    return false
+  }
     /**
      Hace un reset del juego
     */
@@ -319,22 +356,31 @@ class SceneJuego: SKScene {
      */
     func comprobarDestruccionNotas() {
         let posFinNotaX = guitarra.viewGuitarra.posicionXTraste(num: Medidas.trasteRuedaDentada)
-        enumerateChildNodes(withName: "notaObjetivo") {[unowned self] (node, _) in
+        enumerateChildNodes(withName: "notaObjetivo") {[unowned self] (node, stop) in
             if node.position.x <= posFinNotaX { // Punto x tope para las bolas
                 let down = SKAction.moveTo(y: 0, duration: 1.0)
                 let alpha = SKAction.fadeAlpha(to: 0, duration: 1.0)
                 let downalpha = SKAction.group([down,alpha])
-                
                 node.run(downalpha) {
                     let explosion = EfectosEspeciales.explosion(intensity: 2.0)
                     self.addChild(explosion)
                     explosion.position = node.position
                     node.removeFromParent()
-                    self.notasObjetivo.remove(at: 0)
-                }
+                    if self.notasObjetivo.count > 0 {
+                      self.notasObjetivo.remove(at: 0)
+                    }
+                    if self.estado == .partidaperdida {
+                      self.estado = .pausa
+                    }
+                    if self.estado == .jugando {
+                      self.estado = .partidaperdida
+                    }
+                  
+                  
             }
         }
     }
+  }
     
     /**
      Devuelve true si quedan notas marcadas como "nota" con el tag pasado como parámetro
@@ -384,8 +430,8 @@ class SceneJuego: SKScene {
             hud.add(message: descripcion, position: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 6))
         }
         // Marcador
-        hud.addPuntos(position: CGPoint(x:view.frame.width - Medidas.marginSpace, y: view.frame.height - Medidas.minimumMargin * 6))
-        
+        hud.addPuntos(position: CGPoint(x:view.frame.width - Medidas.marginSpace * 3, y: view.frame.height - Medidas.minimumMargin * 6))
+        hud.addRecord(position: CGPoint(x:view.frame.width - Medidas.marginSpace, y: view.frame.height - Medidas.minimumMargin * 6))
         setupBotonVolver()
         setupRuedaDentada()
         
@@ -399,6 +445,9 @@ class SceneJuego: SKScene {
         }
         hud.updateTimer(time: Int(nivel.tiempoJuego) - elapsedTime)
         hud.updatePuntosTo(puntos)
+      if comprobarNuevoRecord() {
+        hud.updateRecordTo(puntos)
+      }
     }
     
     // Volver a la pantalla origen

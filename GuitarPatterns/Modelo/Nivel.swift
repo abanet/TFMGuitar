@@ -67,7 +67,7 @@ class Nivel {
         var nivel: Nivel
         switch dificultad {
         case 1:
-            nivel = Nivel(idNivel: 1, tiempoPantalla: 30, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Comenzamos despacio. Sé consciente de la posición de la tónica y de su posición relativa a cada intervalo que pulsas")
+            nivel = Nivel(idNivel: 1, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Comenzamos despacio. Sé consciente de la posición de la tónica y de su posición relativa a cada intervalo que pulsas")
         case 2:
             nivel = Nivel(idNivel: 2, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Vamos a probar un poco más rápido")
         case 3:

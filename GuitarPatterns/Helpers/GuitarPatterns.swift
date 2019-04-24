@@ -88,3 +88,15 @@ struct zPositionNodes {
     static let foreground: CGFloat = 10
     static let panel: CGFloat = 100
 }
+
+struct Mensajes {
+  static let partidaperdida = [
+    "¿Te llaman mano lenta? 🤣",
+    "¡Los he visto más rápidos! 😂",
+    "¡Practica hasta que te duela la cabeza!",
+    "No doy crédito... 😱",
+    "😳 me has dejado sin palabras...",
+    "Venga Jimmy Hendrix, ¡un poco más de esfuerzo!",
+    "¡Puedes hacerlo mejor!"
+  ]
+}

@@ -11,7 +11,7 @@ import SpriteKit
 class Panel: SKNode {
     var lblTitulo: SKLabelNode = {
         let label = SKLabelNode(fontNamed: Letras.pizarra)
-        label.fontSize = 50.0
+        label.fontSize = 40.0
         label.fontColor = Colores.indicaciones
         return label
     }()
