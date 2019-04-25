@@ -108,11 +108,11 @@ struct TableroPuntuaciones {
         "\(TipoPatron.Acorde.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil",
         "\(TipoPatron.Acorde.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.acordes_intermedio",
         "\(TipoPatron.Acorde.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.acordes_alto",
-        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil",
-        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.acordes_intermedio",
-        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.acordes_alto",
-        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil",
-        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.acordes_intermedio",
-        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil"]
+        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.arpegios_facil",
+        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.arpegios_intermedio",
+        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.arpegios_alto",
+        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.escalas_bajo",
+        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.escalas_intermedio",
+        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.escalas_alto"]
 
 }

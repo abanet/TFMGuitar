@@ -180,7 +180,7 @@ class SceneJuego: SKScene {
     let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
     let panelAction = SKAction.run {
       let mensajeNumber = Int.random(in: 0...Mensajes.partidaperdida.count - 1)
-      let titulo = Mensajes.partidaperdida[mensajeNumber]
+      let titulo = Mensajes.partidaperdida[mensajeNumber].localizada()
       let panel = Panel(size: self.size, titulo: titulo , descripcion: "La practica y la constancia son la clave del éxito".localizada())
       self.addChild(panel)
       panel.aparecer() {
@@ -258,6 +258,7 @@ class SceneJuego: SKScene {
     */
     func checkPasoNivel() {
         if Int(self.nivel.tiempoJuego) - self.elapsedTime <= 0 {
+            reportScoreToGameCenter(score: Int64(puntos))
             estado = .pausa
             if self.nivel.idNivel < Nivel.nivelMaximo {
                 let siguienteNivel = self.nivel.idNivel + 1
@@ -293,7 +294,7 @@ class SceneJuego: SKScene {
      Hace un reset del juego
     */
     func resetJuego() {
-        //self.puntos = 0
+        self.puntos = 0
         self.startTime = nil
         self.elapsedTime = 0
         self.lastUpdateTime = 0
@@ -513,10 +514,11 @@ class SceneJuego: SKScene {
     */
     func reportScoreToGameCenter(score: Int64) {
         if let tipo = patron.getTipo()?.rawValue {
+          let id = "\(tipo)_\(nivel.getNivelDificultad())"
             GameKitHelper.sharedInstance.reportScore(
                 score: score,
-                forLeaderboardID: TableroPuntuaciones.ID[
-                    "\(tipo)_\(nivel.getNivelDificultad())"]!)
+                forLeaderboardID: TableroPuntuaciones.ID[id]!)
+          print("Score en id = \(id): \(TableroPuntuaciones.ID[id]!)" )
         }
     }
 }
