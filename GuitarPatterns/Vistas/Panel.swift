@@ -24,7 +24,7 @@ class Panel: SKNode {
     var panel: SKShapeNode!
     
     init(size: CGSize, titulo: String, descripcion: String) {
-        panel = SKShapeNode(rect: CGRect(origin: .zero, size: size), cornerRadius: 8.0)
+        panel = SKShapeNode(rect: CGRect(origin: .zero, size: size), cornerRadius: 0.0)
         self.lblTitulo.text = titulo
         self.lblDescripcion.text = descripcion
         super.init()
@@ -57,7 +57,7 @@ class Panel: SKNode {
     }
     
     func setupDescripcion() {
-        lblDescripcion.position = CGPoint(x:panel.frame.width / 2, y: panel.frame.height / 2)
+        lblDescripcion.position = CGPoint(x:panel.frame.width / 2, y: panel.frame.height / 2.5)
         lblDescripcion.preferredMaxLayoutWidth = panel.frame.width - Medidas.marginSpace * 2
         lblDescripcion.numberOfLines = 0
         lblDescripcion.verticalAlignmentMode = .center

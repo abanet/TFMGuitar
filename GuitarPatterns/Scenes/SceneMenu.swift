@@ -36,13 +36,7 @@ class SceneMenu: SKScene {
         label.fontName = Letras.normal
         return label
     }()
-    var lblNumPatrones: SKLabelNode = {
-        let label = SKLabelNode()
-        label.fontSize = 18.0
-        label.fontName = Letras.normal
-        label.text = "0"
-        return label
-    }()
+    
     
     var indicadorActividad: UIActivityIndicatorView = {
         let indicador = UIActivityIndicatorView()
@@ -151,6 +145,7 @@ class SceneMenu: SKScene {
             self.addChild(self.menu)
             self.menu.name = "menu"
             self.menu.position.y = Medidas.bottomSpace
+            refrescarNumeroPatrones(patrones.count)
         }
     }
     
@@ -198,13 +193,12 @@ class SceneMenu: SKScene {
     self.view?.addSubview(indicadorActividad)
     
     // Añadimos etiquetas
-    addChild(lblNumPatrones)
     addChild(lblNombrePatron)
     addChild(lblDescripcionPatron)
     
     lblNombrePatron.position = CGPoint(x: self.view!.frame.width/2, y: Medidas.bottomSpace + Medidas.minimumMargin)
     lblDescripcionPatron.position = CGPoint(x: self.view!.frame.width/2, y: lblNombrePatron.position.y - Medidas.minimumMargin * 3)
-    
+
     resetDatosPatron()
   }
     
@@ -213,6 +207,11 @@ class SceneMenu: SKScene {
         lblDescripcionPatron.text = "y pulsa sobre la opción deseada del menú.".localizada()
     }
     
+    private func refrescarNumeroPatrones(_ num: Int) {
+        if num > 0, let filtro = filtro?.rawValue {
+         lblNombrePatron.text = "Selecciona un patrón".localizada() + " (\(num) \(filtro) \("disponibles".localizada()))"
+        }
+    }
     /**
      Elimina el patrón seleccionado de la base de datos.
     */

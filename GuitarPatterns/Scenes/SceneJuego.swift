@@ -157,12 +157,11 @@ class SceneJuego: SKScene {
         if let nombre = patron.getNombre() {
             hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view!.frame.width / 2, y: view!.frame.height - Medidas.minimumMargin * 3))
         }
-        
+        self.restaurarNombresNotasEnMastil()
         self.ajustarMastilNivel()
         hud.updateTimer(time: Int(nivel.tiempoJuego))
         EfectosEspeciales.countdown(desde: 3, enPosicion: CGPoint(x: size.width/2, y: 0), size: size.height/2, nodo: self) {
             self.estado = .jugando
-            self.restaurarNombresNotasEnMastil()
             self.activarSalidaNotas()
         }
       if let tipo = patron.getTipo() {
@@ -474,7 +473,8 @@ class SceneJuego: SKScene {
     
     func setupRuedaDentada() {
         ruedaDentada.position = CGPoint(x: guitarra.viewGuitarra.posicionXTraste(num: Medidas.trasteRuedaDentada), y: (size.height - Medidas.porcentajeTopSpace * size.height))
-        ruedaDentada.scale(to: CGSize(width: 50, height: 50))
+        ruedaDentada.scale(to: CGSize(width: radio * 2, height: radio * 2))
+        //ruedaDentada.scale(to: CGSize(width: 50, height: 50))
         let girar = SKAction.rotate(byAngle: .pi * 2, duration: 5)
         let girarForever = SKAction.repeatForever(girar)
         ruedaDentada.run(girarForever)
