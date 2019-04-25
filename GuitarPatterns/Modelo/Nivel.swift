@@ -25,6 +25,11 @@ import Foundation
  * La combinación de todo lo anterior define un nivel.
  * Se definirán 6 niveles para cada patrón aunque se pueden crear los que se quiera.
  */
+enum NivelDificultad: String {
+    case facil
+    case intermedio
+    case alto
+}
 
 class Nivel {
     
@@ -67,7 +72,7 @@ class Nivel {
         var nivel: Nivel
         switch dificultad {
         case 1:
-            nivel = Nivel(idNivel: 1, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Comenzamos despacio. Sé consciente de la posición de la tónica y de su posición relativa a cada intervalo que pulsas")
+            nivel = Nivel(idNivel: 1, tiempoPantalla: 20, tiempoJuego: 30, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Comenzamos despacio. Sé consciente de la posición de la tónica y de su posición relativa a cada intervalo que pulsas")
         case 2:
             nivel = Nivel(idNivel: 2, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Vamos a probar un poco más rápido")
         case 3:
@@ -89,6 +94,17 @@ class Nivel {
             return idNivel + 1
         } else {
             return idNivel
+        }
+    }
+    
+    // Devuelve la categorización del nivel en la categoría fácil, intermedio, alto
+    func getNivelDificultad() -> String {
+        if self.idNivel < 3 {
+            return NivelDificultad.facil.rawValue
+        } else if self.idNivel < 5 {
+            return NivelDificultad.intermedio.rawValue
+        } else {
+            return NivelDificultad.alto.rawValue
         }
     }
 }

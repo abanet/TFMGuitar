@@ -60,6 +60,15 @@ class GameKitHelper: NSObject {
                            animated: true, completion: nil)
   }
   
+    func reportScore(score: Int64, forLeaderboardID leaderboardID:
+        String, errorHandler: ((Error?)->Void)? = nil) {
+        guard gameCenterEnabled else {
+            return
+        }
+        let gkScore = GKScore(leaderboardIdentifier: leaderboardID)
+        gkScore.value = score
+        GKScore.report([gkScore], withCompletionHandler: errorHandler)
+    }
 }
 
 extension GameKitHelper: GKGameCenterControllerDelegate {

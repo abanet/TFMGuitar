@@ -19,6 +19,8 @@ enum EstadoJuego {
 class SceneJuego: SKScene {
     var parentScene: SKScene? // escena padre para saber a qué escena volver
     
+    
+    
     // Guitarra, patrón y nivel para jugar
     var guitarra: GuitarraViewController!
     var patron: Patron! //patrón a aprender
@@ -172,6 +174,7 @@ class SceneJuego: SKScene {
     }
   
   func partidaPerdida() {
+    reportScoreToGameCenter(score: Int64(puntos))
     self.removeAction(forKey: "salidaNotas")
     //let eliminarnotas = SKAction.run {self.notasObjetivo.removeAll()}
     let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
@@ -499,5 +502,21 @@ class SceneJuego: SKScene {
             self.efectos.hacerSonarPuntos(nodo: scoreLabel)
         }
         
+    }
+    
+    // MARK: GameCenter
+    // Funciones de llamada al GameCenter
+    
+    /**
+     Envía una puntuación al GameCenter.
+     Los paneles de puntuación se categorizan por el tipo de patrón y el nivel de dificultad.
+    */
+    func reportScoreToGameCenter(score: Int64) {
+        if let tipo = patron.getTipo()?.rawValue {
+            GameKitHelper.sharedInstance.reportScore(
+                score: score,
+                forLeaderboardID: TableroPuntuaciones.ID[
+                    "\(tipo)_\(nivel.getNivelDificultad())"]!)
+        }
     }
 }

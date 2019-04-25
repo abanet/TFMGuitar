@@ -100,3 +100,19 @@ struct Mensajes {
     "¡Puedes hacerlo mejor!"
   ]
 }
+
+// Tableros de puntuación
+// Diccionario con referencia a los identificadores en GameCenter
+struct TableroPuntuaciones {
+    static let ID = [
+        "\(TipoPatron.Acorde.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil",
+        "\(TipoPatron.Acorde.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.acordes_intermedio",
+        "\(TipoPatron.Acorde.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.acordes_alto",
+        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil",
+        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.acordes_intermedio",
+        "\(TipoPatron.Arpegio.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.acordes_alto",
+        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil",
+        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.acordes_intermedio",
+        "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.acordes_facil"]
+
+}
