@@ -43,7 +43,7 @@ class SceneMenuPrincipal: SKScene {
         let cuartoAlto = size.height / 4
         
         // Menú principal
-        let opcion1 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "mispatrones", titulo: "Mis Patrones".localizada(), tipo: OpcionesMenu.mispatrones)
+        let opcion1 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "mispatrones", titulo: "Mis patrones".localizada(), tipo: OpcionesMenu.mispatrones)
         opcion1.position = CGPoint(x: sextoAncho, y: cuartoAlto)
         opcion1.delegate = self
         

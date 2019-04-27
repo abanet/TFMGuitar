@@ -33,7 +33,7 @@ enum NivelDificultad: String {
 
 class Nivel {
     
-    static let tiempoMinimoRecorrerPantalla: Double = 20.0  // Indica la velocidad máxima de la bola
+    static let tiempoMinimoRecorrerPantalla: Double = 10.0  // Indica la velocidad máxima de la bola
     static let segundosParaIncrementoVelocidad: Double = 3  // Indica los segundos para incrementar la velocidad
     static let incrementoVelocidad: Int = -2   // Habrá 2 segundos menos para que la bola recorra la pantalla
     static let nivelMaximo = 6
@@ -72,15 +72,15 @@ class Nivel {
         var nivel: Nivel
         switch dificultad {
         case 1:
-            nivel = Nivel(idNivel: 1, tiempoPantalla: 20, tiempoJuego: 30, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Comenzamos despacio. Sé consciente de la posición de la tónica y de su posición relativa a cada intervalo que pulsas")
+            nivel = Nivel(idNivel: 1, tiempoPantalla: 20, tiempoJuego: 5, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Comenzamos despacio. Sé consciente de la posición de la tónica y de su posición relativa a cada intervalo que pulsas")
         case 2:
-            nivel = Nivel(idNivel: 2, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Vamos a probar un poco más rápido")
+            nivel = Nivel(idNivel: 2, tiempoPantalla: 20, tiempoJuego: 5, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "Vamos a probar un poco más rápido")
         case 3:
-            nivel = Nivel(idNivel: 3, tiempoPantalla: 30, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: false, descripcion: "¡Vas muy bien! te vamos a quitar el color de las notas que puedes pulsar")
+            nivel = Nivel(idNivel: 3, tiempoPantalla: 30, tiempoJuego: 5, mostrarTonicas: true, mostrarNotas: true, marcarNotas: false, descripcion: "¡Vas muy bien! te vamos a quitar el color de las notas que puedes pulsar")
         case 4:
-            nivel = Nivel(idNivel: 4, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: true, marcarNotas: false, descripcion: "Vamos a darle un poco más de caña")
+            nivel = Nivel(idNivel: 4, tiempoPantalla: 20, tiempoJuego: 5, mostrarTonicas: true, mostrarNotas: true, marcarNotas: false, descripcion: "Vamos a darle un poco más de caña")
         case 5:
-            nivel = Nivel(idNivel: 5, tiempoPantalla: 30, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: false, marcarNotas: false, descripcion: "Era fácil llegar hasta aquí... creo que ya no necesitas los nombres de los intervalos... 😂😂😂")
+            nivel = Nivel(idNivel: 5, tiempoPantalla: 30, tiempoJuego: 5, mostrarTonicas: true, mostrarNotas: false, marcarNotas: false, descripcion: "Era fácil llegar hasta aquí... creo que ya no necesitas los nombres de los intervalos... 😂😂😂")
         case 6:
             nivel = Nivel(idNivel: 6, tiempoPantalla: 20, tiempoJuego: 10, mostrarTonicas: true, mostrarNotas: false, marcarNotas: false, descripcion: "Nadie ha superado jamás este nivel!! y seguirá siendo así!! 😠😡🤬")
         default:
@@ -106,5 +106,9 @@ class Nivel {
         } else {
             return NivelDificultad.alto.rawValue
         }
+    }
+    
+    func decrementarTiempoPantallaEn(_ decremento: Int) {
+        self.tiempoRecorrerPantalla -= TimeInterval(decremento)
     }
 }

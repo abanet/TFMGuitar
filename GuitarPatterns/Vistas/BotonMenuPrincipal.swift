@@ -35,7 +35,7 @@ class BotonMenuPrincipal: SKNode {
         super.init()
         isUserInteractionEnabled = true
         texto.text = titulo
-        texto.fontSize = 20
+        texto.fontSize = 18
         texto.fontColor = .black//UIColor(red: 91/255, green: 91/255, blue: 95/255, alpha: 1.0)
         texto.position = CGPoint(x: 0, y: -size.height*3/8)
         

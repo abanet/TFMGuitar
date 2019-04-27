@@ -19,7 +19,7 @@
 "Escalas" = "Escales";
 "Mis patrones" = "My patrons";
 "Editor" = "Editor";
-"Logros" = "Achievement";
+"Logros" = "Records";
 
 /* Textos en SceneEditor */
 "¡Tónica obligatoria!" = "Tonic mandatory!";
@@ -73,4 +73,8 @@
 "😳 me has dejado sin palabras..." = "😳 I have no words...";
 "Venga Jimmy Hendrix, ¡un poco más de esfuerzo!" = "Come on Jimmy Hendrix!";
 "¡Puedes hacerlo mejor!" = "I know you can do better!";
-"La practica y la constancia son la clave del éxito" = "Practice and constancy are the key to success";"
+"La practica y la constancia son la clave del éxito" = "Practice and constancy are the key to success";
+
+/* Menu Juego */
+"Figura superada" = "you did it!";
+"¡A por otra nueva!" = "You better choose a new patron!";

@@ -75,5 +75,16 @@ class Panel: SKNode {
         }
     }
     
+    func aparecerSinFadeout(completion: @escaping () -> Void) {
+        addChild(panel)
+        panel.addChild(lblTitulo)
+        panel.addChild(lblDescripcion)
+        self.alpha = 0.0
+        let secuencia = SKAction.sequence([SKAction.fadeAlpha(to: 1.0, duration: 0.5), SKAction.wait(forDuration: 3.0)])
+        self.run(secuencia) {
+            completion()
+        }
+    }
+    
 
 }

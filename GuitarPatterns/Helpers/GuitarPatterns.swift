@@ -64,10 +64,11 @@ struct Medidas {
     static let ratioCuerdasNota: CGFloat = 2.4
 
     // Patrones en menu
-  static let numeroPatronesEnPantalla: CGFloat = 2.0
+    static let numeroPatronesEnPantalla: CGFloat = 2.0
 
     // Juego
     static let trasteRuedaDentada: Int = 1
+    static let incrementosVelocidad: Int = 5
 }
 
 struct Notas {

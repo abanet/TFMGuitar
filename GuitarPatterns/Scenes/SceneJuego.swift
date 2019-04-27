@@ -174,7 +174,11 @@ class SceneJuego: SKScene {
     }
   
   func partidaPerdida() {
-    reportScoreToGameCenter(score: Int64(puntos))
+    //reportScoreToGameCenter(score: Int64(puntos))
+    // Si se pierde la partida hay que volver al punto de partida
+    self.puntos = 0
+    self.nivel = Nivel.getNivel(1)
+    
     self.removeAction(forKey: "salidaNotas")
     //let eliminarnotas = SKAction.run {self.notasObjetivo.removeAll()}
     let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
@@ -246,6 +250,7 @@ class SceneJuego: SKScene {
      Las notas saldrán de forma periodica dependiendo del nivel
      */
     func activarSalidaNotas() {
+        print("Tiempo en recorrer pantalla al activar notas: \(nivel.tiempoRecorrerPantalla)")
         let periodo = Double((CGFloat(nivel.tiempoRecorrerPantalla) * (radio * 4)) / size.width)
         run(SKAction.repeatForever(
             SKAction.sequence([SKAction.run() { [weak self] in
@@ -257,27 +262,50 @@ class SceneJuego: SKScene {
      Comprobación del paso de nivel
     */
     func checkPasoNivel() {
+        var patronsuperado = false // ¿se ha superado ya el conocimiento del patrón objetivo?
         if Int(self.nivel.tiempoJuego) - self.elapsedTime <= 0 {
             reportScoreToGameCenter(score: Int64(puntos))
             estado = .pausa
-            if self.nivel.idNivel < Nivel.nivelMaximo {
+            if self.nivel.idNivel < Nivel.nivelMaximo { // se puede incrementar el nivel
                 let siguienteNivel = self.nivel.idNivel + 1
                 self.nivel = Nivel.getNivel(siguienteNivel)
-            }
-            self.removeAction(forKey: "salidaNotas")
-            let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
-            let panelAction = SKAction.run {
-                let titulo = "Nivel".localizada() + " " + String(self.nivel.idNivel)
-                let panel = Panel(size: self.size, titulo: titulo , descripcion: self.nivel.descripcion)
-                self.addChild(panel)
-                panel.aparecer() {
-                    panel.removeFromParent()
-                    self.resetJuego()
-                    self.empezarJuego()
+            } else { // estamos en el máximo nivel, vamos a darle un poco más de velocidad...
+                if self.nivel.tiempoRecorrerPantalla - TimeInterval(Medidas.incrementosVelocidad) > Nivel.tiempoMinimoRecorrerPantalla {
+                    self.nivel.decrementarTiempoPantallaEn(Medidas.incrementosVelocidad)
+                } else {
+                    // Se han superado todas las pruebas con un patrón
+                    patronsuperado = true
+                    self.removeAction(forKey: "salidaNotas")
+                    let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
+                    let panelAction = SKAction.run {
+                        let titulo = "Figura superada".localizada()
+                        let panel = Panel(size: self.size, titulo: titulo , descripcion: "¡A por otra nueva!".localizada())
+                        self.addChild(panel)
+                        panel.aparecerSinFadeout {
+                            self.btnVolverPulsado()
+                        }
+                    }
+                    let secuencia = SKAction.sequence([eliminarnotas, panelAction])
+                    self.run(secuencia)
+                    
                 }
             }
-            let secuencia = SKAction.sequence([eliminarnotas, SKAction.wait(forDuration: 1.0),panelAction])
-            self.run(secuencia)
+            if !patronsuperado {
+                self.removeAction(forKey: "salidaNotas")
+                let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
+                let panelAction = SKAction.run {
+                    let titulo = "Nivel".localizada() + " " + String(self.nivel.idNivel)
+                    let panel = Panel(size: self.size, titulo: titulo , descripcion: self.nivel.descripcion)
+                    self.addChild(panel)
+                    panel.aparecer() {
+                        panel.removeFromParent()
+                        self.resetJuego()
+                        self.empezarJuego()
+                    }
+                }
+                let secuencia = SKAction.sequence([eliminarnotas, SKAction.wait(forDuration: 1.0),panelAction])
+                self.run(secuencia)
+            }
         }
     }
   
@@ -294,7 +322,7 @@ class SceneJuego: SKScene {
      Hace un reset del juego
     */
     func resetJuego() {
-        self.puntos = 0
+        //self.puntos = 0
         self.startTime = nil
         self.elapsedTime = 0
         self.lastUpdateTime = 0
