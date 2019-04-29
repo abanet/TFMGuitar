@@ -9,6 +9,7 @@
 //  La escena recibirá un patrón como parámetro y un nivel en el que se va a jugar
 
 import SpriteKit
+import GameKit
 
 enum EstadoJuego {
     case jugando
@@ -250,7 +251,6 @@ class SceneJuego: SKScene {
      Las notas saldrán de forma periodica dependiendo del nivel
      */
     func activarSalidaNotas() {
-        print("Tiempo en recorrer pantalla al activar notas: \(nivel.tiempoRecorrerPantalla)")
         let periodo = Double((CGFloat(nivel.tiempoRecorrerPantalla) * (radio * 4)) / size.width)
         run(SKAction.repeatForever(
             SKAction.sequence([SKAction.run() { [weak self] in
@@ -486,6 +486,8 @@ class SceneJuego: SKScene {
         guard let vista = self.scene?.view else {
             return
         }
+        acumularPartida()
+        reportarLogros()
         vista.eliminarUIKit()
         let irPatronAction = SKAction.run {
             vista.ignoresSiblingOrder = true
@@ -546,7 +548,30 @@ class SceneJuego: SKScene {
             GameKitHelper.sharedInstance.reportScore(
                 score: score,
                 forLeaderboardID: TableroPuntuaciones.ID[id]!)
-          print("Score en id = \(id): \(TableroPuntuaciones.ID[id]!)" )
         }
+    }
+    
+    // Si se han conseguido los puntos mínimos necesarios se acumula una partida.
+    // La acumulación de partidas se utiliza para conseguir el logro de la constancia
+    func acumularPartida() {
+        if puntos > Puntuacion.minimoConsideradoPartida {
+            // acumulamos una nueva partida
+            let acumuladas = Puntuacion.getPartidasAcumuladas() + 1
+            Puntuacion.setPartidasAcumuladas(acumuladas)
+        }
+    }
+    
+    func reportarLogros() {
+        var logros: [GKAchievement] = [GKAchievement]()
+        
+        let partidasAcumuladas = Puntuacion.getPartidasAcumuladas()
+        let hardworkerLogro = LogrosHelper.HardWorkerLogro(partidas: partidasAcumuladas)
+        logros.append(hardworkerLogro)
+        if let tipo = patron.getTipo(), let logroNivel = LogrosHelper.logroParaTipoPatron(tipoPatron: tipo, puntos: puntos) {
+            logros.append(logroNivel)
+        }
+        
+        GameKitHelper.sharedInstance.reportAchievements(achievements: logros)
+        
     }
 }

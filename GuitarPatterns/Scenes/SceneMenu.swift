@@ -78,7 +78,6 @@ class SceneMenu: SKScene {
             if menu.contains(location) {
                 moviendo = true
                 startLocationX = menu.position.x - location.x
-                //print(menu.nodes(at:locationMenu).first?.name)
                 if menu.nodes(at:locationMenu).first?.name == "zonatactil" {
                     if let nodo = menu.nodes(at:locationMenu).first?.parent as? GuitarraStatica,
                         let indicePatronElegido = Int(nodo.name!) {

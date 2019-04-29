@@ -19,7 +19,9 @@ class Puntuacion {
   static let idRecordAcordes  = "recordAcordes"
   static let idRecordArpegios = "recordArpegios"
   static let idRecordEscalas  = "recordEscalas"
-  static let idPuntosAcumulados = "puntosAcumulados"
+  static let idPartidasAcumuladas = "partidasAcumuladas"
+    // TODO: poner valor coherente de mínimo
+  static let minimoConsideradoPartida = 0 // mínimo a puntuar para acumular una partida
   
   // Obtención de los record para cada tipo de patrón
   class func getRecordTipoPatron(_ tipoPatron: TipoPatron) -> Int {
@@ -49,12 +51,12 @@ class Puntuacion {
   }
   
   // Obtención de la puntuación acumulada
-  class func getPuntuacionAcumulada() -> Int {
-    return UserDefaults.standard.integer(forKey: idPuntosAcumulados)
+  class func getPartidasAcumuladas() -> Int {
+    return UserDefaults.standard.integer(forKey: idPartidasAcumuladas)
   }
   
   // Almacenamiento de la puntuación acumulada
-  class func setPuntuacionAcumulada(_ puntos: Int) {
-    UserDefaults.standard.set(puntos, forKey: idPuntosAcumulados)
+  class func setPartidasAcumuladas(_ partidas: Int) {
+    UserDefaults.standard.set(partidas, forKey: idPartidasAcumuladas)
   }
 }
