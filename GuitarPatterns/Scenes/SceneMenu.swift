@@ -51,6 +51,7 @@ class SceneMenu: SKScene {
     var btnVolver: UIButton = Boton.crearBoton(nombre: "Volver".localizada())
     var btnAdd: UIButton = Boton.crearBoton(nombre: "Añadir".localizada())
     var btnJugar: UIButton = Boton.crearBoton(nombre: "Jugar".localizada())
+    var btnShare: UIButton = Boton.crearBoton(nombre: "Compartir".localizada())
   
     
     override init(size: CGSize) {
@@ -65,7 +66,7 @@ class SceneMenu: SKScene {
         backgroundColor = Colores.background
         crearMenuGrafico()
       if privada {
-        addUserInterfaz(botones: [btnVolver, btnEditar, btnDelete, btnNuevo, btnJugar])
+        addUserInterfaz(botones: [btnVolver, btnShare, btnEditar, btnDelete, btnNuevo, btnJugar])
       } else {
         addUserInterfaz(botones: [btnVolver, btnAdd, btnJugar])
       }
@@ -157,10 +158,10 @@ class SceneMenu: SKScene {
     // Cálculo de dimensiones y posiciones para n botones
     let numBotones = CGFloat(botones.count)
     let maxAnchoBoton = self.view!.frame.width / numBotones
-    let totalEspacioEntreBotones = Medidas.minimumMargin * numBotones
-    let anchoBoton: CGFloat = maxAnchoBoton - totalEspacioEntreBotones - (Medidas.minimumMargin * (numBotones - 1))
+    let totalEspacioEntreBotones = Medidas.minimumMargin * (numBotones + 1)
+    let anchoBoton: CGFloat = maxAnchoBoton - Medidas.minimumMargin * 2
     let totalEspacioBotones = numBotones * anchoBoton
-    let posLeading: CGFloat = (self.view!.frame.width - totalEspacioBotones - totalEspacioEntreBotones) / 2
+    let posLeading: CGFloat = ((self.view!.frame.width - totalEspacioBotones - totalEspacioEntreBotones) / 2) + Medidas.minimumMargin
     
     // Añadir los botones a la vista principal
     for boton in botones {
@@ -185,6 +186,7 @@ class SceneMenu: SKScene {
     btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
     btnAdd.addTarget(self, action: #selector(btnAddPulsado), for: .touchDown)
     btnJugar.addTarget(self, action: #selector(btnJugarPulsado), for: .touchDown)
+    btnShare.addTarget(self, action: #selector(btnSharePulsado), for: .touchDown)
     
     // Indicador
     indicadorActividad.center = CGPoint(x: self.view!.frame.midX, y: self.view!.frame.midY)
@@ -312,6 +314,10 @@ class SceneMenu: SKScene {
     }
   }
   
+    @objc func btnSharePulsado(){
+        
+    }
+    
   /**
    Entra en la escena de juego para el patron seleccionado
    */
