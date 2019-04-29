@@ -24,6 +24,10 @@ enum iCloudPatron {
     static let visible = "visible"
 }
 
+enum iCloudZones {
+    static let favoritos = "Favoritos"
+}
+
 enum TipoCache {
     case privada
     case publica
@@ -42,11 +46,26 @@ class PatronesDB {
     var cachePatronesPublica: [Patron] = [Patron]()
     var cachePatronesPrivada: [Patron] = [Patron]()
     
+    var patronesZone: CKRecordZone?
+    
     private init() {
         container = CKContainer.default()
         publicDB  = container.publicCloudDatabase
         privateDB = container.privateCloudDatabase
         sharedDB  = container.sharedCloudDatabase
+        
+        // zona privada
+        let recordZone = CKRecordZone(zoneName: iCloudZones.favoritos)
+        privateDB.fetch(withRecordZoneID: recordZone.zoneID) {
+            retrievedZone, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                if let retrievedZone = retrievedZone {
+                    self.patronesZone = retrievedZone
+                }
+            }
+        }
     }
  
     /**
@@ -54,6 +73,11 @@ class PatronesDB {
      */
     func crearNuevoRegistro() {
         registroActual = CKRecord(recordType: iCloudRegistros.patron)
+    }
+    
+    func crearNuevoRegistroPrivado() {
+        guard let patronesZone = patronesZone else { return }
+        registroActual = CKRecord(recordType: iCloudRegistros.patron, zoneID: patronesZone.zoneID)
     }
     
     /**
@@ -89,11 +113,13 @@ class PatronesDB {
       }
       
         if registroActual == nil  { // creamos un registro nuevo
-            crearNuevoRegistro()
+            
             switch cache {
             case .privada:
+                crearNuevoRegistroPrivado() // crea un registro en la zona privada
                 cachePatronesPrivada.append(patron)
             case .publica:
+                crearNuevoRegistro() // crea un registro en la zona pública
                 cachePatronesPublica.append(patron)
             }
             
@@ -159,7 +185,14 @@ class PatronesDB {
   func getPatrones(bbdd: CKDatabase, privada: Bool, completion: @escaping ([Patron]) ->()) {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: iCloudRegistros.patron, predicate: predicate)
-        bbdd.perform(query, inZoneWith: nil) { registros, error in
+    
+        var zonaID: CKRecordZone.ID? = nil
+        if privada { //Si estamos en la privada se cogerán de la zona de favoritos. 
+            let recordZone = CKRecordZone(zoneName: iCloudZones.favoritos)
+        
+            zonaID = recordZone.zoneID
+        }
+        bbdd.perform(query, inZoneWith: zonaID) { registros, error in
             if error != nil {
                 print(error!.localizedDescription)
             } else {

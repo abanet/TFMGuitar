@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import CloudKit
 
 
 /**
@@ -314,8 +315,33 @@ class SceneMenu: SKScene {
     }
   }
   
+    // Compartir el patron seleccionado con otro usuario
     @objc func btnSharePulsado(){
-        
+        print("Share pulsado")
+        guard privada else { return } // sólo se pueden compartir registros de la privada
+        let patronToShare: Patron
+        if let indice = patronSeleccionado { // existe un patrón seleccionado
+            patronToShare = PatronesDB.share.cachePatronesPrivada[indice]
+            let controller = UICloudSharingController {
+                controller, preparationCompletionHandler in
+                
+                if let registro = patronToShare.getRegistro() {
+                    let share = CKShare(rootRecord: registro)
+                    share[CKShare.SystemFieldKey.title] = patronToShare.getNombre()!
+                    let saveOperation = CKModifyRecordsOperation(recordsToSave: [registro, share], recordIDsToDelete: nil)
+                    saveOperation.modifyRecordsCompletionBlock = {
+                        records, recordIds, error in
+                        preparationCompletionHandler(share, CKContainer.default(), error)
+                    }
+                    //CKContainer.default().privateCloudDatabase.add(saveOperation)
+                    PatronesDB.share.privateDB.add(saveOperation)
+                }
+            }
+            controller.availablePermissions = [.allowReadOnly, .allowPrivate]
+            self.view!.window!.rootViewController!.present(controller, animated: true)
+        } else {
+            Alertas.mostrar(titulo: "Selecciona un patrón".localizada(), mensaje: "Elige el patrón que quieres compartir.".localizada(), enViewController: self.view!.window!.rootViewController!)
+        }
     }
     
   /**
