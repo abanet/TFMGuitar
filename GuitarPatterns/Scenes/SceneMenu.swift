@@ -214,6 +214,8 @@ class SceneMenu: SKScene {
          lblNombrePatron.text = "Selecciona un patrón".localizada() + " (\(num) \(filtro) \("disponibles".localizada()))"
         }
     }
+    
+    // MARK: Acciones de botones
     /**
      Elimina el patrón seleccionado de la base de datos.
     */
@@ -322,23 +324,25 @@ class SceneMenu: SKScene {
         let patronToShare: Patron
         if let indice = patronSeleccionado { // existe un patrón seleccionado
             patronToShare = PatronesDB.share.cachePatronesPrivada[indice]
-            let controller = UICloudSharingController {
-                controller, preparationCompletionHandler in
-                
-                if let registro = patronToShare.getRegistro() {
+            PatronesDB.share.privateDB.fetch(withRecordID: patronToShare.getId()!) {
+                registro, error in
+                if let registro = registro {
                     let share = CKShare(rootRecord: registro)
-                    share[CKShare.SystemFieldKey.title] = patronToShare.getNombre()!
-                    let saveOperation = CKModifyRecordsOperation(recordsToSave: [registro, share], recordIDsToDelete: nil)
-                    saveOperation.modifyRecordsCompletionBlock = {
-                        records, recordIds, error in
-                        preparationCompletionHandler(share, CKContainer.default(), error)
+                    share[CKShare.SystemFieldKey.title] = patronToShare.getNombre()! as CKRecordValue?
+                    let controller = UICloudSharingController {
+                        controller, preparationCompletionHandler in
+                        let saveOperation = CKModifyRecordsOperation(recordsToSave: [registro, share], recordIDsToDelete: nil)
+                        saveOperation.modifyRecordsCompletionBlock = {
+                            records, recordIds, error in
+                            preparationCompletionHandler(share, CKContainer.default(), error)
+                        }
+                        PatronesDB.share.privateDB.add(saveOperation)
                     }
-                    //CKContainer.default().privateCloudDatabase.add(saveOperation)
-                    PatronesDB.share.privateDB.add(saveOperation)
+                    controller.delegate = self
+                    controller.availablePermissions = [.allowReadWrite, .allowPrivate]
+                    self.view!.window!.rootViewController!.present(controller, animated: true)
                 }
             }
-            controller.availablePermissions = [.allowReadOnly, .allowPrivate]
-            self.view!.window!.rootViewController!.present(controller, animated: true)
         } else {
             Alertas.mostrar(titulo: "Selecciona un patrón".localizada(), mensaje: "Elige el patrón que quieres compartir.".localizada(), enViewController: self.view!.window!.rootViewController!)
         }
@@ -428,4 +432,20 @@ class SceneMenu: SKScene {
             self.indicadorActividad.stopAnimating()
         }
     }
+}
+
+extension SceneMenu: UICloudSharingControllerDelegate {
+    func cloudSharingController(_ csc: UICloudSharingController, failedToSaveShareWithError error: Error) {
+        print("Fallo al grabar Share: \(error)")
+    }
+    
+    func itemTitle(for csc: UICloudSharingController) -> String? {
+        if let indice = patronSeleccionado {
+            return PatronesDB.share.cachePatronesPrivada[indice].getNombre()
+        } else {
+            return nil
+        }
+    }
+    
+    
 }

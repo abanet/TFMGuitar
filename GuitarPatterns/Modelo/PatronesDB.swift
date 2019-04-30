@@ -54,12 +54,23 @@ class PatronesDB {
         privateDB = container.privateCloudDatabase
         sharedDB  = container.sharedCloudDatabase
         
-        // zona privada
+        // creación de la zona privada
         let recordZone = CKRecordZone(zoneName: iCloudZones.favoritos)
         privateDB.fetch(withRecordZoneID: recordZone.zoneID) {
             retrievedZone, error in
             if error != nil {
                 print(error!.localizedDescription)
+                let ckError = error! as NSError
+                if ckError.code == CKError.zoneNotFound.rawValue {
+                    self.privateDB.save(recordZone) {
+                        newZone, error in
+                        if error != nil {
+                            print(error!.localizedDescription)
+                        } else {
+                            self.patronesZone = retrievedZone
+                        }
+                    }
+                }
             } else {
                 if let retrievedZone = retrievedZone {
                     self.patronesZone = retrievedZone
@@ -187,11 +198,10 @@ class PatronesDB {
         let query = CKQuery(recordType: iCloudRegistros.patron, predicate: predicate)
     
         var zonaID: CKRecordZone.ID? = nil
-        if privada { //Si estamos en la privada se cogerán de la zona de favoritos. 
-            let recordZone = CKRecordZone(zoneName: iCloudZones.favoritos)
-        
-            zonaID = recordZone.zoneID
+        if privada { //Si estamos en la privada se cogerán de la zona de favoritos.
+            zonaID = patronesZone?.zoneID
         }
+    
         bbdd.perform(query, inZoneWith: zonaID) { registros, error in
             if error != nil {
                 print(error!.localizedDescription)
