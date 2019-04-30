@@ -23,21 +23,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, userDidAcceptCloudKitShareWith cloudKitShareMetadata: CKShare.Metadata) {
+        
         let acceptOperation = CKAcceptSharesOperation(shareMetadatas: [cloudKitShareMetadata])
+        acceptOperation.qualityOfService = .userInteractive
         acceptOperation.perShareCompletionBlock = {
             metadata, share, error in
             if error != nil {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "No hay error definido en perShare")
             } else {
                 print("Compartición aceptada")
             }
         }
         acceptOperation.acceptSharesCompletionBlock = { error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                print("AcceptShareCompletionBlock") // coger registro y grabarla en la base de datos privada del usuario.
+            guard error == nil else {
+                print(error?.localizedDescription ?? "No hay error definido en acceptShares")
+                return
             }
+            
+            let op = CKFetchRecordsOperation(recordIDs: [cloudKitShareMetadata.rootRecordID])
+            op.perRecordCompletionBlock = { record, _, error in
+                guard error == nil, record != nil else {
+                    print(error?.localizedDescription ?? "No hay error definido en perRecord")
+                    return
+                }
+                if let patron = Patron(iCloudRegistro: record!) {
+                    patron.setRegistro(nil)
+                    PatronesDB.share.grabarPatronEnPrivada(patron) {grabado in
+                        if grabado { print("patrón grabado") }
+                    }
+                }
+            
+            }
+            CKContainer.default().sharedCloudDatabase.add(op)
         }
         CKContainer(identifier: cloudKitShareMetadata.containerIdentifier).add(acceptOperation )
     }
