@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, userDidAcceptCloudKitShareWith cloudKitShareMetadata: CKShare.Metadata) {
         
+        // recibimos los datos compartidos
         let acceptOperation = CKAcceptSharesOperation(shareMetadatas: [cloudKitShareMetadata])
         acceptOperation.qualityOfService = .userInteractive
         acceptOperation.perShareCompletionBlock = {
@@ -46,10 +47,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     print(error?.localizedDescription ?? "No hay error definido en perRecord")
                     return
                 }
+                // hemos recibido un patrón. Vamos a grabarlo en la base de datos privada del receptor.
+                // Hay crear un patron nuevo
                 if let patron = Patron(iCloudRegistro: record!) {
                     patron.setRegistro(nil)
+                    PatronesDB.share.cerrarRegistro()
                     PatronesDB.share.grabarPatronEnPrivada(patron) {grabado in
-                        if grabado { print("patrón grabado") }
+                        if grabado {
+                        PatronesDB.share.setPatronesPrivadaToNil() // para obligar a recargar
+                        DispatchQueue.main.async {
+                            Alertas.mostrar(titulo: "¡Patron recibido!".localizada(), mensaje: "El patrón recibido se ha añadido a tu lista de patrones favoritos.".localizada(), enViewController: self.window!.rootViewController!)
+                        }
+                        }
                     }
                 }
             

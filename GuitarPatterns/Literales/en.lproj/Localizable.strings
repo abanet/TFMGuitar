@@ -80,3 +80,7 @@
 /* Menu Juego */
 "Figura superada" = "you did it!";
 "¡A por otra nueva!" = "You better choose a new patron!";
+
+/* CloudKit */
+"¡Patron recibido!" = "Patron received!";
+"El patrón recibido se ha añadido a tu lista de patrones favoritos." = "The received patron has been added to you list.";
