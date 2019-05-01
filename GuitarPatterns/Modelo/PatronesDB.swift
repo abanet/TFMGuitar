@@ -252,5 +252,9 @@ class PatronesDB {
             }
         }
     }
+    
+    func eliminarRegistroCachePrivada(indice: Int) {
+        self.cachePatronesPrivada.remove(at: indice)
+    }
 
 }

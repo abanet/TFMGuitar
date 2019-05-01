@@ -227,8 +227,14 @@ class SceneMenu: SKScene {
                 [unowned self] alerta in
                 // Eliminar registro de la base de datos
                 if self.privada {
-                    if let id = PatronesDB.share.cachePatronesPrivada[indice].getId() {
+                    if let id = PatronesDB.share.cachePatronesPrivada[indice].getId() { // existe en la bbdd
                         PatronesDB.share.eliminarRegistroPrivada(id: id)
+                        self.crearMenuGrafico(conPatrones: PatronesDB.share.cachePatronesPrivada)
+                        DispatchQueue.main.async {
+                            self.resetDatosPatron()
+                        }
+                    } else { // no tiene id pq se acaba de crear. Eliminar de la caché.
+                        PatronesDB.share.eliminarRegistroCachePrivada(indice: indice)
                         self.crearMenuGrafico(conPatrones: PatronesDB.share.cachePatronesPrivada)
                         DispatchQueue.main.async {
                             self.resetDatosPatron()

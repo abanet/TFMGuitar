@@ -66,7 +66,11 @@ class SceneEditor: SKScene {
         backgroundColor = Colores.background
         iniciarGuitarra()
         addUserInterfaz()
-        setDatosPatron()
+        if patron != nil {
+            setDatosPatron()
+        } else {
+            self.establecerNuevoPatron()
+        }
     }
     
     /**
