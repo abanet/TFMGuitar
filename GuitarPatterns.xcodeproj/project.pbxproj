@@ -70,6 +70,7 @@
 		D34F00762229BDC200165192 /* ShapeNota.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F00752229BDC200165192 /* ShapeNota.swift */; };
 		D3613B6222566DE000F15420 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3613B6122566DE000F15420 /* Extension+String.swift */; };
 		D3613B6522566F7D00F15420 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3613B6722566F7D00F15420 /* Localizable.strings */; };
+		D386F6DD2279BBEF00AC2C84 /* GuitarPatterns.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C636822292DEB00B36913 /* GuitarPatterns.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -675,6 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D386F6DD2279BBEF00AC2C84 /* GuitarPatterns.swift in Sources */,
 				C0DCE16E22311D93002BF466 /* GuitarPatternsTests.swift in Sources */,
 				C0C5E78922397C3500A39031 /* testTraste.swift in Sources */,
 				C0DCE176223120C7002BF466 /* Mastil.swift in Sources */,

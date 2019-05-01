@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     PatronesDB.share.cerrarRegistro()
                     PatronesDB.share.grabarPatronEnPrivada(patron) {grabado in
                         if grabado {
+                        //NotificationCenter.default.post(name: .recibidaSugerenciaPatron, object: nil)
                         PatronesDB.share.setPatronesPrivadaToNil() // para obligar a recargar
                         DispatchQueue.main.async {
                             Alertas.mostrar(titulo: "¡Patron recibido!".localizada(), mensaje: "El patrón recibido se ha añadido a tu lista de patrones favoritos.".localizada(), enViewController: self.window!.rootViewController!)

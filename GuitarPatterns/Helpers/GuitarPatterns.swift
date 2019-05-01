@@ -9,6 +9,7 @@
 //  Colores, márgenes, ...
 
 import SpriteKit
+import Foundation
 
 /// Constantes de los colores de la aplicación
 struct Colores {
@@ -116,4 +117,8 @@ struct TableroPuntuaciones {
         "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.escalas_intermedio",
         "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.escalas_alto"]
 
+}
+
+extension Notification.Name {
+    static let recibidaSugerenciaPatron = Notification.Name("recibidaSugerenciaPatron")
 }

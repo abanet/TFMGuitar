@@ -71,6 +71,8 @@ class SceneMenu: SKScene {
       } else {
         addUserInterfaz(botones: [btnVolver, btnAdd, btnJugar])
       }
+      // Escuchamos la llegada de posibles sugerencias
+        NotificationCenter.default.addObserver(self, selector: #selector(onRecibidaSugerenciaPatron(_:)), name: .recibidaSugerenciaPatron , object: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -432,6 +434,21 @@ class SceneMenu: SKScene {
             self.indicadorActividad.stopAnimating()
         }
     }
+    
+    // Si se recibe una sugerencia mientras estamos en mis patrones se añade automáticamente. Recargamos el menú.
+    @objc func onRecibidaSugerenciaPatron(_ notification: Notification) {
+        print("recibidaSugerenciaPatron")
+        if privada {
+            PatronesDB.share.setPatronesPrivadaToNil()
+            DispatchQueue.main.async {
+                self.indicadorActividad.startAnimating()
+                self.crearMenuGrafico()
+                print(PatronesDB.share.cachePatronesPrivada.count)
+                self.resetDatosPatron()
+            }
+            
+        }
+    }
 }
 
 extension SceneMenu: UICloudSharingControllerDelegate {
@@ -447,5 +464,9 @@ extension SceneMenu: UICloudSharingControllerDelegate {
         }
     }
     
+    func itemThumbnailData(for csc: UICloudSharingController) -> Data? {
+        let image = UIImage(named:"AppIcon")
+        return image?.pngData()
+    }
     
 }
