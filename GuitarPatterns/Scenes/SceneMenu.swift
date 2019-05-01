@@ -112,9 +112,9 @@ class SceneMenu: SKScene {
     private func crearMenuGrafico() {
         if privada {
             PatronesDB.share.getPatronesPrivada { [unowned self] patrones in
-                self.stopIndicadorActividad()
-                self.crearMenuGrafico(conPatrones: patrones)
-                self.numeroPatrones = patrones.count
+                    self.stopIndicadorActividad()
+                    self.crearMenuGrafico(conPatrones: patrones)
+                    self.numeroPatrones = patrones.count
             }
         } else {
             PatronesDB.share.getPatronesPublica { [unowned self] patrones in
@@ -444,15 +444,23 @@ class SceneMenu: SKScene {
     // Si se recibe una sugerencia mientras estamos en mis patrones se añade automáticamente. Recargamos el menú.
     @objc func onRecibidaSugerenciaPatron(_ notification: Notification) {
         print("recibidaSugerenciaPatron")
+        guard let vista = self.scene?.view else {
+            return
+        }
         if privada {
-            PatronesDB.share.setPatronesPrivadaToNil()
             DispatchQueue.main.async {
-                self.indicadorActividad.startAnimating()
-                self.crearMenuGrafico()
-                print(PatronesDB.share.cachePatronesPrivada.count)
-                self.resetDatosPatron()
+                vista.eliminarUIKit()
+                self.removeAllChildren()
+                self.didMove(to: self.view!)
             }
             
+//            PatronesDB.share.setPatronesPrivadaToNil()
+//            DispatchQueue.main.async {
+//                self.indicadorActividad.startAnimating()
+//                self.crearMenuGrafico()
+//                self.resetDatosPatron()
+//            }
+//            
         }
     }
 }
