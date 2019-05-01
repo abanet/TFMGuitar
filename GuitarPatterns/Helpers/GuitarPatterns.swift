@@ -45,12 +45,13 @@ struct Medidas {
             return 0.25
         }
     }()
+    
     static let porcentajeAltoMastil: CGFloat = {
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
             return 0.65
         case .pad:
-            return 0.30
+            return 0.50
         default:
             return 0.25
         }
@@ -62,7 +63,16 @@ struct Medidas {
     /// número de trastes a mostrar en el mástil
     static let numTrastes = 7
     /// ratio entre espacio entre cuerdas y el tamaño de la nota
-    static let ratioCuerdasNota: CGFloat = 2.4
+    static let ratioCuerdasNota: CGFloat = {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            return 2.4
+        case .pad:
+            return 2.8
+        default:
+            return 2.4
+        }
+    }()
 
     // Patrones en menu
     static let numeroPatronesEnPantalla: CGFloat = 2.0
