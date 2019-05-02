@@ -16,9 +16,9 @@ class LogrosHelper {
     static let PuntosIntermediate = 500
     static let PuntosProffesional = 1000
     static let HardWorkerGuitarPlayerId = "es.codigoswift.guitarpatterns.hardworker"
-    static let AmateurGuitarPlayerId = "es.codigoswift.guitarpatterns.amateurguitarplayer"
-    static let IntermediateGuitarPlayerId = "es.codigoswift.guitarpatterns.intermediateguitarplayer"
-    static let ProffesionalGuitarPlayerId = "es.codigoswift.guitarpatterns.proffesionalguitarplayer"
+    static let AmateurGuitarPlayerId = "es.codigoswift.GuitarPatterns.amateurguitarplayer"
+    static let IntermediateGuitarPlayerId = "es.codigoswift.GuitarPatterns.intermediateguitarplayer"
+    static let ProffesionalGuitarPlayerId = "es.codigoswift.GuitarPatterns.proffesionalguitarplayer"
   
   /**
    Función que crea el logro de hardworker y calcula el porcentaje de consecución del objetivo.

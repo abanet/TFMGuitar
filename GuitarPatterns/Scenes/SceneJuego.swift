@@ -61,7 +61,7 @@ class SceneJuego: SKScene {
   
     init(size: CGSize, patron: Patron, nivel: Int = 1) {
         self.patron = patron
-        self.nivel = Nivel.getNivel(nivel)
+        self.nivel = Nivel.getNivel(nivel, para: patron.getTipo()!)
         super.init(size: size)
         
         
@@ -178,7 +178,7 @@ class SceneJuego: SKScene {
     //reportScoreToGameCenter(score: Int64(puntos))
     // Si se pierde la partida hay que volver al punto de partida
     self.puntos = 0
-    self.nivel = Nivel.getNivel(1)
+    self.nivel = Nivel.getNivel(1, para: patron.getTipo()!)
     
     self.removeAction(forKey: "salidaNotas")
     //let eliminarnotas = SKAction.run {self.notasObjetivo.removeAll()}
@@ -265,10 +265,11 @@ class SceneJuego: SKScene {
         var patronsuperado = false // ¿se ha superado ya el conocimiento del patrón objetivo?
         if Int(self.nivel.tiempoJuego) - self.elapsedTime <= 0 {
             reportScoreToGameCenter(score: Int64(puntos))
+            reportarLogros()
             estado = .pausa
             if self.nivel.idNivel < Nivel.nivelMaximo { // se puede incrementar el nivel
                 let siguienteNivel = self.nivel.idNivel + 1
-                self.nivel = Nivel.getNivel(siguienteNivel)
+                self.nivel = Nivel.getNivel(siguienteNivel, para: patron.getTipo()!)
             } else { // estamos en el máximo nivel, vamos a darle un poco más de velocidad...
                 if self.nivel.tiempoRecorrerPantalla - TimeInterval(Medidas.incrementosVelocidad) > Nivel.tiempoMinimoRecorrerPantalla {
                     self.nivel.decrementarTiempoPantallaEn(Medidas.incrementosVelocidad)
@@ -487,7 +488,6 @@ class SceneJuego: SKScene {
             return
         }
         acumularPartida()
-        reportarLogros()
         vista.eliminarUIKit()
         let irPatronAction = SKAction.run {
             vista.ignoresSiblingOrder = true
