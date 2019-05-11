@@ -8,6 +8,7 @@
 
 import SpriteKit
 import CoreGraphics
+import GameKit
 
 
 /**
@@ -211,14 +212,13 @@ class SceneEditor: SKScene {
                 if patron != nil {
                     patron!.setTrastes(guitarra.mastil.getTrastes())
                     patron!.setTonica(tonica)
+                    patron!.calcularIntervalica() 
                     PatronesDB.share.grabarPatronEnPrivada(patron!) { ok in
                         if ok {
                             DispatchQueue.main.async {
                                 self.datosGrabados = true
                                 Alertas.mostrar(titulo: "Patrón grabado".localizada(), mensaje: "El patrón se ha grabado en la base de datos.".localizada(), enViewController: self.view!.window!.rootViewController!)
-                            }
-                            
-                            
+                            } 
                         }
                     }
                 } else {

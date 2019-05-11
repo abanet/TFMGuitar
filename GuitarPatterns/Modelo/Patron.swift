@@ -71,6 +71,24 @@ class Patron {
         self.setTrastes(nuevosTrastes)
     }
     
+    
+    /**
+     Calcula la interválica de un patrón existente y con los trastes ya configurados
+    */
+    func calcularIntervalica() {
+        guard let trasteTonica = self.getTonica() else {
+            return
+        }
+        for traste in self.getTrastes() {
+            if let distanciaATonica = Mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: traste) {
+                if let nuevoIntervalo = TipoIntervaloMusical.intervalosConDistancia(semitonos: distanciaATonica).first {
+                    intervalica.insert(nuevoIntervalo)
+                }
+                
+            }
+        }
+    }
+    
     func getRegistro() -> CKRecord? {
         return self.registro
     }

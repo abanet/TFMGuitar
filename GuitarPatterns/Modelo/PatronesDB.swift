@@ -50,6 +50,7 @@ class PatronesDB {
     
     private init() {
         container = CKContainer.default()
+        //container = CKContainer.init(identifier: "iCloud.es.codigoswift.GuitarPatterns")
         publicDB  = container.publicCloudDatabase
         privateDB = container.privateCloudDatabase
         sharedDB  = container.sharedCloudDatabase
