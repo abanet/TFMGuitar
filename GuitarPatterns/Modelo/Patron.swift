@@ -9,42 +9,55 @@
 import SpriteKit
 import CloudKit
 
+/**
+ Se contemplan los siguientes tipos de patrones: acordes, arpegios y escalas.
+ */
 enum TipoPatron: String {
     case Escala
     case Arpegio
     case Acorde
 }
 
-
+/**
+ La clase patrón representa un patrón musical.
+ */
 class Patron {
     
-    private var registro: CKRecord?
+    private var registro: CKRecord? // si se ha descargado de la nube mantenemos su origen
     private var nombre: String? // nombre del patrón
     private var descripcion: String? // descripción del patrón
     private var tipo: TipoPatron?
     
-    private var trastes: [Traste] = [Traste]()
+    private var trastes: [Traste] = [Traste]() // trastes que conforman el patrón
     private var tonica: Traste?
-  
+    
     // La interválica de un patrón no se almacena, se genera al recuperar un patrón.
     private var intervalica = Set<TipoIntervaloMusical>()
     
+    /**
+     Crea un patrón vacío sin más información que su nombre y tipo
+     */
     init(nombre: String, tipo: String) {
         self.nombre = nombre
         self.tipo = TipoPatron(rawValue: tipo)
     }
     
+    /**
+     Crea un patrón a partir de un conjunto de trastes
+     */
     init(trastes: [Traste]) {
         self.trastes  = trastes
     }
     
-    // Inicialización de un patrón a partir de un registro en la nube
+    /**
+     Inicialización de un patrón a partir de un registro en la nube
+     */
     init?(iCloudRegistro: CKRecord) {
         // Los campos obligatorios tienen que existir sí o sí
         guard let nombreRegistro = iCloudRegistro[iCloudPatron.nombre] as? String,
-              let tipoRegistro   = iCloudRegistro[iCloudPatron.tipo] as? String,
-              let trastesRegistro = iCloudRegistro[iCloudPatron.trastes] as? [Int],
-              let tonicaRegistro  = iCloudRegistro[iCloudPatron.tonica] as? Int
+            let tipoRegistro   = iCloudRegistro[iCloudPatron.tipo] as? String,
+            let trastesRegistro = iCloudRegistro[iCloudPatron.trastes] as? [Int],
+            let tonicaRegistro  = iCloudRegistro[iCloudPatron.tonica] as? Int
             else { return nil }
         self.registro = iCloudRegistro
         self.nombre = nombreRegistro
@@ -74,7 +87,7 @@ class Patron {
     
     /**
      Calcula la interválica de un patrón existente y con los trastes ya configurados
-    */
+     */
     func calcularIntervalica() {
         guard let trasteTonica = self.getTonica() else {
             return
@@ -89,13 +102,16 @@ class Patron {
         }
     }
     
+    
+    // MARK: getters & setters
+    
     func getRegistro() -> CKRecord? {
         return self.registro
     }
-  
-  func setRegistro(_ registro: CKRecord?) {
-    self.registro = registro
-  }
+    
+    func setRegistro(_ registro: CKRecord?) {
+        self.registro = registro
+    }
     
     func getId() -> CKRecord.ID? {
         return getRegistro()?.recordID
@@ -149,13 +165,16 @@ class Patron {
         self.trastes = trastes
     }
     
-  func getIntervaloAzar() -> TipoIntervaloMusical {
-    return intervalica.randomElement()!
-  }
+    /**
+     Escoge un intervalo al azar de todos los intervalos existentes.
+     */
+    func getIntervaloAzar() -> TipoIntervaloMusical {
+        return intervalica.randomElement()!
+    }
     /**
      Indica si un patrón está completo o no.
      Un patrón está completo si tiene al menos dos trastes, una tónica, y el tipo y nombre definidos.
-    */
+     */
     func estaCompleto() -> Bool {
         guard (nombre != nil), (descripcion != nil), (tonica != nil), (tipo != nil) else {
             return false
@@ -178,12 +197,12 @@ class Patron {
         }
         return trastesCodificados
     }
-
+    
     
     
     /**
-    Codifica la tónica del patrón
-    */
+     Codifica la tónica del patrón
+     */
     func codificarTonica() -> Int {
         if let tonica = self.tonica {
             return tonica.codificar()
@@ -214,7 +233,7 @@ class Patron {
      Decodifica la tónica modificando la tónica del patrón.
      ### ATENCIÓN ###
      *Cuidado* Modifica la tónica del patrón
-    */
+     */
     func decodificaTonica(_ trasteCodificado: Int) {
         self.tonica = Traste.decodificar(trasteCodificado)
     }

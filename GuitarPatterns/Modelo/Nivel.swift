@@ -15,15 +15,17 @@ import Foundation
  * -  las notas o intervalos aparecen escritas en el patrón
  * -  las notas o intervalos aparecen coloreados pero sin nota o intervalo escrito.
  * -  sólo aparecen las tónicas
- * -  sólo aparece una tónica (
  *
  * Además la dificultad se ve también afectada por:
  * - la velocidad de desplazamiento de las notas
- * - número de vidas (o bolas que dejamos explotar)
  * - tiempo que tenemos que aguantar en el nivel
  *
  * La combinación de todo lo anterior define un nivel.
  * Se definirán 6 niveles para cada patrón aunque se pueden crear los que se quiera.
+ */
+
+/**
+ Se definen tres categorías de dificultad
  */
 enum NivelDificultad: String {
     case facil
@@ -31,14 +33,18 @@ enum NivelDificultad: String {
     case alto
 }
 
+/**
+ Define los diferentes niveles por los que va a pasar el juego.
+ Se definen dos niveles para cada nivel de dificultad. De esta forma en cada categoría de dificultad encontramos dos ejercicios que tendrán las mismas características pero que verán incrementada su dificultad por las variables velocidad y tiempo.
+ */
 class Nivel {
     
     static let tiempoMinimoRecorrerPantalla: Double = 10.0  // Indica la velocidad máxima de la bola
     static let segundosParaIncrementoVelocidad: Double = 3  // Indica los segundos para incrementar la velocidad
     static let incrementoVelocidad: Int = -2   // Habrá 2 segundos menos para que la bola recorra la pantalla
     static let nivelMaximo = 6
-    static let incrementoVelocidadEnAcordes = 7
-    static let incrementoVelocidadEnArpegios = 5
+    static let incrementoVelocidadEnAcordes = 7 // los acordes es la figura más sencilla. Subimos la velocidad. Buscamos así equilibrar la velocidad con el nivel de complejidad del tipo de patrón.
+    static let incrementoVelocidadEnArpegios = 5 // el arpegio es menos sencillo que el acorde pero más que la escala.
     
     var idNivel: Int
     var tiempoRecorrerPantalla: TimeInterval
@@ -50,6 +56,9 @@ class Nivel {
     var puntosPorIntervalo: Int!
     var descripcion: String
     
+    /**
+     Se crea un nivel pasando el valor de todas sus variables
+     */
     init(idNivel: Int, tiempoPantalla: TimeInterval, tiempoJuego: TimeInterval, mostrarTonicas: Bool, mostrarNotas: Bool, marcarNotas: Bool, descripcion: String = "") {
         self.idNivel = idNivel
         self.tiempoRecorrerPantalla = tiempoPantalla
@@ -63,6 +72,9 @@ class Nivel {
         
     }
     
+    /**
+     En proceso de depuración nos interesa iniciar el nivel sin presión de tiempo
+     */
     convenience init(idNivel: Int, tiempoPantalla: TimeInterval) {
         self.init(idNivel: idNivel, tiempoPantalla: tiempoPantalla, tiempoJuego: 0, mostrarTonicas: true, mostrarNotas: true, marcarNotas: true, descripcion: "")
     }
@@ -71,7 +83,7 @@ class Nivel {
     /**
      Obtiene un nivel de dificultad e incorpora variaciones al nivel según el tipo de patrón en el que se esté trabajando.
      De más sencillo a más complicado tenemos: acorde - arpegio - escala
-    */
+     */
     class func getNivel(_ dificultad: Int, para tipoPatron: TipoPatron) -> Nivel {
         let nivel = getNivel(dificultad)
         switch tipoPatron {
@@ -86,8 +98,9 @@ class Nivel {
     }
     
     /**
-     Define los niveles de dificultad del juego
-    */
+     Define los niveles de dificultad del juego,
+     - Parameter dificultad: nivel del que se quiere conocer las características.
+     */
     class func getNivel(_ dificultad: Int) -> Nivel {
         var nivel: Nivel
         switch dificultad {
@@ -110,7 +123,9 @@ class Nivel {
     }
     
     
-    
+    /**
+     Devuelve el siguiente nivel siempre que no se haya llegado al último.
+     */
     func siguienteNivel() -> Int {
         if idNivel < 6 {
             return idNivel + 1
@@ -130,6 +145,9 @@ class Nivel {
         }
     }
     
+    /**
+     Decrementa la velocidad de las bolas en la cantidad indicada.
+     */
     func decrementarTiempoPantallaEn(_ decremento: Int) {
         self.tiempoRecorrerPantalla -= TimeInterval(decremento)
     }

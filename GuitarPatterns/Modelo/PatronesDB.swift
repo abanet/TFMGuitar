@@ -15,6 +15,7 @@ enum iCloudRegistros {
     static let patron = "Patron"
 }
 
+// Variables del tipo Patron en iCloud
 enum iCloudPatron {
     static let nombre = "nombre"
     static let descripcion = "descripcion"
@@ -24,29 +25,37 @@ enum iCloudPatron {
     static let visible = "visible"
 }
 
+// Zonas definidas en iCloud
 enum iCloudZones {
     static let favoritos = "Favoritos"
 }
 
+// Existirá un caché de patrones privada y otra pública
 enum TipoCache {
     case privada
     case publica
 }
 
+/**
+ PatronesDB se encarga de la gestión de la base de datos en iCloud.
+ Mantiene, además, la lógica de las cachés.
+ Utilizamos el patrón llamado Singleton para el acceso a la base de datos.
+ */
 class PatronesDB {
     
-    static let share = PatronesDB()
+    static let share = PatronesDB() // instancia única de PatronesDB
     
+    // contenedores y bases de datos
     var container: CKContainer!
-    var publicDB : CKDatabase!
-    var privateDB: CKDatabase!
-    var sharedDB : CKDatabase!
-    var registroActual: CKRecord?
+    var publicDB : CKDatabase! // base de datos común
+    var privateDB: CKDatabase! // base de datos privada de cada usuario
+    var sharedDB : CKDatabase! // base de datos que utilizamos para compartir registros.
+    var registroActual: CKRecord? // registro que se está tratando en cada momento
     
     var cachePatronesPublica: [Patron] = [Patron]()
     var cachePatronesPrivada: [Patron] = [Patron]()
     
-    var patronesZone: CKRecordZone?
+    var patronesZone: CKRecordZone? // al trabajar en la base de datos privada no podemos trabajar con default. Es necesario crear una zona.
     
     private init() {
         container = CKContainer.default()
@@ -56,6 +65,7 @@ class PatronesDB {
         sharedDB  = container.sharedCloudDatabase
         
         // creación de la zona privada
+        // Si no existe una zona privada la creamos. En otro caso la recuperamos para trabajar posteriormente con ella.
         let recordZone = CKRecordZone(zoneName: iCloudZones.favoritos)
         privateDB.fetch(withRecordZoneID: recordZone.zoneID) {
             retrievedZone, error in
@@ -79,14 +89,17 @@ class PatronesDB {
             }
         }
     }
- 
+    
     /**
-     Crea un registro nuevo
+     Crea un registro nuevo en iCloud
      */
     func crearNuevoRegistro() {
         registroActual = CKRecord(recordType: iCloudRegistros.patron)
     }
     
+    /**
+     Crea un registro nuevo en la base de datos privada en iCloud
+     */
     func crearNuevoRegistroPrivado() {
         guard let patronesZone = patronesZone else { return }
         registroActual = CKRecord(recordType: iCloudRegistros.patron, zoneID: patronesZone.zoneID)
@@ -94,21 +107,25 @@ class PatronesDB {
     
     /**
      Cierra el registro sobre el que se está trabajando en la base de datos
-    */
+     */
     func cerrarRegistro() {
         registroActual = nil
     }
-
+    
     // MARK: Funciones de grabación en la base de datos
     /**
      Graba un patrón en la base de datos pública
-    */
+     - Parameter patron: patron que vamos a grabar
+     - Parameter completion: handler que se ejecutará tras la grabación.El parámetro de tipo Bool indicará si la grabación ha tenido éxito o no.
+     */
     func grabarPatronEnPublica(_ patron: Patron, completion: @escaping (Bool) ->()) {
         grabarPatron(patron, enBbdd: publicDB, cache: .publica, completion: completion)
     }
     
     /**
      Graba un patrón en la base de datos privada
+     - Parameter patron: patron que vamos a grabar
+     - Parameter completion: handler que se ejecutará tras la grabación.El parámetro de tipo Bool indicará si la grabación ha tenido éxito o no.
      */
     func grabarPatronEnPrivada(_ patron: Patron, completion: @escaping (Bool) ->()) {
         grabarPatron(patron, enBbdd: privateDB, cache: .privada, completion: completion)
@@ -117,13 +134,17 @@ class PatronesDB {
     /**
      Crea y graba un patrón en la base de datos indicada.
      El patrón tiene que contener datos válidos
-    */
+     - Parameter patron: patron que vamos a grabar
+     - Parameter enBbdd: base de datos en la que vamos a grabar (pública, privada o share)
+     - Parameter cache: tipo de la caché en la que vamos a mantener dicho patrón
+     - Parameter completion: handler a ejetutar tras la grabación. El parámetro de tipo Bool indicará si la grabación ha tenido éxito o no.
+     */
     func grabarPatron(_ patron: Patron, enBbdd bbdd: CKDatabase, cache: TipoCache, completion: @escaping (Bool) ->()) {
         // creamos registro con los datos del patrón
-      if let registro = patron.getRegistro() {
-        registroActual = registro
-      }
-      
+        if let registro = patron.getRegistro() {
+            registroActual = registro
+        }
+        
         if registroActual == nil  { // creamos un registro nuevo
             
             switch cache {
@@ -174,35 +195,53 @@ class PatronesDB {
     }
     
     // MARK: Funciones de recuperación de registros en la base de datos
+    
+    /**
+     Obtiene todos los patrones de la base de datos pública.
+     - Parameter completion: función que recibe como parámetros un array con los patrones leídos.
+     */
     func getPatronesPublica(completion: @escaping ([Patron]) ->()) {
         if cachePatronesPublica.count == 0 {
-          getPatrones(bbdd: publicDB, privada: false, completion: completion)
+            getPatrones(bbdd: publicDB, privada: false, completion: completion)
         } else {
             completion(cachePatronesPublica)
         }
     }
     
+    /**
+     Obtiene todos los patrones de la base de datos privada.
+     - Parameter completion: función que recibe como parámetros un array con los patrones leídos.
+     */
     func getPatronesPrivada(completion: @escaping ([Patron]) ->()) {
         if cachePatronesPrivada.count == 0 {
-          getPatrones(bbdd: privateDB, privada: true, completion: completion)
+            getPatrones(bbdd: privateDB, privada: true, completion: completion)
         } else {
             completion(cachePatronesPrivada)
         }
     }
-  
-  func setPatronesPrivadaToNil() {
-    self.cachePatronesPrivada.removeAll()
-  }
     
-  func getPatrones(bbdd: CKDatabase, privada: Bool, completion: @escaping ([Patron]) ->()) {
+    /**
+     Elimina todos los patrones de la base de datos privada
+     */
+    func setPatronesPrivadaToNil() {
+        self.cachePatronesPrivada.removeAll()
+    }
+    
+    /**
+     Función genérica para la lectura de patrones de la base de datos en iCloud
+     - Parameter bbdd: Base de datos de la que vamos a leer
+     - Parameter privada: indica si es privada o no. Es necesario saberlo ya que si se va a leer de la privada hay que leerlos de la zona creada en la base de datos del usuario. En caso contrario se leerá de default.
+     - Parameter completion: función a ejecutar una vez leídos los patrons. Esta función recibe como parámetro un array con todos los patrones leídos.
+     */
+    func getPatrones(bbdd: CKDatabase, privada: Bool, completion: @escaping ([Patron]) ->()) {
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: iCloudRegistros.patron, predicate: predicate)
-    
+        
         var zonaID: CKRecordZone.ID? = nil
         if privada { //Si estamos en la privada se cogerán de la zona de favoritos.
             zonaID = patronesZone?.zoneID
         }
-    
+        
         bbdd.perform(query, inZoneWith: zonaID) { registros, error in
             if error != nil {
                 print(error!.localizedDescription)
@@ -212,11 +251,11 @@ class PatronesDB {
                 for registro in registros {
                     if let patron = Patron(iCloudRegistro: registro) {
                         patrones.append(patron)
-                      if privada {
-                        self.cachePatronesPrivada.append(patron)
-                      } else {
-                        self.cachePatronesPublica.append(patron)
-                      }
+                        if privada {
+                            self.cachePatronesPrivada.append(patron)
+                        } else {
+                            self.cachePatronesPublica.append(patron)
+                        }
                     }
                 }
                 completion(patrones)
@@ -225,6 +264,9 @@ class PatronesDB {
         }
     }
     
+    /**
+     Elimina un registro dado de la base de datos indicada
+     */
     func eliminarRegistro(id: CKRecord.ID, bbdd: CKDatabase) {
         bbdd.delete(withRecordID: id) { (id: CKRecord.ID?, error: Error?) -> Void in
             if error == nil {
@@ -234,6 +276,11 @@ class PatronesDB {
         }
     }
     
+    /**
+     Elimina un registro de la base de datos pública.
+     La eliminación de la base de datos supone la eliminación de la caché de datos asociada.
+     - Parameter id: identificador del registro a eliminar.
+     */
     func eliminarRegistroPublica(id: CKRecord.ID) {
         eliminarRegistro(id: id, bbdd: publicDB)
         for (indice, patron) in self.cachePatronesPublica.enumerated() {
@@ -244,6 +291,11 @@ class PatronesDB {
         }
     }
     
+    /**
+     Elimina un registro de la base de datos privada.
+     La eliminación de la base de datos supone la eliminación de la caché de datos asociada.
+     - Parameter id: identificador del registro a eliminar.
+     */
     func eliminarRegistroPrivada(id: CKRecord.ID) {
         eliminarRegistro(id: id, bbdd: privateDB)
         for (indice, patron) in self.cachePatronesPrivada.enumerated() {
@@ -254,8 +306,12 @@ class PatronesDB {
         }
     }
     
+    /**
+     Elimina un registro únicamente de la caché privada
+     - Parameter indice: posición del array a eliminar
+     */
     func eliminarRegistroCachePrivada(indice: Int) {
         self.cachePatronesPrivada.remove(at: indice)
     }
-
+    
 }

@@ -21,10 +21,12 @@ enum NombreNota: String {
     case B = "B"
 }
 
-
+/**
+ La representación de una nota musical es un texto con un nombre de nota asignato
+ */
 struct Nota {
-   private var nombre: NombreNota
-   
+    private var nombre: NombreNota
+    
     init(nombre: NombreNota) {
         self.nombre = nombre
     }

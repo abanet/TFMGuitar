@@ -27,18 +27,23 @@ enum TipoIntervaloMusical: String, CaseIterable {
     case septimamayor       = "7"
     case octavajusta        = "8"
     
-    
+    /**
+     Devuelve el interválo unísono
+     */
     static func tonica() -> TipoIntervaloMusical {
         return TipoIntervaloMusical.unisono
     }
-  
-  func esTonica() -> Bool {
-    return self == .unisono || self == .octavajusta ? true : false
-  }
+    
+    /**
+     True si el intervalo sólo contiene la tónica (unísono o octavas justas)
+     */
+    func esTonica() -> Bool {
+        return self == .unisono || self == .octavajusta ? true : false
+    }
     
     /**
      Devuelve la inversión de un intervalo musical
-    */
+     */
     func inversion() -> TipoIntervaloMusical {
         switch self {
         case .unisono:
@@ -74,7 +79,7 @@ enum TipoIntervaloMusical: String, CaseIterable {
     
     /**
      Distancia en semitonos del intervalo
-    */
+     */
     func distancia() -> Int {
         switch self {
         case .unisono:
@@ -107,21 +112,21 @@ enum TipoIntervaloMusical: String, CaseIterable {
             return 12
         }
     }
-  
-  /**
-   Devuelve el intervalo enarmónico si existe, nil en caso contrario.
-  */
-  func enarmonico() -> TipoIntervaloMusical? {
-    if self.rawValue == "4+" {
-      return .quintadisminuida
-    } else {
-      return nil
-    }
     
-  }
+    /**
+     Devuelve el intervalo enarmónico si existe, nil en caso contrario.
+     */
+    func enarmonico() -> TipoIntervaloMusical? {
+        if self.rawValue == "4+" {
+            return .quintadisminuida
+        } else {
+            return nil
+        }
+        
+    }
     /**
      Intervalos con una distancia de semitonos dada
-    */
+     */
     static func intervalosConDistancia(semitonos: Int) -> [TipoIntervaloMusical] {
         var array = [TipoIntervaloMusical]()
         TipoIntervaloMusical.allCases.forEach {
@@ -134,7 +139,7 @@ enum TipoIntervaloMusical: String, CaseIterable {
     
 }
 
-
+// extensión para poder realizar la comparación entre dos intervalos y conocer si son iguales o no
 extension TipoIntervaloMusical: Hashable {
     static func == (lhs: TipoIntervaloMusical, rhs: TipoIntervaloMusical) -> Bool {
         return lhs.rawValue == rhs.rawValue

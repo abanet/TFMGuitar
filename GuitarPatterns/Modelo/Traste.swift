@@ -85,35 +85,35 @@ struct Traste {
     mutating func setEstado(tipo: TipoTraste) {
         self.tipo = tipo
     }
-  
+    
     // Devuelve la nota del traste, nil en caso contrario
     func getNota() -> Nota? {
-      if case let TipoTraste.nota(nota) = tipo {
-        return nota
-      } else {
-        return nil
-      }
+        if case let TipoTraste.nota(nota) = tipo {
+            return nota
+        } else {
+            return nil
+        }
     }
-  
+    
     // Devuelve el intervalo del traste, nil en caso contrario
     func getIntervalo() -> TipoIntervaloMusical? {
-      if case let TipoTraste.intervalo(intervalo) = tipo {
-        return intervalo
-      } else {
-        return nil
-      }
+        if case let TipoTraste.intervalo(intervalo) = tipo {
+            return intervalo
+        } else {
+            return nil
+        }
     }
-  
+    
     // Indica si el traste está en blanco o no
     func estaBlanco() -> Bool {
-      if case TipoTraste.blanco = tipo {
-        return true
-      } else {
-        return false
-      }
+        if case TipoTraste.blanco = tipo {
+            return true
+        } else {
+            return false
+        }
     }
-  
-  
+    
+    
     /**
      Devuelve la posición de traste resultado de sumar un incremento al traste actual.
      
@@ -125,7 +125,7 @@ struct Traste {
     
     /**
      Indica si el traste tiene una nota que cumple una función interválica determinada
-    */
+     */
     func tieneFuncionIntervalica(_ funcion: TipoIntervaloMusical) -> Bool {
         if case let .intervalo(intervalo) = tipo, intervalo == funcion { // traste con nota
             return true
@@ -149,7 +149,7 @@ struct Traste {
     static func decodificar(_ trasteCodificado: Int) -> Traste {
         return Traste(cuerda: Int(trasteCodificado/10) , traste: trasteCodificado % 10, estado: .blanco)
     }
-   
+    
 }
 
 
