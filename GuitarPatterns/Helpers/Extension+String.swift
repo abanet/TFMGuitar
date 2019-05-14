@@ -7,6 +7,9 @@
 //
 import UIKit
 
+/**
+ Extendemos String para economizar esfuerzos a la hora de localizar el código
+ */
 extension String {
     func localizada() -> String {
         return NSLocalizedString(self, comment: "")

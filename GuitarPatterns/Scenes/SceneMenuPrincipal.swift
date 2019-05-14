@@ -7,6 +7,10 @@
 //
 
 import SpriteKit
+
+/**
+ El menú principal cuenta con 6 opciones posibles: acordes, arpegios, escalas, mis patrones, editor y logros.
+ */
 enum OpcionesMenu: String {
     case acordes
     case arpegios
@@ -16,18 +20,22 @@ enum OpcionesMenu: String {
     case logros
 }
 
+/**
+ Esta escena lanza el menú principal de la aplicación
+ */
 class SceneMenuPrincipal: SKScene {
-
+    
     override init(size: CGSize) {
         super.init(size: size)
         self.backgroundColor = .white
-        self.setBackground()
-        self.crearMenu()
+        self.setBackground() // fondo del menú
+        self.crearMenu()    // opciones del menú
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     private func setBackground() {
         let fondo = SKSpriteNode(imageNamed: "fondoMenuPrincipal")
@@ -37,6 +45,9 @@ class SceneMenuPrincipal: SKScene {
         addChild(fondo)
     }
     
+    /**
+     Crea el menú en dos filas con tres elementos cada una
+     */
     private func crearMenu() {
         let anchoBoton = size.width / 6 // se divide la pantalla en cuadrícula de 6 x 2 para el diseño
         let sextoAncho = size.width / 6
@@ -50,30 +61,35 @@ class SceneMenuPrincipal: SKScene {
         let opcion2 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "editor", titulo: "Editor".localizada(), tipo: OpcionesMenu.editor)
         opcion2.position = CGPoint(x: sextoAncho * 3, y: cuartoAlto)
         opcion2.delegate = self
-
+        
         let opcion3 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "logros", titulo: "Logros".localizada(), tipo: OpcionesMenu.logros)
         opcion3.position = CGPoint(x: sextoAncho * 5, y: cuartoAlto)
         opcion3.delegate = self
-
+        
         let opcion4 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "acordes", titulo: "Acordes".localizada(), tipo: OpcionesMenu.acordes)
         opcion4.position = CGPoint(x: sextoAncho, y: cuartoAlto * 3)
         opcion4.delegate = self
-
+        
         let opcion5 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "arpegios", titulo: "Arpegios".localizada(), tipo: OpcionesMenu.arpegios)
         opcion5.position = CGPoint(x: sextoAncho * 3, y: cuartoAlto * 3)
         opcion5.delegate = self
-
+        
         let opcion6 = BotonMenuPrincipal(size: CGSize(width: anchoBoton, height: anchoBoton), imagen: "escalas", titulo: "Escalas".localizada(), tipo: OpcionesMenu.escalas)
         opcion6.position = CGPoint(x: sextoAncho * 5, y: cuartoAlto * 3)
         opcion6.delegate = self
         
-      addChild(opcion1); addChild(opcion2); addChild(opcion3)
-      addChild(opcion4); addChild(opcion5); addChild(opcion6)
+        addChild(opcion1); addChild(opcion2); addChild(opcion3)
+        addChild(opcion4); addChild(opcion5); addChild(opcion6)
     }
     
 }
 
+
 extension SceneMenuPrincipal: BotonMenuPulsado {
+    
+    /**
+     Dirige a una escena u otro según la opción escogida
+     */
     func botonMenuPulsado(opcion: OpcionesMenu) {
         switch opcion {
         case .acordes:
@@ -93,14 +109,17 @@ extension SceneMenuPrincipal: BotonMenuPulsado {
             escena.parentScene = self
             irAEscena(escena)
         case .logros:
-          GameKitHelper.sharedInstance.showGKGameCenterViewController(viewController: self.view?.window?.rootViewController)
+            GameKitHelper.sharedInstance.showGKGameCenterViewController(viewController: self.view?.window?.rootViewController)
         case .mispatrones:
-          let escena = SceneMenu(size: self.size)
-          escena.privada = true
-          irAEscena(escena)
+            let escena = SceneMenu(size: self.size)
+            escena.privada = true
+            irAEscena(escena)
         }
     }
     
+    /**
+     Transición a la escena pasada como parámetro
+     */
     func irAEscena(_ escena: SKScene) {
         let accion = SKAction.run {
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)

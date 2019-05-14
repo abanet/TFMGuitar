@@ -9,14 +9,15 @@
 //  Implementa las funciones gráficas básicas
 import SpriteKit
 
+/**
+ Extensión de SKShapeNode que incorpora funciones básicas de dibujo de líneas y círculos.
+ Estos dibujos son la base de nuestro mástil, trastes y notas.
+ */
 extension SKShapeNode {
     /**
-     
      Crea y devuelve un SKShapeNode con una línea que va entre los puntos pasados como parámetros
-     
      - Parameter from: punto origen
      - Parameter to: punto final
-     
      */
     class func drawLine(from: CGPoint, to: CGPoint) -> SKShapeNode {
         let line = SKShapeNode()
@@ -27,12 +28,9 @@ extension SKShapeNode {
     }
     
     /**
-     
      Devuelve un SKShapeNode en forma de círculo
-     
      - Parameter center: centro del círculo
      - Parameter radius: radio del círculo
-     
      */
     class func drawCircleAt(_ center: CGPoint, withRadius radius: CGFloat) -> SKShapeNode {
         let circle = SKShapeNode()

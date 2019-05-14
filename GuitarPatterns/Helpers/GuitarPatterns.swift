@@ -73,14 +73,15 @@ struct Medidas {
             return 2.4
         }
     }()
-
+    
     // Patrones en menu
     static let numeroPatronesEnPantalla: CGFloat = 2.0
-
+    
     // Juego
     static let trasteRuedaDentada: Int = 1
     static let incrementosVelocidad: Int = 5
 }
+
 
 struct Notas {
     static let font = "AvenirNext-Regular"
@@ -93,6 +94,7 @@ struct Letras {
     static let puntosNota = "GillSans-BoldItalic"
     static let pizarra = "Chalkduster"
 }
+
 struct zPositionNodes {
     static let background: CGFloat = -3.0
     static let trastes: CGFloat    = -2.0
@@ -102,15 +104,15 @@ struct zPositionNodes {
 }
 
 struct Mensajes {
-  static let partidaperdida = [
-    "¿Te llaman mano lenta? 🤣",
-    "¡Los he visto más rápidos! 😂",
-    "¡Practica hasta que te duela la cabeza!",
-    "No doy crédito... 😱",
-    "😳 me has dejado sin palabras...",
-    "Venga Jimmy Hendrix, ¡un poco más de esfuerzo!",
-    "¡Puedes hacerlo mejor!"
-  ]
+    static let partidaperdida = [
+        "¿Te llaman mano lenta? 🤣",
+        "¡Los he visto más rápidos! 😂",
+        "¡Practica hasta que te duela la cabeza!",
+        "No doy crédito... 😱",
+        "😳 me has dejado sin palabras...",
+        "Venga Jimmy Hendrix, ¡un poco más de esfuerzo!",
+        "¡Puedes hacerlo mejor!"
+    ]
 }
 
 // Tableros de puntuación
@@ -126,7 +128,7 @@ struct TableroPuntuaciones {
         "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.facil.rawValue)": "es.codigoswift.guitarpatterns.escalas_bajo",
         "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.intermedio.rawValue)": "es.codigoswift.guitarpatterns.escalas_intermedio",
         "\(TipoPatron.Escala.rawValue)_\(NivelDificultad.alto.rawValue)": "es.codigoswift.guitarpatterns.escalas_alto"]
-
+    
 }
 
 extension Notification.Name {

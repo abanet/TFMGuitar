@@ -12,6 +12,7 @@ import SpriteKit
  
  Define el tipo de instrumento de cuerda que se va a utilizar.
  El tipo de instrumento definirá el número de cuerdas y la afinación estándar de las mismas.
+ Esto está pensado para en un futuro poder elegir el instrumento deseado y adaptar la aplicación al mismo.
  */
 enum TipoGuitarra {
     case guitarra
@@ -37,7 +38,6 @@ enum TipoGuitarra {
 }
 
 /**
- 
  Vista del mástil del instrumento.
  Se encarga de la representación gráfica del instrumento.
  */
@@ -97,7 +97,7 @@ class GuitarraView: SKNode {
         super.init()
         dibujarCuerdas()
         dibujarTrastes()
-       // dibujarBackground()
+        // dibujarBackground()
         calcularMatrizPosicion()
     }
     
@@ -109,7 +109,7 @@ class GuitarraView: SKNode {
     
     /**
      Dibuja e identifica las cuerdas del mástil
-    */
+     */
     func dibujarCuerdas() {
         var posicionCuerda:CGFloat = Medidas.bottomSpace
         for n in (1...tipo.numeroCuerdas()).reversed() {
@@ -144,6 +144,9 @@ class GuitarraView: SKNode {
         addChild(nodeTrastes)
     }
     
+    /**
+     Dibuja el backgroun del mástil
+     */
     func dibujarBackground() {
         let textura = SKTexture(imageNamed: "mastil")
         let backSprite = SKSpriteNode(texture: textura)
@@ -155,8 +158,8 @@ class GuitarraView: SKNode {
     }
     
     /**
-    Añade una nota al mástil de la guitarra en el traste indicado
-    */
+     Añade una nota al mástil de la guitarra en el traste indicado
+     */
     func addNotaGuitarra(traste: Traste) {
         let (x,y) = convertirMastilToView(traste: traste)
         let nota = ShapeNota(posicion: traste.getPosicion(), radio: radio)
@@ -169,12 +172,12 @@ class GuitarraView: SKNode {
     /**
      Localiza la vista asociada al traste y si existe nota la actualiza.
      La nota no se crea, simplemente se cambian los valores asociados
-    */
+     */
     func marcarNotaGuitarra(traste: Traste) {
         //let (x,y) = convertirMastilToView(traste: traste)
         for child in self.children {
             if let shapeNota = child as? ShapeNota {
-              if let trasteShape = shapeNota.getTraste(), trasteShape.getPosicion() == traste.getPosicion() {
+                if let trasteShape = shapeNota.getTraste(), trasteShape.getPosicion() == traste.getPosicion() {
                     shapeNota.setTraste(traste)
                 }
             }
@@ -183,7 +186,7 @@ class GuitarraView: SKNode {
     
     /**
      Dibuja un patrón en la vista de la guitarra añadiendo las notas necesarias y marcándolas en el mástil
-    */
+     */
     func dibujarPatron(_ patron: Patron) {
         for traste in patron.getTrastes() {
             addNotaGuitarra(traste: traste)
@@ -193,7 +196,7 @@ class GuitarraView: SKNode {
     
     /**
      Teniendo en cuenta las dimensiones del mástil se calculan las posiciones en las que vamos a poder situar una nota.
-    */
+     */
     func calcularMatrizPosicion() {
         for posicionCuerda in arrayPosicionCuerdas {
             var posicionUnaCuerda = [CGPoint]()
@@ -205,16 +208,19 @@ class GuitarraView: SKNode {
             matrizPosicion.append(posicionUnaCuerda)
         }
     }
-  
-  // Devuelve la posición x de un traste determinado
-  // El traste pasado como parámetro comienza en el 1
-  func posicionXTraste(num: Int) -> CGFloat {
-    guard num > 0 else { return matrizPosicion[0][0].x }
-    return matrizPosicion[0][num-1].x
-  }
+    
+    /**
+     Devuelve la posición x de un traste determinado
+     El traste pasado como parámetro comienza en el 1
+     */
+    func posicionXTraste(num: Int) -> CGFloat {
+        guard num > 0 else { return matrizPosicion[0][0].x }
+        return matrizPosicion[0][num-1].x
+    }
+    
     /**
      Convierte unas coordenadas lógicas de la guitarra en las coordenadas físicas de su representación gráfica.
-    */
+     */
     func convertirMastilToView(traste: Traste) -> (x: Int, y: Int) {
         // TODO: estamos en pruebas. Ahora mismo no hay conversión
         return (tipo.numeroCuerdas() - traste.getCuerda(), traste.getTraste() - 1)
@@ -224,7 +230,7 @@ class GuitarraView: SKNode {
     /**
      Responde al toque del usuario.
      Permite la selección de notas
-    */
+     */
     func marcarNotaTocada(_ touches: Set<UITouch>, conTipoTraste tipo: TipoTraste, completion: @escaping (Traste) -> ()) {
         if let shapeNota = getNotaTocada(touches) {
             if case TipoTraste.blanco = tipo {
@@ -248,12 +254,12 @@ class GuitarraView: SKNode {
         }
     }
     
- 
+    
     
     
     /**
      Obtiene el elemento gráfico de la nota que se ha tocado en pantalla
-    */
+     */
     func getNotaTocada(_ touches: Set<UITouch>) -> ShapeNota? {
         guard let touch = touches.first else {
             return nil
@@ -269,8 +275,8 @@ class GuitarraView: SKNode {
     }
     
     /**
-    Obtiene el traste en el que se ha pulsado
-    */
+     Obtiene el traste en el que se ha pulsado
+     */
     func trastePulsado(_ touches: Set<UITouch>) -> Traste? {
         if let shapeNota = getNotaTocada(touches) {
             return shapeNota.getTraste()

@@ -7,10 +7,18 @@
 //
 
 import SpriteKit
+
+/**
+ Protocolo que permitirá reaccionar a la pulsación de una opción de menú.
+ */
 protocol BotonMenuPulsado: class {
     func botonMenuPulsado(opcion: OpcionesMenu) -> Void
 }
 
+
+/**
+ Clase encargada de la construcción de un botón en SpriteKit.
+ */
 class BotonMenuPrincipal: SKNode {
     weak var delegate: BotonMenuPulsado?
     var opcion: SKShapeNode
@@ -27,6 +35,13 @@ class BotonMenuPrincipal: SKNode {
         }
     }
     
+    /**
+     Crea un botón SpriteKit
+     - Parameter size: área que va a ocupar el botón
+     - Parameter imagen: imágen asociada con el botón
+     - Parameter titulo: opción a mostrar
+     - Parameter tipo: opción de menú a mostrar
+     */
     init(size: CGSize, imagen: String, titulo: String, tipo: OpcionesMenu) {
         opcion = SKShapeNode(rectOf: size, cornerRadius: size.width/10)
         image = SKSpriteNode(imageNamed: imagen)
@@ -66,7 +81,11 @@ class BotonMenuPrincipal: SKNode {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         activado = true
     }
-   
+    
+    /**
+     Se ha pulsado un botón.
+     El delegado se hace cargo.
+     */
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         activado = false
         delegate?.botonMenuPulsado(opcion: self.tipo)

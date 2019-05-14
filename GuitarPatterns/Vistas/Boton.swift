@@ -9,7 +9,7 @@
 import UIKit
 
 /**
-  Procedimientos usados en la creación de botones
+ Procedimientos usados en la creación de botones UIKit
  */
 class Boton {
     static func crearBoton(nombre: String) -> UIButton {

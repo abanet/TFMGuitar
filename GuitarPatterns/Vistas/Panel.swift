@@ -8,6 +8,10 @@
 
 import SpriteKit
 
+/**
+ La clase panel se utiliza como transición entre escenas.
+ Un panel permite mostrar un mensaje al usuario, esperar un tiene a que lo lea, y seguir hacia la siguiente tarea
+ */
 class Panel: SKNode {
     var lblTitulo: SKLabelNode = {
         let label = SKLabelNode(fontNamed: Letras.pizarra)
@@ -23,21 +27,25 @@ class Panel: SKNode {
     }()
     var panel: SKShapeNode!
     
+    /**
+     Crea un panel informativo.
+     - Parameter size: tamaño del panel a mostrar,
+     - Parameter titulo: texto superior de mayor tamaño,
+     - Parameter descripción: texto descriptivo de menor tamaño.
+     */
     init(size: CGSize, titulo: String, descripcion: String) {
         panel = SKShapeNode(rect: CGRect(origin: .zero, size: size), cornerRadius: 0.0)
         self.lblTitulo.text = titulo
         self.lblDescripcion.text = descripcion
         super.init()
         setup()
-        
-        //aparecer()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-     func setup() {
+    func setup() {
         setupPanel()
         setupTitulo()
         setupDescripcion()
@@ -64,6 +72,9 @@ class Panel: SKNode {
         lblDescripcion.horizontalAlignmentMode = .center
     }
     
+    /**
+     Pone el panel en escena, lo muestra y realiza la acción pasada en completion
+     */
     func aparecer(completion: @escaping () -> Void) {
         addChild(panel)
         panel.addChild(lblTitulo)
@@ -75,6 +86,11 @@ class Panel: SKNode {
         }
     }
     
+    /**
+     Pone el panel en escena, lo muestra y realiza la acción pasada en completion.
+     Es una versión de la anterior función que sale sin fadeOut
+     TODO: refactor: una única función que pasara si se desea fadeOut o no como parámetro
+     */
     func aparecerSinFadeout(completion: @escaping () -> Void) {
         addChild(panel)
         panel.addChild(lblTitulo)
@@ -86,5 +102,5 @@ class Panel: SKNode {
         }
     }
     
-
+    
 }

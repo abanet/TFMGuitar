@@ -14,7 +14,6 @@ import GameKit
 /**
  Scene que permite creación / edición de un patrón
  */
-
 class SceneEditor: SKScene {
     var parentScene: SKScene? = nil // para poder volver a la pantalla desde la que es llamada
     var guitarra: GuitarraViewController!
@@ -28,7 +27,7 @@ class SceneEditor: SKScene {
             }
         }
     }
-
+    
     var btnReset: UIButton = Boton.crearBoton(nombre: "Reset".localizada())
     var btnEditarNombre: UIButton = Boton.crearBoton(nombre: "Editar Nombre".localizada())
     var btnSave: UIButton = Boton.crearBoton(nombre: "Grabar".localizada())
@@ -53,7 +52,7 @@ class SceneEditor: SKScene {
         label.sizeToFit()
         return label
     }()
-        
+    
     init(size: CGSize, patron: Patron?) {
         self.patron = patron
         super.init(size: size)
@@ -77,7 +76,7 @@ class SceneEditor: SKScene {
     /**
      Establece una guitarra gráfica con su mástil asociado.
      El mástil se inicializa con notas en blanco.
-    */
+     */
     func iniciarGuitarra() {
         let sizeGuitar = CGSize(width: size.width, height: size.height * Medidas.porcentajeAltoMastil)
         guitarra = GuitarraViewController(size: sizeGuitar, tipo: .guitarra)
@@ -91,45 +90,48 @@ class SceneEditor: SKScene {
             guitarra.crearMastilVacio()
         }
     }
-  
-  
-  /**
-   Control de las pulsaciones sobre la pantalla.
-   Al tocar una nota en blanco se escribira:
-   - una tónica si esta no existe,
-   - el intervalo en relación a la tónica si esta existe.
-   - Si se elimina la tónica del patrón y se añade en otro lugar los intervalos seleccionados se recalculan automáticamente.
-  */
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    let tonica = TipoIntervaloMusical.tonica()
-    if guitarra.mastil.existeTonica() {
-      // averiguar traste pulsado
-      if let trastePulsado = guitarra.trastePulsado(touches) {
-        if case TipoTraste.blanco = trastePulsado.getEstado() { //No hay nota, hay que añadirla
-          // calcular distancia entre tónica y nota pulsada
-          if let trasteTonica = guitarra.mastil.encuentraIntervalos(delTipo: tonica).first {
-            if let distancia = Mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trastePulsado) {
-              let intervalos = TipoIntervaloMusical.intervalosConDistancia(semitonos: distancia)
-              // De momento siempre el primer intervalo encontrado. No tenemos en cuenta enarmónicos.
-              let tipoTraste = TipoTraste.intervalo(intervalos.first!)
-              guitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste)
-              datosGrabados = false
+    
+    
+    /**
+     Control de las pulsaciones sobre la pantalla.
+     Al tocar una nota en blanco se escribira:
+     - una tónica si esta no existe,
+     - el intervalo en relación a la tónica si esta existe.
+     - Si se elimina la tónica del patrón y se añade en otro lugar los intervalos seleccionados se recalculan automáticamente.
+     */
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let tonica = TipoIntervaloMusical.tonica()
+        if guitarra.mastil.existeTonica() {
+            // averiguar traste pulsado
+            if let trastePulsado = guitarra.trastePulsado(touches) {
+                if case TipoTraste.blanco = trastePulsado.getEstado() { //No hay nota, hay que añadirla
+                    // calcular distancia entre tónica y nota pulsada
+                    if let trasteTonica = guitarra.mastil.encuentraIntervalos(delTipo: tonica).first {
+                        if let distancia = Mastil.distanciaEnSemitonos(traste1: trasteTonica, traste2: trastePulsado) {
+                            let intervalos = TipoIntervaloMusical.intervalosConDistancia(semitonos: distancia)
+                            // De momento siempre el primer intervalo encontrado. No tenemos en cuenta enarmónicos.
+                            let tipoTraste = TipoTraste.intervalo(intervalos.first!)
+                            guitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste)
+                            datosGrabados = false
+                        }
+                    }
+                } else { // existe una nota, hay que eliminarla
+                    // se podría hacer que al pulsar otra vez alterne con enarmónicos.
+                    guitarra.marcarNotaTocada(touches, conTipoTraste: .blanco)
+                    datosGrabados = false
+                }
             }
-          }
-        } else { // existe una nota, hay que eliminarla
-          // se podría hacer que al pulsar otra vez alterne con enarmónicos.
-          guitarra.marcarNotaTocada(touches, conTipoTraste: .blanco)
+        } else { // No existe tónica. Escribir tónica
+            let tipoTraste = TipoTraste.intervalo(tonica)
+            guitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste)
+            guitarra.recalcularMastil()
             datosGrabados = false
         }
-      }
-    } else { // No existe tónica. Escribir tónica
-      let tipoTraste = TipoTraste.intervalo(tonica)
-      guitarra.marcarNotaTocada(touches, conTipoTraste: tipoTraste)
-      guitarra.recalcularMastil()
-      datosGrabados = false
     }
-  }
-  
+    
+    /**
+     Añade la hud
+     */
     private func addUserInterfaz(){
         self.view?.addSubview(btnReset)
         self.view?.addSubview(btnEditarNombre)
@@ -184,29 +186,38 @@ class SceneEditor: SKScene {
     }
     
     
+    /**
+     Limpia el mástil eliminando todas las notas que hayamos podido poner.
+     */
     @objc func btnResetPulsado() {
         guitarra.limpiarMastil()
         datosGrabados = true // mástil vacío, no hay datos para grabar por lo que es como si estuvieran grabados.
     }
-
+    
+    /**
+     Transición a la pantalla de edición de metadatos
+     */
     @objc func btnEditarNombrePulsado() {
-            let vc = EditDataVC()
-            vc.nombrePatron = lblNombrePatron.text
-            vc.descripcionPatron = lblDescripcionPatron.text
-            vc.categoriaPatron = lblCategoriaPatron.text
+        let vc = EditDataVC()
+        vc.nombrePatron = lblNombrePatron.text
+        vc.descripcionPatron = lblDescripcionPatron.text
+        vc.categoriaPatron = lblCategoriaPatron.text
         
-            vc.delegate = self
-            vc.view.frame = (self.view?.frame)!
-            vc.view.layoutIfNeeded()
-            vc.modalTransitionStyle = .flipHorizontal
-            self.view?.window?.rootViewController?.present(vc, animated: true, completion: nil)
+        vc.delegate = self
+        vc.view.frame = (self.view?.frame)!
+        vc.view.layoutIfNeeded()
+        vc.modalTransitionStyle = .flipHorizontal
+        self.view?.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
     
+    /**
+     Guardamos el patrón que estamos editando.
+     Sólo grabaremos si se cumplen las siguientes condiciones:
+     1.- existe una tónica en el mástil,
+     2.- hay más 3 ó más notas en el patrón,
+     3.- el patrón tiene metadatos asignados para poder almacenarlo en bbdd
+     */
     @objc func btnSavePatronPulsado() {
-        // Sólo grabaremos si se cumplen las siguientes condiciones:
-        // 1.- existe una tónica en el mástil,
-        // 2.- hay más 3 ó más notas en el patrón,
-        // 3.- el patrón tiene metadatos asignados para poder almacenarlo en bbdd
         if let tonica = guitarra.mastil.trasteTonica() {
             if guitarra.mastil.lenght() > 2 {
                 if patron != nil {
@@ -232,7 +243,10 @@ class SceneEditor: SKScene {
         }
     }
     
-    
+    /**
+     Se eliminará el mástil actual y se procede a crear un patrón de cero.
+     Preguntamos antes de eliminar datos.
+     */
     @objc func btnNuevoPatronPulsado() {
         if datosGrabados { // creamos el patrón sin problemas
             establecerNuevoPatron()
@@ -244,6 +258,9 @@ class SceneEditor: SKScene {
         }
     }
     
+    /**
+     Salimos del editor. Hay que volver a la escena padre.
+     */
     @objc func btnSalirPulsado() {
         guard let vista = self.scene?.view else {
             return
@@ -258,11 +275,11 @@ class SceneEditor: SKScene {
         self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
     }
     
-   
+    
     /**
-    Esta funcioón se utiliza cuando se ha terminado de trabajar con un patrón y se desea comenzar con uno nuevo.
-    Vacía el mástil, elimina el patrón con el que se está trabajando y se cierra el registro de la bbdd.
-    */
+     Esta funcioón se utiliza cuando se ha terminado de trabajar con un patrón y se desea comenzar con uno nuevo.
+     Vacía el mástil, elimina el patrón con el que se está trabajando y se cierra el registro de la bbdd.
+     */
     func establecerNuevoPatron() {
         guitarra.limpiarMastil()
         resetLabels()
@@ -272,8 +289,7 @@ class SceneEditor: SKScene {
     
     /**
      Establecer los metadatos del patron
-    */
-    
+     */
     private func setDatosPatron() {
         lblNombrePatron.text = patron?.getNombre()
         lblDescripcionPatron.text = patron?.getDescripcion()
@@ -284,17 +300,13 @@ class SceneEditor: SKScene {
     
     /**
      Resetea los textos de los datos descriptivos del patrón
-    */
+     */
     func resetLabels() {
         lblNombrePatron.text = ""
         lblCategoriaPatron.text = ""
         lblDescripcionPatron.text = ""
     }
     
-    
-    
-    
- 
 }
 
 /**
@@ -304,7 +316,7 @@ extension SceneEditor: FormularioDelegate {
     /**
      Se ha completado el formulario con los datos del patrón.
      El patrón ya tiene los metadatos para grabarse, creamos patrón y asignamos datos.
-    */
+     */
     func onFormularioRelleno(nombre: String, descripcion: String, tipo: String) {
         patron = Patron(nombre: nombre, tipo: tipo)
         patron!.setDescripcion(descripcion)

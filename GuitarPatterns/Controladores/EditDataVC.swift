@@ -9,10 +9,15 @@
 import UIKit
 import Eureka
 
+
 protocol FormularioDelegate {
-    func onFormularioRelleno (nombre: String, descripcion: String, tipo: String)
+    func onFormularioRelleno (nombre: String, descripcion: String, tipo: String) // función a ejecutar cuando se ha rellenado el formulario.
 }
-        
+
+/**
+ Clase encargada del formulario de datos descriptivos del patrón.
+ Para facilitar la creación del formulario se ha empleado Eureka (https://github.com/xmartlabs/Eureka)
+ */
 class EditDataVC: FormViewController {
     
     var delegate: FormularioDelegate?
@@ -50,12 +55,12 @@ class EditDataVC: FormViewController {
                     case "Escala":
                         $0.value = $0.options![2]
                     default:
-                         $0.value = $0.options!.first
+                        $0.value = $0.options!.first
                     }
                 } else {
-                     $0.value = $0.options!.first
+                    $0.value = $0.options!.first
                 }
-               
+                
                 }.cellSetup() { cell, row in
                     cell.backgroundColor = Colores.background
                     cell.tintColor = .white
@@ -68,7 +73,7 @@ class EditDataVC: FormViewController {
                 }.cellSetup() { cell, row in
                     cell.backgroundColor = Colores.background
                     cell.tintColor = .white
-                }
+            }
             <<< TextRow(){ row in
                 row.title = "Descripción del patrón".localizada()
                 row.placeholder = "Introduce la descripción del patrón".localizada()
@@ -77,7 +82,7 @@ class EditDataVC: FormViewController {
                 }.cellSetup() { cell, row in
                     cell.backgroundColor = Colores.background
                     cell.tintColor = .white
-                }
+            }
             
             +++ Section("")
             <<< ButtonRow(){
@@ -98,7 +103,10 @@ class EditDataVC: FormViewController {
         self.tableView?.backgroundColor = Colores.background
     }
     
-    
+    /**
+     Función que se ejecuta cuando pulsamos sobre el botón grabar.
+     Comprueba que los datos obligatorios están completos.
+     */
     func btnGrabarPulsado(cell: ButtonCellOf<String>, row: ButtonRow) {
         // Coger los datos del formulario
         let formValores = self.form.values()
@@ -113,6 +121,9 @@ class EditDataVC: FormViewController {
         }
     }
     
+    /**
+     El usuario ha pulsado el botón de cancelación. Salimos sin grabar.
+     */
     func btnSalirPulsado(cell: ButtonCellOf<String>, row: ButtonRow) {
         self.dismiss(animated: true, completion: nil)
     }

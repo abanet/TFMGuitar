@@ -21,17 +21,17 @@ enum TipoShapeNota {
  Representación gráfica de una nota en el mástil
  */
 class ShapeNota: SKNode {
-   private var radio: CGFloat      // radio de la nota
-   private var shape: SKShapeNode  // forma de la nota
-   private var literal: SKLabelNode    // nodo para el contenido textual descriptivo de la nota/intervalo
-   private var text: String?       // contenido textual descriptivo
-   private var tag: String?
-   private var traste: Traste? {// traste asociado a la nota dibujada
+    private var radio: CGFloat      // radio de la nota
+    private var shape: SKShapeNode  // forma de la nota
+    private var literal: SKLabelNode    // nodo para el contenido textual descriptivo de la nota/intervalo
+    private var text: String?       // contenido textual descriptivo
+    private var tag: String?
+    private var traste: Traste? {// traste asociado a la nota dibujada
         didSet {
             if let traste = traste {
                 switch traste.getEstado() {
                 case .blanco:
-                    DispatchQueue.main.async { // a veces el traste cambia su valor en otros threads
+                    DispatchQueue.main.async {
                         self.setTextNota("")
                     }
                     tipoShapeNota = .unselected
@@ -39,19 +39,20 @@ class ShapeNota: SKNode {
                     self.setTextNota(nota.getNombreAsText())
                     self.setTagNota(nota.getNombreAsText())
                 case let .intervalo(intervalo):
-                  if intervalo.esTonica() { // Las octavas se muestran siempre como tónicas.
-                    self.setTextNota(TipoIntervaloMusical.unisono.rawValue)
-                    self.setTagNota(TipoIntervaloMusical.unisono.rawValue)
-                    tipoShapeNota = .tonica
-                  } else {
-                    tipoShapeNota = .selected // 13/04 para que estén marcadas al editar un patrón
-                    self.setTextNota(intervalo.rawValue)
-                    self.setTagNota(intervalo.rawValue)
-                  }
+                    if intervalo.esTonica() { // Las octavas se muestran siempre como tónicas.
+                        self.setTextNota(TipoIntervaloMusical.unisono.rawValue)
+                        self.setTagNota(TipoIntervaloMusical.unisono.rawValue)
+                        tipoShapeNota = .tonica
+                    } else {
+                        tipoShapeNota = .selected // 13/04 para que estén marcadas al editar un patrón
+                        self.setTextNota(intervalo.rawValue)
+                        self.setTagNota(intervalo.rawValue)
+                    }
                 }
             }
         }}
     
+    // un traste puede estar seleccionado o no. También se observará como estado especial el contener una tónica.
     private var tipoShapeNota: TipoShapeNota = .unselected {
         didSet {
             switch tipoShapeNota {
@@ -64,11 +65,14 @@ class ShapeNota: SKNode {
             case .tonica:
                 shape.fillColor = Colores.tonica
                 setTextNota("T")
-            
+                
             }
         }
     }
     
+    /**
+     Crea una nota con el radio especificado.
+     */
     init(radio: CGFloat){
         shape   = SKShapeNode.drawCircleAt(.zero, withRadius: radio)
         literal = SKLabelNode(fontNamed: Notas.font)
@@ -134,7 +138,7 @@ class ShapeNota: SKNode {
     
     /**
      Configura el aspecto inicial de la nota
-    */
+     */
     func configurarNota() {
         shape.fillColor     = Colores.noteFill
         shape.strokeColor   = Colores.noteStroke
@@ -148,12 +152,12 @@ class ShapeNota: SKNode {
         
         
     }
-  
-   /**
-    Colorea la nota con el color indicado
-   */
-  func coloreaCon(_ color: UIColor) {
-    shape.fillColor = color
-  }
+    
+    /**
+     Colorea la nota con el color indicado
+     */
+    func coloreaCon(_ color: UIColor) {
+        shape.fillColor = color
+    }
 }
 

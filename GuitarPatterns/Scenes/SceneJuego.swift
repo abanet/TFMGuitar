@@ -11,16 +11,20 @@
 import SpriteKit
 import GameKit
 
+/**
+ Estados del juego
+ */
 enum EstadoJuego {
     case jugando
     case pausa
     case partidaperdida
 }
 
+/**
+ Scena encargada de controlar el juego.
+ */
 class SceneJuego: SKScene {
     var parentScene: SKScene? // escena padre para saber a qué escena volver
-    
-    
     
     // Guitarra, patrón y nivel para jugar
     var guitarra: GuitarraViewController!
@@ -40,7 +44,7 @@ class SceneJuego: SKScene {
         }
     }
     
-    var hud = HUD() // head-up display
+    var hud = HUD() // información para el usuario
     var puntos: Int = 0 // puntos que se llevan ganados
     var recordABatir: Int = 0
     var numAciertos: Int = 0 // número de aciertos que lleva el jugador
@@ -57,20 +61,27 @@ class SceneJuego: SKScene {
     var ruedaDentada: SKSpriteNode = SKSpriteNode(imageNamed: "ruedaDentada")
     // estado del juego
     var estado = EstadoJuego.pausa
-
-  
+    
+    
+    /**
+     Inicia el juego.
+     - Parameter size: Tamaño de la escena
+     - Parameter patron: patrón sobre el que se va a jugar
+     - Parameter nivel: nivel del juego. Si no se indica nada se comienza en el nivel más bajo.
+     */
     init(size: CGSize, patron: Patron, nivel: Int = 1) {
         self.patron = patron
         self.nivel = Nivel.getNivel(nivel, para: patron.getTipo()!)
         super.init(size: size)
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /**
+     Comienzo de la escena
+     */
     override func didMove(to view: SKView) {
         backgroundColor = Colores.background
         iniciarGuitarra()
@@ -80,7 +91,10 @@ class SceneJuego: SKScene {
         empezarJuego()
     }
     
-    // Actualización de la escena
+    /**
+     Ciclo de la escena
+     Bucle principal: mirar en que estado está el juego y actuar en consecuencia
+     */
     override func update(_ currentTime: TimeInterval) {
         switch estado {
         case .pausa:
@@ -94,17 +108,18 @@ class SceneJuego: SKScene {
             }
             lastUpdateTime = currentTime
             updateHUD(currentTime: currentTime)
-            // ¿muere alguna nota?
-            comprobarDestruccionNotas()
-            // ¿se pasa de nivel?
-            checkPasoNivel()
+            comprobarDestruccionNotas() // ¿muere alguna nota?
+            checkPasoNivel() // ¿se pasa de nivel?
         case .partidaperdida:
-          estado = .pausa
-          partidaPerdida()
+            estado = .pausa
+            partidaPerdida()
         }
     }
     
-    
+    /**
+     El usuario ha tocado la escena del juego.
+     Si se ha tocado un nota actuar según se haya fallado o acertado
+     */
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
@@ -139,70 +154,81 @@ class SceneJuego: SKScene {
                             self.isUserInteractionEnabled = true
                         }
                     } else {
-                        // aún quedan notas por acertar
+                        // aún quedan notas por acertar. Seguimos jugando
+                        // Si queremos indicar al jugador cuantas notas le quedan por acertar este es el sitio adecuado.
                     }
                     
                 } else {
-                    // colorear en gris para que se vea que se ha utilizado (modo ayuda on)
+                    // colorear en gris para que se vea que se ha utilizado
                     mynode.coloreaCon(Colores.fallo)
                     mynode.name = "notaFallada"
                     animarPuntos(posicion: touchPosition, puntos: -nivel.puntosPorNota, dy: -70)
-                    puntos -= nivel.puntosPorNota
-                    //fallo()
+                    fallo()
                 }
                 
             }
         }
     }
     
+    /**
+     Empieza el juego. Ponemos todo en orden y lanzamos cuenta atrás antes de activar la salida de notas objetivo.
+     */
     func empezarJuego() {
+        // nivel y nombre del patrón
         let nivelString = "Nivel".localizada() + " " + String(nivel.idNivel)
         if let nombre = patron.getNombre() {
             hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view!.frame.width / 2, y: view!.frame.height - Medidas.minimumMargin * 3))
         }
+        // Preparar guitarra
         self.restaurarNombresNotasEnMastil()
         self.ajustarMastilNivel()
         hud.updateTimer(time: Int(nivel.tiempoJuego))
+        // Cuenta atrás
         EfectosEspeciales.countdown(desde: 3, enPosicion: CGPoint(x: size.width/2, y: 0), size: size.height/2, nodo: self) {
             self.estado = .jugando
             self.activarSalidaNotas()
         }
-      if let tipo = patron.getTipo() {
-        recordABatir = Puntuacion.getRecordTipoPatron(tipo)
-        hud.updateRecordTo(recordABatir)
-      }
-      
+        // Mostrar el record a batir
+        if let tipo = patron.getTipo() {
+            recordABatir = Puntuacion.getRecordTipoPatron(tipo)
+            hud.updateRecordTo(recordABatir)
+        }
+        
     }
-  
-  func partidaPerdida() {
-    //reportScoreToGameCenter(score: Int64(puntos))
-    // Si se pierde la partida hay que volver al punto de partida
-    self.puntos = 0
-    self.nivel = Nivel.getNivel(1, para: patron.getTipo()!)
     
-    self.removeAction(forKey: "salidaNotas")
-    //let eliminarnotas = SKAction.run {self.notasObjetivo.removeAll()}
-    let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
-    let panelAction = SKAction.run {
-      let mensajeNumber = Int.random(in: 0...Mensajes.partidaperdida.count - 1)
-      let titulo = Mensajes.partidaperdida[mensajeNumber].localizada()
-      let panel = Panel(size: self.size, titulo: titulo , descripcion: "La practica y la constancia son la clave del éxito".localizada())
-      self.addChild(panel)
-      panel.aparecer() {
-        panel.removeFromParent()
-        self.resetJuego()
-        self.empezarJuego()
-      }
+    /**
+     Se ha perdido una partida.
+     Cuando se pierde una partida el usuario tiene que volver a empezar y pierde todos sus puntos.
+     */
+    func partidaPerdida() {
+        // adios puntos y vuelta a la casilla de salida con el mismo patrón
+        self.puntos = 0
+        self.nivel = Nivel.getNivel(1, para: patron.getTipo()!)
+        
+        // Dejamos de sacar notas nuevas y eliminamos las que quedan.
+        self.removeAction(forKey: "salidaNotas")
+        let eliminarnotas = SKAction.run {self.eliminarNotasObjetivo()}
+        // Panel de consejo y a seguir jugando.
+        // TODO: Crear un array de frases para que haya más variedad en los mensajes.
+        let panelAction = SKAction.run {
+            let mensajeNumber = Int.random(in: 0...Mensajes.partidaperdida.count - 1)
+            let titulo = Mensajes.partidaperdida[mensajeNumber].localizada()
+            let panel = Panel(size: self.size, titulo: titulo , descripcion: "La practica y la constancia son la clave del éxito".localizada())
+            self.addChild(panel)
+            panel.aparecer() {
+                panel.removeFromParent()
+                self.resetJuego()
+                self.empezarJuego()
+            }
+        }
+        let secuencia = SKAction.sequence([eliminarnotas, panelAction])
+        self.run(secuencia)
     }
-    let secuencia = SKAction.sequence([eliminarnotas, panelAction])
-    self.run(secuencia)
-    //self.run(panelAction)
-  }
-  
+    
     /**
      Se ha acertado una nota objetivo.
      Incrementamos puntuación
-    */
+     */
     func acierto() {
         puntos += nivel.puntosPorIntervalo
         numAciertos += 1
@@ -229,6 +255,9 @@ class SceneJuego: SKScene {
         self.ajustarMastilNivel()
     }
     
+    /**
+     Limpia el mástil y recupera su aspecto original acorde con el nivel que se está ejecutando.
+     */
     func ajustarMastilNivel() {
         guitarra.viewGuitarra.enumerateChildNodes(withName: "nota") { nodoNota , _ in
             if let shapeNota = nodoNota as? ShapeNota,
@@ -260,17 +289,19 @@ class SceneJuego: SKScene {
     
     /**
      Comprobación del paso de nivel
-    */
+     */
     func checkPasoNivel() {
         var patronsuperado = false // ¿se ha superado ya el conocimiento del patrón objetivo?
         if Int(self.nivel.tiempoJuego) - self.elapsedTime <= 0 {
-            reportScoreToGameCenter(score: Int64(puntos))
+            reportScoreToGameCenter(score: Int64(puntos)) // anotar puntuación
             reportarLogros()
             estado = .pausa
             if self.nivel.idNivel < Nivel.nivelMaximo { // se puede incrementar el nivel
                 let siguienteNivel = self.nivel.idNivel + 1
                 self.nivel = Nivel.getNivel(siguienteNivel, para: patron.getTipo()!)
             } else { // estamos en el máximo nivel, vamos a darle un poco más de velocidad...
+                // Al llegar al máximo nivel este se repite aumentando la velocidad hasta que llegamos al máximo de velocidad posible.
+                // Sólo en ese momento se supera el patrón!
                 if self.nivel.tiempoRecorrerPantalla - TimeInterval(Medidas.incrementosVelocidad) > Nivel.tiempoMinimoRecorrerPantalla {
                     self.nivel.decrementarTiempoPantallaEn(Medidas.incrementosVelocidad)
                 } else {
@@ -309,21 +340,24 @@ class SceneJuego: SKScene {
             }
         }
     }
-  
-  func comprobarNuevoRecord() -> Bool {
-    if self.puntos > self.recordABatir, let tipo = patron.getTipo() {
-      self.recordABatir = self.puntos
-      Puntuacion.setRecordTipoPatron(tipo, puntos: self.recordABatir)
-      hud.blinkRecord()
-      return true
+    
+    /**
+     Comprueba si el jugador ha batido su record personal
+     */
+    func comprobarNuevoRecord() -> Bool {
+        if self.puntos > self.recordABatir, let tipo = patron.getTipo() {
+            self.recordABatir = self.puntos
+            Puntuacion.setRecordTipoPatron(tipo, puntos: self.recordABatir)
+            hud.blinkRecord()
+            return true
+        }
+        return false
     }
-    return false
-  }
+    
     /**
      Hace un reset del juego
-    */
+     */
     func resetJuego() {
-        //self.puntos = 0
         self.startTime = nil
         self.elapsedTime = 0
         self.lastUpdateTime = 0
@@ -353,6 +387,8 @@ class SceneJuego: SKScene {
     /**
      Obtiene el nombre de una nota objetivo.
      Tiene que pertenecer a la interválica del patrón y ser diferente del último objetivo.
+     IDEA: puede interesar sacar los objetivos de forma no aleatoria siguiendo saltos musicales de interés tal y como se aprende con la guitarra.
+     Por ejemplo: subir una tercera, bajar una segunda sucesivamente, etcétera. Incluso un orden secuencial puede interesar como aproximación a figuras complejas.
      */
     func obtenerObjetivo() -> String  {
         var intervaloElegido: TipoIntervaloMusical
@@ -367,7 +403,7 @@ class SceneJuego: SKScene {
     
     /**
      Elimina todas las notas objetivo que haya en pantalla.
-    */
+     */
     func eliminarNotasObjetivo() {
         var pausa = 0.0
         enumerateChildNodes(withName: "notaObjetivo") {[unowned self] (node, _) in
@@ -384,7 +420,10 @@ class SceneJuego: SKScene {
     }
     
     /**
-     Comprueba si hay que destruir algún nodo objetivo
+     Comprueba si hay que destruir algún nodo objetivo.
+     Si la nota objetivo llega a la rueda dentada explota y termina el juego.
+     TODO: sustituir la rueda dentada por una animación de una boca de cocodrilo que abre y cierra.
+     IDEA: Las bolas podría lanzarlas un gorila como homenaje al Donkey Kong!
      */
     func comprobarDestruccionNotas() {
         let posFinNotaX = guitarra.viewGuitarra.posicionXTraste(num: Medidas.trasteRuedaDentada)
@@ -399,20 +438,20 @@ class SceneJuego: SKScene {
                     explosion.position = node.position
                     node.removeFromParent()
                     if self.notasObjetivo.count > 0 {
-                      self.notasObjetivo.remove(at: 0)
+                        self.notasObjetivo.remove(at: 0)
                     }
                     if self.estado == .partidaperdida {
-                      self.estado = .pausa
+                        self.estado = .pausa
                     }
                     if self.estado == .jugando {
-                      self.estado = .partidaperdida
+                        self.estado = .partidaperdida
                     }
-                  
-                  
+                    
+                    
+                }
             }
         }
     }
-  }
     
     /**
      Devuelve true si quedan notas marcadas como "nota" con el tag pasado como parámetro
@@ -446,6 +485,10 @@ class SceneJuego: SKScene {
     
     
     // MARK: Funciones para mantenimiento del HUD
+    
+    /**
+     Inicialización de la zona de información al usuario (head user display)
+     */
     func setupHUD(){
         guard let view = view, let nivel = nivel else { return }
         let position = CGPoint(x:view.frame.width - Medidas.marginSpace, y: view.frame.height - Medidas.minimumMargin * 3)
@@ -455,7 +498,7 @@ class SceneJuego: SKScene {
         // nombre + nivel
         let nivelString = "Nivel".localizada() + " " + String(nivel.idNivel)
         if let nombre = patron.getNombre() {
-             hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 3))
+            hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 3))
         }
         // Descripción
         if let descripcion = patron.getDescripcion() {
@@ -469,6 +512,9 @@ class SceneJuego: SKScene {
         
     }
     
+    /**
+     Actualización del hud
+     */
     func updateHUD(currentTime: TimeInterval) {
         if let startTime = startTime {
             elapsedTime = Int(currentTime) - startTime
@@ -477,12 +523,14 @@ class SceneJuego: SKScene {
         }
         hud.updateTimer(time: Int(nivel.tiempoJuego) - elapsedTime)
         hud.updatePuntosTo(puntos)
-      if comprobarNuevoRecord() {
-        hud.updateRecordTo(puntos)
-      }
+        if comprobarNuevoRecord() {
+            hud.updateRecordTo(puntos)
+        }
     }
     
-    // Volver a la pantalla origen
+    /**
+     Volver a la pantalla que ha llamado a la escena
+     */
     @objc func btnVolverPulsado() {
         guard let vista = self.scene?.view else {
             return
@@ -497,6 +545,9 @@ class SceneJuego: SKScene {
         self.run(SKAction.sequence([irPatronAction]))//([wait, irJuegoPatron]))
     }
     
+    /**
+     Establecemos el botón para volver
+     */
     func setupBotonVolver() {
         btnVolver.addTarget(self, action: #selector(btnVolverPulsado), for: .touchDown)
         self.view?.addSubview(btnVolver)
@@ -505,6 +556,9 @@ class SceneJuego: SKScene {
         btnVolver.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
+    /**
+     Establecemos la rueda dentada
+     */
     func setupRuedaDentada() {
         ruedaDentada.position = CGPoint(x: guitarra.viewGuitarra.posicionXTraste(num: Medidas.trasteRuedaDentada), y: (size.height - Medidas.porcentajeTopSpace * size.height))
         ruedaDentada.scale(to: CGSize(width: radio * 2, height: radio * 2))
@@ -517,7 +571,7 @@ class SceneJuego: SKScene {
     
     /**
      Añade una etiqueta animada con los puntos ganados sobre una nota.
-    */
+     */
     func animarPuntos(posicion: CGPoint, puntos: Int, dy: Int) {
         let scoreLabel = SKLabelNode(fontNamed: Letras.puntosNota)
         scoreLabel.fontColor = Colores.noteFillResaltada
@@ -525,7 +579,6 @@ class SceneJuego: SKScene {
         scoreLabel.text = String(puntos)
         scoreLabel.position = posicion
         scoreLabel.zPosition = 500
-        
         self.addChild(scoreLabel)
         let moveAction = SKAction.move(by: CGVector(dx: 2, dy: dy), duration: 1.0)
         moveAction.timingMode = .easeOut
@@ -541,18 +594,20 @@ class SceneJuego: SKScene {
     /**
      Envía una puntuación al GameCenter.
      Los paneles de puntuación se categorizan por el tipo de patrón y el nivel de dificultad.
-    */
+     */
     func reportScoreToGameCenter(score: Int64) {
         if let tipo = patron.getTipo()?.rawValue {
-          let id = "\(tipo)_\(nivel.getNivelDificultad())"
+            let id = "\(tipo)_\(nivel.getNivelDificultad())"
             GameKitHelper.sharedInstance.reportScore(
                 score: score,
                 forLeaderboardID: TableroPuntuaciones.ID[id]!)
         }
     }
     
-    // Si se han conseguido los puntos mínimos necesarios se acumula una partida.
-    // La acumulación de partidas se utiliza para conseguir el logro de la constancia
+    /**
+     Si se han conseguido los puntos mínimos necesarios se acumula una partida.
+     La acumulación de partidas se utiliza para conseguir el logro de la constancia
+     */
     func acumularPartida() {
         if puntos > Puntuacion.minimoConsideradoPartida {
             // acumulamos una nueva partida
@@ -561,17 +616,17 @@ class SceneJuego: SKScene {
         }
     }
     
+    /**
+     Reportar los logros conseguidos en el juego
+     */
     func reportarLogros() {
         var logros: [GKAchievement] = [GKAchievement]()
-        
         let partidasAcumuladas = Puntuacion.getPartidasAcumuladas()
         let hardworkerLogro = LogrosHelper.HardWorkerLogro(partidas: partidasAcumuladas)
         logros.append(hardworkerLogro)
         if let tipo = patron.getTipo(), let logroNivel = LogrosHelper.logroParaTipoPatron(tipoPatron: tipo, puntos: puntos) {
             logros.append(logroNivel)
         }
-        
         GameKitHelper.sharedInstance.reportAchievements(achievements: logros)
-        
     }
 }

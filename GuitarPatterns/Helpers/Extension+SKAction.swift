@@ -8,6 +8,9 @@
 
 import SpriteKit
 
+/**
+ Extendemos SKAction para simplificar la llamada a las secuencias de acción que realizamos con más frecuencia.
+ */
 public extension SKAction {
   /**
    * Realiza la acción después de un intervalo de tiempo determinado.
