@@ -16,10 +16,10 @@ class LogrosHelper {
     
     // Configuración de los logros
     // TODO: dar parámetros coherentes para publicar en AppStore
-    static let PartidasHardWorker = 5 // cada vez que cumple este número de partidas recibe el logro de trabajador duro // = 100
-    static let PuntosAmateur = 300 // = 3000
-    static let PuntosIntermediate = 300 // = 5000
-    static let PuntosProffesional = 1000 // = 10000
+    static let PartidasHardWorker = 100 // cada vez que cumple este número de partidas recibe el logro de trabajador duro //test con  = 5
+    static let PuntosAmateur = 3000 // test con = 300
+    static let PuntosIntermediate = 5000 // test con = 500
+    static let PuntosProffesional = 10000 // test con  = 1000
     
     // identificadores de logros definidos en gamecenter
     static let HardWorkerGuitarPlayerId = "es.codigoswift.guitarpatterns.hardworker"
