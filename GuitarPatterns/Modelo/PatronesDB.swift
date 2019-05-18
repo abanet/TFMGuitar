@@ -67,20 +67,34 @@ class PatronesDB {
         // creación de la zona privada
         // Si no existe una zona privada la creamos. En otro caso la recuperamos para trabajar posteriormente con ella.
         let recordZone = CKRecordZone(zoneName: iCloudZones.favoritos)
+        
         privateDB.fetch(withRecordZoneID: recordZone.zoneID) {
             retrievedZone, error in
             if error != nil {
                 print(error!.localizedDescription)
                 let ckError = error! as NSError
                 if ckError.code == CKError.zoneNotFound.rawValue {
-                    self.privateDB.save(recordZone) {
-                        newZone, error in
+                    // Crear la zona privada
+                    let operation = CKModifyRecordZonesOperation(recordZonesToSave: [recordZone], recordZoneIDsToDelete: nil)
+                    operation.modifyRecordZonesCompletionBlock = { (savedRecordZones, deletedRecordZonse, error) in
                         if error != nil {
-                            print(error!.localizedDescription)
+                            //Creation Failed
+                            print("Cloud Error\n\(error?.localizedDescription)")
                         } else {
-                            self.patronesZone = retrievedZone
+                            // Zone creation succeeded
+                            self.patronesZone = savedRecordZones?.first
                         }
                     }
+                    self.privateDB.add(operation)
+// Primer intentdo de crear zona en privada que no ha funcionado en producción
+//                    self.privateDB.save(recordZone) {
+//                        newZone, error in
+//                        if error != nil {
+//                            print(error!.localizedDescription)
+//                        } else {
+//                            self.patronesZone = retrievedZone
+//                        }
+//                    }
                 }
             } else {
                 if let retrievedZone = retrievedZone {
@@ -102,7 +116,10 @@ class PatronesDB {
      */
     func crearNuevoRegistroPrivado() {
         guard let patronesZone = patronesZone else { return }
-        registroActual = CKRecord(recordType: iCloudRegistros.patron, zoneID: patronesZone.zoneID)
+        let recordID = CKRecord.ID(zoneID: patronesZone.zoneID)
+        registroActual = CKRecord(recordType: iCloudRegistros.patron, recordID: recordID)
+        // Obsoleto:
+        //registroActual = CKRecord(recordType: iCloudRegistros.patron, zoneID: patronesZone.zoneID)
     }
     
     /**

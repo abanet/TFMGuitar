@@ -16,6 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         Thread.sleep(forTimeInterval: 1.0) // Tiempo para disfrutar de la LaunchScreen que me ha costado diseñarlo
+        // TODO: Comprobar disponibilidad de cuenta iCloud
+//        let container = CKContainer.default()
+//        container.accountStatus { accountStatus, error in
+//            if error != nil {
+//                print(error)
+//            } else {
+//                if accountStatus != .available {
+//                    // no hay cuenta disponible. Avisar a usuario!
+//                }
+//            }
+//        }
         return true
     }
     
