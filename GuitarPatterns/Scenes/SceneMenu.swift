@@ -70,11 +70,9 @@ class SceneMenu: SKScene {
         backgroundColor = Colores.background
         crearMenuGrafico()
         if privada {
-            addUserInterfaz(botones: [btnVolver, btnEditar, btnDelete, btnNuevo, btnJugar])
-            //addUserInterfaz(botones: [btnVolver, btnShare, btnEditar, btnDelete, btnNuevo, btnJugar])
+            addUserInterfaz(botones: [btnVolver, btnShare, btnEditar, btnDelete, btnNuevo, btnJugar])
         } else {
-            addUserInterfaz(botones: [btnVolver, btnJugar])
-            //addUserInterfaz(botones: [btnVolver, btnAdd, btnJugar])
+            addUserInterfaz(botones: [btnVolver, btnAdd, btnJugar])
         }
         // Atentos a la llegada de posibles sugerencias por parte de otros usuarios.
         NotificationCenter.default.addObserver(self, selector: #selector(onRecibidaSugerenciaPatron(_:)), name: .recibidaSugerenciaPatron , object: nil)
