@@ -58,7 +58,8 @@ class PatronesDB {
     var patronesZone: CKRecordZone? // al trabajar en la base de datos privada no podemos trabajar con default. Es necesario crear una zona.
     
     private init() {
-        container = CKContainer.default()
+        //container = CKContainer.default()
+        container = CKContainer(identifier: "iCloud.es.codigoswift.GuitarPatterns")
         //container = CKContainer.init(identifier: "iCloud.es.codigoswift.GuitarPatterns")
         publicDB  = container.publicCloudDatabase
         privateDB = container.privateCloudDatabase
