@@ -164,7 +164,6 @@ class PatronesDB {
         }
         
         if registroActual == nil  { // creamos un registro nuevo
-            
             switch cache {
             case .privada:
                 crearNuevoRegistroPrivado() // crea un registro en la zona privada
@@ -195,7 +194,12 @@ class PatronesDB {
         
         registro[iCloudPatron.nombre] = patron.getNombre()! as NSString
         registro[iCloudPatron.descripcion] = patron.getDescripcion()! as NSString
-        registro[iCloudPatron.tipo] = patron.getTipo()!.rawValue as NSString
+        
+        if let tipo = patron.getTipo() {
+            registro[iCloudPatron.tipo] = tipo.rawValue as NSString
+        } else {
+             registro[iCloudPatron.tipo] = TipoPatron.Acorde.rawValue // acorde por defecto
+        }
         registro[iCloudPatron.tonica] = patron.codificarTonica() as Int
         registro[iCloudPatron.trastes] = patron.codificarTrastes() as [Int]
         registro[iCloudPatron.visible] = 1
