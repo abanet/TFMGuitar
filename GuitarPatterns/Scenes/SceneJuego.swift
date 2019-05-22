@@ -71,7 +71,7 @@ class SceneJuego: SKScene {
      */
     init(size: CGSize, patron: Patron, nivel: Int = 1) {
         self.patron = patron
-        self.nivel = Nivel.getNivel(nivel, para: patron.getTipo()!)
+        self.nivel = Nivel.getNivel(nivel, para: patron.getTipo())
         super.init(size: size)
     }
     
@@ -176,9 +176,9 @@ class SceneJuego: SKScene {
     func empezarJuego() {
         // nivel y nombre del patrón
         let nivelString = "Nivel".localizada() + " " + String(nivel.idNivel)
-        if let nombre = patron.getNombre() {
-            hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view!.frame.width / 2, y: view!.frame.height - Medidas.minimumMargin * 3))
-        }
+        //if let nombre = patron.getNombre() {
+            hud.setTitulo(titulo: patron.getNombre() + " - " + nivelString, en: CGPoint(x:view!.frame.width / 2, y: view!.frame.height - Medidas.minimumMargin * 3))
+        //}
         // Preparar guitarra
         self.restaurarNombresNotasEnMastil()
         self.ajustarMastilNivel()
@@ -189,10 +189,10 @@ class SceneJuego: SKScene {
             self.activarSalidaNotas()
         }
         // Mostrar el record a batir
-        if let tipo = patron.getTipo() {
-            recordABatir = Puntuacion.getRecordTipoPatron(tipo)
+        //if let tipo = patron.getTipo() {
+            recordABatir = Puntuacion.getRecordTipoPatron(patron.getTipo())
             hud.updateRecordTo(recordABatir)
-        }
+        //}
         
     }
     
@@ -203,7 +203,7 @@ class SceneJuego: SKScene {
     func partidaPerdida() {
         // adios puntos y vuelta a la casilla de salida con el mismo patrón
         self.puntos = 0
-        self.nivel = Nivel.getNivel(1, para: patron.getTipo()!)
+        self.nivel = Nivel.getNivel(1, para: patron.getTipo())
         
         // Dejamos de sacar notas nuevas y eliminamos las que quedan.
         self.removeAction(forKey: "salidaNotas")
@@ -298,7 +298,7 @@ class SceneJuego: SKScene {
             estado = .pausa
             if self.nivel.idNivel < Nivel.nivelMaximo { // se puede incrementar el nivel
                 let siguienteNivel = self.nivel.idNivel + 1
-                self.nivel = Nivel.getNivel(siguienteNivel, para: patron.getTipo()!)
+                self.nivel = Nivel.getNivel(siguienteNivel, para: patron.getTipo())
             } else { // estamos en el máximo nivel, vamos a darle un poco más de velocidad...
                 // Al llegar al máximo nivel este se repite aumentando la velocidad hasta que llegamos al máximo de velocidad posible.
                 // Sólo en ese momento se supera el patrón!
@@ -345,9 +345,9 @@ class SceneJuego: SKScene {
      Comprueba si el jugador ha batido su record personal
      */
     func comprobarNuevoRecord() -> Bool {
-        if self.puntos > self.recordABatir, let tipo = patron.getTipo() {
+        if self.puntos > self.recordABatir {
             self.recordABatir = self.puntos
-            Puntuacion.setRecordTipoPatron(tipo, puntos: self.recordABatir)
+            Puntuacion.setRecordTipoPatron(patron.getTipo(), puntos: self.recordABatir)
             hud.blinkRecord()
             return true
         }
@@ -497,13 +497,13 @@ class SceneJuego: SKScene {
         hud.addTimer(time: Int(nivel.tiempoJuego), position: position)
         // nombre + nivel
         let nivelString = "Nivel".localizada() + " " + String(nivel.idNivel)
-        if let nombre = patron.getNombre() {
-            hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 3))
-        }
+        //if let nombre = patron.getNombre() {
+            hud.setTitulo(titulo: patron.getNombre() + " - " + nivelString, en: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 3))
+       // }
         // Descripción
-        if let descripcion = patron.getDescripcion() {
-            hud.add(message: descripcion, position: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 6))
-        }
+        //if let descripcion = patron.getDescripcion() {
+            hud.add(message: patron.getDescripcion(), position: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 6))
+        //}
         // Marcador
         hud.addPuntos(position: CGPoint(x:view.frame.width - Medidas.marginSpace * 3, y: view.frame.height - Medidas.minimumMargin * 6))
         hud.addRecord(position: CGPoint(x:view.frame.width - Medidas.marginSpace, y: view.frame.height - Medidas.minimumMargin * 6))
@@ -596,12 +596,12 @@ class SceneJuego: SKScene {
      Los paneles de puntuación se categorizan por el tipo de patrón y el nivel de dificultad.
      */
     func reportScoreToGameCenter(score: Int64) {
-        if let tipo = patron.getTipo()?.rawValue {
-            let id = "\(tipo)_\(nivel.getNivelDificultad())"
+        //if let tipo = patron.getTipo()?.rawValue {
+            let id = "\(patron.getTipo().rawValue)_\(nivel.getNivelDificultad())"
             GameKitHelper.sharedInstance.reportScore(
                 score: score,
                 forLeaderboardID: TableroPuntuaciones.ID[id]!)
-        }
+        //}
     }
     
     /**
@@ -624,7 +624,7 @@ class SceneJuego: SKScene {
         let partidasAcumuladas = Puntuacion.getPartidasAcumuladas()
         let hardworkerLogro = LogrosHelper.HardWorkerLogro(partidas: partidasAcumuladas)
         logros.append(hardworkerLogro)
-        if let tipo = patron.getTipo(), let logroNivel = LogrosHelper.logroParaTipoPatron(tipoPatron: tipo, puntos: puntos) {
+        if let logroNivel = LogrosHelper.logroParaTipoPatron(tipoPatron: patron.getTipo(), puntos: puntos) {
             logros.append(logroNivel)
         }
         GameKitHelper.sharedInstance.reportAchievements(achievements: logros)

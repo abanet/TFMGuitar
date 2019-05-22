@@ -70,10 +70,11 @@ class PatronesDB {
         let recordZone = CKRecordZone(zoneName: iCloudZones.favoritos)
         privateDB.fetch(withRecordZoneID: recordZone.zoneID) {
             retrievedZone, error in
-            if error != nil {
+          if error != nil {
                 print(error!.localizedDescription)
                 let ckError = error! as NSError
                 if ckError.code == CKError.zoneNotFound.rawValue {
+                  // no existe la zona: la creamos
                     self.privateDB.save(recordZone) {
                         newZone, error in
                         if error != nil {
@@ -172,13 +173,13 @@ class PatronesDB {
         }
         
         // a estas alturas tiene que haber un registro para modificar seguro pero por si acaso...
-        guard let registro = registroActual else {
+        guard registroActual != nil, let registro = registroActual else {
             return
         }
-        
-        registro[iCloudPatron.nombre] = patron.getNombre()! as NSString
-        registro[iCloudPatron.descripcion] = patron.getDescripcion()! as NSString
-        registro[iCloudPatron.tipo] = patron.getTipo()!.rawValue as NSString
+      
+        registro[iCloudPatron.nombre] = patron.getNombre() as NSString
+        registro[iCloudPatron.descripcion] = patron.getDescripcion() as NSString
+        registro[iCloudPatron.tipo] = patron.getTipo().rawValue as NSString
         registro[iCloudPatron.tonica] = patron.codificarTonica() as Int
         registro[iCloudPatron.trastes] = patron.codificarTrastes() as [Int]
         registro[iCloudPatron.visible] = 1

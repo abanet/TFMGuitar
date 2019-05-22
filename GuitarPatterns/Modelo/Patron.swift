@@ -121,28 +121,40 @@ class Patron {
         trastes.append(traste)
     }
     
-    func getNombre() -> String? {
+    func getNombre() -> String {
+      if let nombre = self.nombre {
         return nombre
+      } else {
+        return "unnamed"
+      }
     }
     
     func setNombre(_ nombre: String) {
         self.nombre = nombre
     }
     
-    func getDescripcion() -> String? {
+    func getDescripcion() -> String {
+      if let descripcion = self.descripcion {
         return descripcion
+      } else {
+        return ""
+      }
     }
     
     func setDescripcion(_ nombre: String) {
         self.descripcion = nombre
     }
     
-    func getTipo() -> TipoPatron? {
+    func getTipo() -> TipoPatron {
+      if let tipo = self.tipo {
         return tipo
+      } else {
+        return TipoPatron(rawValue: "Acorde")!
+      }
     }
     
-    func getTipoAsString() -> String? {
-        return tipo?.rawValue
+    func getTipoAsString() -> String {
+        return getTipo().rawValue
     }
     
     func setTipo(_ tipo: TipoPatron) {

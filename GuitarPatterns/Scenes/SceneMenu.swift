@@ -359,7 +359,7 @@ class SceneMenu: SKScene {
                 registro, error in
                 if let registro = registro {
                     let share = CKShare(rootRecord: registro)
-                    share[CKShare.SystemFieldKey.title] = patronToShare.getNombre()! as CKRecordValue?
+                    share[CKShare.SystemFieldKey.title] = patronToShare.getNombre() as CKRecordValue?
                     let controller = UICloudSharingController {
                         controller, preparationCompletionHandler in
                         let saveOperation = CKModifyRecordsOperation(recordsToSave: [registro, share], recordIDsToDelete: nil)

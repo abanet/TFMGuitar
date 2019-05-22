@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93B39E007FC0366F080F6F34 /* Pods_GuitarPatterns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F0E7AF507D8B5CC43346A1D /* Pods_GuitarPatterns.framework */; };
+		AF1A7EFBFEDF1D92A63A0CCD /* Pods_GuitarPatterns.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9312FCF0D13F622F5EF9CF21 /* Pods_GuitarPatterns.framework */; };
 		C011999A2235711B00C3C643 /* Patron.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01199992235711B00C3C643 /* Patron.swift */; };
 		C0391780226A476500D0701F /* Nivel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C039177F226A476500D0701F /* Nivel.swift */; };
 		C045E5DE223BECE500ACF510 /* GuitarPatternsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C045E5DD223BECE500ACF510 /* GuitarPatternsUITests.swift */; };
@@ -91,9 +91,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0F0E7AF507D8B5CC43346A1D /* Pods_GuitarPatterns.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuitarPatterns.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5F927DA8F023E42A4EDCE6EF /* Pods-GuitarPatterns.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuitarPatterns.release.xcconfig"; path = "Target Support Files/Pods-GuitarPatterns/Pods-GuitarPatterns.release.xcconfig"; sourceTree = "<group>"; };
-		A3AF2B9FB0B5D8CC1F7262C9 /* Pods-GuitarPatterns.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuitarPatterns.debug.xcconfig"; path = "Target Support Files/Pods-GuitarPatterns/Pods-GuitarPatterns.debug.xcconfig"; sourceTree = "<group>"; };
+		7A8F10102C9DFCC54B2BFF82 /* Pods-GuitarPatterns.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuitarPatterns.release.xcconfig"; path = "Target Support Files/Pods-GuitarPatterns/Pods-GuitarPatterns.release.xcconfig"; sourceTree = "<group>"; };
+		9312FCF0D13F622F5EF9CF21 /* Pods_GuitarPatterns.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuitarPatterns.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		940EF3B73D541E24DFE7ADBA /* Pods-GuitarPatterns.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuitarPatterns.debug.xcconfig"; path = "Target Support Files/Pods-GuitarPatterns/Pods-GuitarPatterns.debug.xcconfig"; sourceTree = "<group>"; };
 		C01199992235711B00C3C643 /* Patron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patron.swift; sourceTree = "<group>"; };
 		C039177F226A476500D0701F /* Nivel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nivel.swift; sourceTree = "<group>"; };
 		C045E5DB223BECE400ACF510 /* GuitarPatternsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuitarPatternsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,8 +179,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D32F96A7226F6D7200A5990F /* GameKit.framework in Frameworks */,
-				93B39E007FC0366F080F6F34 /* Pods_GuitarPatterns.framework in Frameworks */,
 				C063233D22574EFE00649DBB /* CloudKit.framework in Frameworks */,
+				AF1A7EFBFEDF1D92A63A0CCD /* Pods_GuitarPatterns.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,8 +197,8 @@
 		4E2B085296245C77F8B5B1E2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A3AF2B9FB0B5D8CC1F7262C9 /* Pods-GuitarPatterns.debug.xcconfig */,
-				5F927DA8F023E42A4EDCE6EF /* Pods-GuitarPatterns.release.xcconfig */,
+				940EF3B73D541E24DFE7ADBA /* Pods-GuitarPatterns.debug.xcconfig */,
+				7A8F10102C9DFCC54B2BFF82 /* Pods-GuitarPatterns.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 			children = (
 				D32F96A6226F6D7200A5990F /* GameKit.framework */,
 				C063233C22574EFE00649DBB /* CloudKit.framework */,
-				0F0E7AF507D8B5CC43346A1D /* Pods_GuitarPatterns.framework */,
+				9312FCF0D13F622F5EF9CF21 /* Pods_GuitarPatterns.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -441,11 +441,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C07C636422292B0300B36913 /* Build configuration list for PBXNativeTarget "GuitarPatterns" */;
 			buildPhases = (
-				714CA50768DD069BFB95514C /* [CP] Check Pods Manifest.lock */,
+				12D5C543F650F9A98C4E9BF3 /* [CP] Check Pods Manifest.lock */,
 				C07C634822292B0100B36913 /* Sources */,
 				C07C634922292B0100B36913 /* Frameworks */,
 				C07C634A22292B0100B36913 /* Resources */,
-				EB0E9BCF6A468EB812ABD1A1 /* [CP] Embed Pods Frameworks */,
+				EA594BC15D931DEA330F2EF7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -576,7 +576,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		714CA50768DD069BFB95514C /* [CP] Check Pods Manifest.lock */ = {
+		12D5C543F650F9A98C4E9BF3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -598,7 +598,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EB0E9BCF6A468EB812ABD1A1 /* [CP] Embed Pods Frameworks */ = {
+		EA594BC15D931DEA330F2EF7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -885,7 +885,7 @@
 		};
 		C07C636522292B0300B36913 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3AF2B9FB0B5D8CC1F7262C9 /* Pods-GuitarPatterns.debug.xcconfig */;
+			baseConfigurationReference = 940EF3B73D541E24DFE7ADBA /* Pods-GuitarPatterns.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GuitarPatterns/GuitarPatterns.entitlements;
@@ -905,7 +905,7 @@
 		};
 		C07C636622292B0300B36913 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5F927DA8F023E42A4EDCE6EF /* Pods-GuitarPatterns.release.xcconfig */;
+			baseConfigurationReference = 7A8F10102C9DFCC54B2BFF82 /* Pods-GuitarPatterns.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GuitarPatterns/GuitarPatterns.entitlements;
