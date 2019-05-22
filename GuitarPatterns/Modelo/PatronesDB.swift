@@ -193,7 +193,7 @@ class PatronesDB {
         }
         
         registro[iCloudPatron.nombre] = patron.getNombre()! as NSString
-        registro[iCloudPatron.descripcion] = patron.getDescripcion()! as NSString
+        registro[iCloudPatron.descripcion] = patron.getDescripcion() as NSString
         
         if let tipo = patron.getTipo() {
             registro[iCloudPatron.tipo] = tipo.rawValue as NSString

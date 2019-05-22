@@ -501,9 +501,7 @@ class SceneJuego: SKScene {
             hud.setTitulo(titulo: nombre + " - " + nivelString, en: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 3))
         }
         // Descripción
-        if let descripcion = patron.getDescripcion() {
-            hud.add(message: descripcion, position: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 6))
-        }
+            hud.add(message: patron.getDescripcion(), position: CGPoint(x:view.frame.width / 2, y: view.frame.height - Medidas.minimumMargin * 6))
         // Marcador
         hud.addPuntos(position: CGPoint(x:view.frame.width - Medidas.marginSpace * 3, y: view.frame.height - Medidas.minimumMargin * 6))
         hud.addRecord(position: CGPoint(x:view.frame.width - Medidas.marginSpace, y: view.frame.height - Medidas.minimumMargin * 6))

@@ -129,8 +129,12 @@ class Patron {
         self.nombre = nombre
     }
     
-    func getDescripcion() -> String? {
-        return descripcion
+    func getDescripcion() -> String {
+        if let descripcion = self.descripcion {
+            return descripcion
+        } else {
+            return ""
+        }
     }
     
     func setDescripcion(_ nombre: String) {
