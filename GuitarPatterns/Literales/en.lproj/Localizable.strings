@@ -17,32 +17,32 @@
 "Acordes" = "Chords";
 "Arpegios" = "Arpeggios";
 "Escalas" = "Escales";
-"Mis patrones" = "My patrons";
+"Mis patrones" = "My patterns";
 "Editor" = "Editor";
 "Logros" = "Records";
 
 /* Textos en SceneEditor */
 "¡Tónica obligatoria!" = "Tonic mandatory!";
-"Un patrón tiene que tener una tónica de referencia." = "A patron must have a tonic.";
+"Un patrón tiene que tener una tónica de referencia." = "A pattern must have a tonic.";
 "¡Faltan datos!" = "Missing some data!";
-"Vaya a editar nombre para asignar el nombre y el tipo del patrón." = "Press Edit Name button to assign a name and the patron's kind.";
-"¡Defina un patrón!" = "There is not patron!";
-"Un patrón tiene que tener al menos 3 notas asignadas." = "We need at least 3 notes in order to save a patron.";
-"Patrón grabado" = "Patron saved";
-"El patrón se ha grabado en la base de datos." = "Patron has been saved in the database.";
+"Vaya a editar nombre para asignar el nombre y el tipo del patrón." = "Press Edit Name button to assign a name and the pattern's kind.";
+"¡Defina un patrón!" = "There is not pattern!";
+"Un patrón tiene que tener al menos 3 notas asignadas." = "We need at least 3 notes in order to save a pattern.";
+"Patrón grabado" = "Pattern saved";
+"El patrón se ha grabado en la base de datos." = "Pattern has been saved in the database.";
 
 /* Textos en grabación de datos de patrón */
-"Introduzca los datos del patrón" = "Patron data";
+"Introduzca los datos del patrón" = "Pattern data";
 "Acordes" = "Chords";
 "Arpegios" = "Arpeggios";
 "Escalas" = "scales";
 "Acorde" = "Chord";
 "Arpegio" = "Arpeggio";
 "Escala" = "scale";
-"Nombre del patrón" = "Name of patron";
-"Introduce el nombre del patrón" = "Enter the name of the patron";
-"Descripción del patrón" = "Patron description";
-"Introduce la descripción del patrón" = "Enter the patron description";
+"Nombre del patrón" = "Pattern's name";
+"Introduce el nombre del patrón" = "Enter the name of the pattern";
+"Descripción del patrón" = "Pattern description";
+"Introduce la descripción del patrón" = "Enter the pattern description";
 "Grabar" = "Save";
 "Reset" = "Reset";
 "Editar Nombre" = "Edit Name";
@@ -51,20 +51,20 @@
 "Jugar" = "Play";
 "Compartir" = "Share";
 "¡Datos incompletos!" = "¡incomplete data!";
-"El patrón tiene que tener un nombre." = "Patron must have a name";
+"El patrón tiene que tener un nombre." = "Pattern must have a name";
 "Salir" = "Exit";
 
 /* Texto de Scene menu */
 "Eliminar" = "Delete";
 "Editar Patron" = "Edit";
-"Selecciona un patrón" = "Select a patron";
+"Selecciona un patrón" = "Select a pattern";
 "y pulsa sobre la opción deseada del menú." = "and press over it to start working.";
-"Patron Añadido" = "Patron Added";
-"El patrón seleccionado se ha añadido a la lista de tus patrones." = "The selected patron has been added to your patrons list.";
-"Selecciona un patrón" = "Please select a patron";
-"Para poder añadir un patrón en tu sección 'Mis Patrones' tienes que tenerlo seleccionado" = "In order to add a patron to the 'My Patrons' section you have to select a patron";
-"Elige el patrón que quieres practicar." = "You have to choose a patron to practice with.";
-"Elige el patrón que quieres compartir." = "Choose the patron you would like to share.";
+"Patron Añadido" = "Pattern Added";
+"El patrón seleccionado se ha añadido a la lista de tus patrones." = "The selected patron has been added to your pattern list.";
+"Selecciona un patrón" = "Please select a pattern";
+"Para poder añadir un patrón en tu sección 'Mis Patrones' tienes que tenerlo seleccionado" = "In order to add a pattern to the 'My Patterns' section you have to select a pattern";
+"Elige el patrón que quieres practicar." = "You have to choose a pattern to practice with.";
+"Elige el patrón que quieres compartir." = "Choose the pattern you would like to share.";
 "disponibles" = "available";
 
 /* Frases de partida perdida */
@@ -79,8 +79,8 @@
 
 /* Menu Juego */
 "Figura superada" = "you did it!";
-"¡A por otra nueva!" = "You better choose a new patron!";
+"¡A por otra nueva!" = "You better choose a new pattern!";
 
 /* CloudKit */
-"¡Patron recibido!" = "Patron received!";
-"El patrón recibido se ha añadido a tu lista de patrones favoritos." = "The received patron has been added to you list.";
+"¡Patron recibido!" = "Pattern received!";
+"El patrón recibido se ha añadido a tu lista de patrones favoritos." = "The received pattern has been added to you list.";
